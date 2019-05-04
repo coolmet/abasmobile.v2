@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+
+<head>
+<title>Abas Admin</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale = 1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+<link rel="stylesheet" type="text/css" th:href="@{/css/abasbuttons.css}" />
+
+</head>
+
+
+<body>
+
+
+	<div class="btn-group">
+		<button class="button button-16" onclick="window.location.href='/abasadmin/actuators'">			<span>Actuators </span> 		</button>
+		<button class="button button-16" onclick="window.location.href='/abasadmin/activesessions'">	<span>Active Sessions </span> 	</button>
+	</div>
+</body>
