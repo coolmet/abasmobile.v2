@@ -1,9 +1,13 @@
 package com.abas.mobile;
 
+import javax.servlet.http.HttpSessionListener;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter
@@ -21,7 +25,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 		http.authorizeRequests()
 		    .antMatchers("/")
 		    .permitAll();
-		http.sessionManagement()		   
+		http.sessionManagement()
 		    .maximumSessions(100)
 		    .maxSessionsPreventsLogin(false)
 		    .and()
@@ -31,11 +35,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 		
 	}
 	
-	// @Bean
-	// public ServletListenerRegistrationBean<HttpSessionListener> sessionListener1()
-	// {
-	// return new ServletListenerRegistrationBean<HttpSessionListener>(new SessionListener());
-	// }
+	@Bean
+	public ServletListenerRegistrationBean<HttpSessionListener> sessionListener1()
+	{
+		return new ServletListenerRegistrationBean<HttpSessionListener>(new AbasSessionListener());
+	}
 	
 	//
 	// @Bean
@@ -43,5 +47,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 	// {
 	// return new SessionRegistryImpl();
 	// }
+	
+	@Bean
+	public HttpSessionEventPublisher httpSessionEventPublisher()
+	{
+		return new HttpSessionEventPublisher();
+	}
 	
 }

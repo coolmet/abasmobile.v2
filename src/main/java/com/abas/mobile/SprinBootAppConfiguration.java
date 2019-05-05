@@ -16,6 +16,7 @@ public class SprinBootAppConfiguration
 {
 	@Autowired
 	private SpringBootAppProperties springBootAppProperties;
+	
 	@Autowired
 	private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
 	

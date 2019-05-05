@@ -5,14 +5,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentSkipListMap;
 import javax.servlet.http.HttpSession;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SessionRegistry
+public class AbasSessionRegistry
 {
 	
 	private final Map<String,HttpSession> httpSessionMap=new ConcurrentSkipListMap<>();
-	
+		
 	public void addSession(HttpSession httpSession)
 	{
 		this.httpSessionMap.put(httpSession.getId(),httpSession);

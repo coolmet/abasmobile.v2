@@ -1,5 +1,6 @@
 package com.abas.mobile.web;
 
+import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,13 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import com.abas.mobile.SprinBootAppConfiguration;
-import com.abas.mobile.service.SessionRegistry;
+import com.abas.mobile.service.AbasSessionRegistry;
 
 @Controller
 public class WebLinkController
 {
 	@Autowired
-	private SessionRegistry sessionRegistry;
+	private AbasSessionRegistry abasSessionRegistry;
 	
 	Logger LOGGER=LoggerFactory.getLogger(SprinBootAppConfiguration.class);
 	
@@ -46,7 +47,19 @@ public class WebLinkController
 		LOGGER.info(""+SecurityContextHolder.getContext().getAuthentication().getAuthorities());
 		LOGGER.info(""+SecurityContextHolder.getContext().getAuthentication().getCredentials().toString());
 		LOGGER.info(""+SecurityContextHolder.getContext().getAuthentication().getDetails().toString());
-		LOGGER.info(""+sessionRegistry.getSessions().size());
+		LOGGER.info(""+abasSessionRegistry.getSessions().size());
+		for(HttpSession hs:abasSessionRegistry.getSessions())
+		{
+			LOGGER.info("@@@ getId:"+hs.getId());
+			LOGGER.info("@@@ getCreationTime:"+hs.getCreationTime());
+			LOGGER.info("@@@ getLastAccessedTime:"+hs.getLastAccessedTime());
+			LOGGER.info("@@@ getMaxInactiveInterval:"+hs.getMaxInactiveInterval());
+			LOGGER.info("@@@ getValueNames:"+hs.getValueNames());
+			LOGGER.info("@@@ getSessionContext:"+hs.getSessionContext().toString());
+			LOGGER.info("@@@ getServletContext:"+hs.getServletContext().toString());
+
+
+		}
 		
 		// LOGGER.info(""+sessionRegistry.getAllSessions(SecurityContextHolder.getContext().getAuthentication().getPrincipal(),false).size());
 		//
