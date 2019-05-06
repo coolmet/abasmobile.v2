@@ -1,5 +1,7 @@
 package com.abas.mobile;
 
+import java.util.HashMap;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSessionListener;
 import javax.sql.DataSource;
@@ -17,9 +19,22 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
+import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
+import org.springframework.security.web.authentication.RememberMeServices;
+import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
+import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import com.abas.mobile.service.AbasSessionRegistry;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 @Configuration
 @EnableGlobalMethodSecurity(securedEnabled=true,prePostEnabled=true,jsr250Enabled=true)
@@ -29,24 +44,29 @@ public class SecurityConfiguration
 	Logger LOGGER=LoggerFactory.getLogger(SprinBootAppConfiguration.class);
 	
 	@Autowired
-	private com.abas.mobile.AbasSessionListener abasSessionListener;
+	private SessionRegistry sessionRegistry;
 	
 	@Autowired
-	private AbasSessionRegistry abasSessionRegistry;
+	private UserDetailsService userDetailsService;
 	
 	@Autowired
-	private DataSource dataSource;
+	private SpringBootAppProperties springBootAppProperties;
 	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception
 	{
-		// auth.inMemoryAuthentication().withUser("user1").password(passwordEncoder().encode("user1")).roles("USER").and()
-		// .withUser("user2").password(passwordEncoder().encode("user2")).roles("USER").and().withUser("admin")
-		// .password(passwordEncoder().encode("admin")).roles("ADMIN");
-		//
-		// auth.jdbcAuthentication().dataSource(dataSource);
-		//
-		auth.jdbcAuthentication().dataSource(dataSource);
+		 auth.inMemoryAuthentication().withUser("wh").password(passwordEncoder().encode("wh")).roles("USER_WH")
+		 .and()
+		 .withUser("pdc").password(passwordEncoder().encode("pdc")).roles("USER_PDC")
+		 .and()
+		 .withUser("abasadmin").password(passwordEncoder().encode("abasadmin")).roles("ADMIN");
+		
+		// LOGGER.info("#################"+springBootAppProperties.getWhUser());
+		// auth.inMemoryAuthentication().withUser(springBootAppProperties.getWhUser()).password(passwordEncoder().encode(springBootAppProperties.getWhPass())).roles(springBootAppProperties.getWhRole())
+		// .and()
+		// .withUser(springBootAppProperties.getPdcUser()).password(passwordEncoder().encode(springBootAppProperties.getPdcPass())).roles(springBootAppProperties.getPdcRole())
+		// .and()
+		// .withUser(springBootAppProperties.getAdminUser()).password(passwordEncoder().encode(springBootAppProperties.getAdminPass())).roles(springBootAppProperties.getAdminRole());
 		
 	}
 	
@@ -63,37 +83,88 @@ public class SecurityConfiguration
 		protected void configure(HttpSecurity http) throws Exception
 		{
 			http.authorizeRequests()
-			    .antMatchers("/")
-			    .permitAll();
-			
-			// http.authorizeRequests()
-//			    .antMatchers(// @formatter:off
-//			                 "/abasadmin",
-//			                 "/abasadmin/*",
-//			                 "/abasadmin/**"
-//			                 // @formatter:on
-			// )
-			// .access("hasRole('ADMIN')").anyRequest()
-			// .authenticated();
-			//
-			// http.formLogin().loginPage("/login")// .loginPage("/login")
-			// .loginProcessingUrl("/login")// .loginProcessingUrl("/login")
-			// .defaultSuccessUrl("/default",true)// .defaultSuccessUrl("/default",true)
-			// .failureUrl("/login?loginFailed=true")// .failureUrl("/login?loginFailed=true")
-			// .permitAll().and().logout().invalidateHttpSession(true).clearAuthentication(true)
-			// .deleteCookies("remember_me_cookie").logoutRequestMatcher(new AntPathRequestMatcher("/**/logout"))
-			// .logoutSuccessUrl("/login?logout").permitAll().and().requestCache().and().exceptionHandling()
-			// .accessDeniedPage("/403").and().csrf().disable();
+			    .antMatchers("/",
+			                 "/**/css/**",
+			                 "/**/js/**",
+			                 "/**/images/**",
+			                 "/index")
+			    .permitAll()
+			    .antMatchers(// @formatter:off
+			                 "/abasadmin",
+			                 "/abasadmin/*",
+			                 "/abasadmin/**"
+			                 // @formatter:on
+				)
+			    .access("hasRole('ADMIN')").anyRequest()
+			    .authenticated()
+			    .antMatchers(// @formatter:off
+			                 "/wh",
+			                 "/wh/*",
+			                 "/wh/**"
+			                 // @formatter:on
+				)
+			    .access("hasRole('USER_WH')").anyRequest()
+			    .authenticated()
+			    .antMatchers(// @formatter:off
+			                 "/pdc",
+			                 "/pdc/*",
+			                 "/pdc/**"
+			                 // @formatter:on
+				)
+			    .access("hasRole('USER_PDC')").anyRequest()
+			    .authenticated();
 				
+			http.formLogin().loginPage("/login")// .loginPage("/login")
+			    .loginProcessingUrl("/login")// .loginProcessingUrl("/login")
+			    .defaultSuccessUrl("/default",true)// .defaultSuccessUrl("/default",true)
+			    .failureUrl("/login?loginFailed=true")// .failureUrl("/login?loginFailed=true")
+			    .permitAll().and().logout().invalidateHttpSession(true).clearAuthentication(true)
+			    .deleteCookies("remember_me_cookie").logoutRequestMatcher(new AntPathRequestMatcher("/**/logout"))
+			    .logoutSuccessUrl("/?logout").permitAll().and().requestCache().and().exceptionHandling()
+			    .accessDeniedPage("/403").and().csrf().disable();
+			
+			http.rememberMe().userDetailsService(userDetailsService).rememberMeServices(rememberMeServices());
+			
 			http.sessionManagement()
-			    .maximumSessions(100)
+			    .maximumSessions(10)
 			    .maxSessionsPreventsLogin(false)
+			    .sessionRegistry(sessionRegistry())
 			    .and()
 			    .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
 			    .sessionFixation().migrateSession();
-			// .sessionRegistry(sessionRegistry());
+			
+			//
+			CharacterEncodingFilter filter=new CharacterEncodingFilter();
+			filter.setEncoding("UTF-8");
+			filter.setForceEncoding(true);
+			http.addFilterBefore(filter,CsrfFilter.class);
 			
 		}
+	}
+	
+	@Bean
+	public RememberMeServices rememberMeServices()
+	{
+		// Key must be equal to rememberMe().key()
+		TokenBasedRememberMeServices rememberMeServices=new TokenBasedRememberMeServices("your_key",userDetailsService);
+		rememberMeServices.setCookieName("remember_me_cookie");
+		rememberMeServices.setParameter("remember_me_checkbox");
+		rememberMeServices.setTokenValiditySeconds(2678400); // 1month
+		return rememberMeServices;
+	}
+	
+	@Bean
+	public PasswordEncoder passwordEncoder()
+	{
+		Map encoders=new HashMap<>();
+		encoders.put("bcrypt",new BCryptPasswordEncoder());
+		encoders.put("noop",NoOpPasswordEncoder.getInstance());
+		encoders.put("pbkdf2",new Pbkdf2PasswordEncoder());
+		encoders.put("scrypt",new SCryptPasswordEncoder());
+		encoders.put("sha256",new StandardPasswordEncoder());
+		// return new BCryptPasswordEncoder();
+		PasswordEncoder passwordEncoder=new DelegatingPasswordEncoder("bcrypt",encoders);
+		return passwordEncoder;
 	}
 	
 	@Bean
@@ -114,7 +185,12 @@ public class SecurityConfiguration
 	@PostConstruct
 	public void init()
 	{
-		LOGGER.info("@@@ SecurityConfiguration class init completed: "+abasSessionRegistry.getSessions().size());
+		LOGGER.info("@@@ SecurityConfiguration class init completed: "+sessionRegistry.getAllPrincipals().size());
 	}
 	
+	@Bean
+	public SessionRegistry sessionRegistry()
+	{
+		return new SessionRegistryImpl();
+	}
 }

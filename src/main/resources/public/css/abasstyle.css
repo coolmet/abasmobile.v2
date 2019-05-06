@@ -1,13 +1,25 @@
 
-.btn-group {
+.abascontainer50 {
   	position: relative;
   	padding-top: 2%; 
   	margin: 0;
-  	width: 50% absolute;
+  	width: 50% absolute!;
   	padding-top: 5%;
   	padding-bottom: 5%;
   	padding-left: 25%;
   	padding-right: 25%;
+  	display: grid; 
+}
+
+.abascontainer40 {
+  	position: relative;
+  	padding-top: 2%; 
+  	margin: 0;
+  	width: 40% absolute!;
+  	padding-top: 5%;
+  	padding-bottom: 5%;
+  	padding-left: 30%;
+  	padding-right: 30%;
   	display: grid; 
 }
 
