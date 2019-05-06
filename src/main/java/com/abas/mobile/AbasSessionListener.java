@@ -27,23 +27,12 @@ public class AbasSessionListener implements HttpSessionListener
 	{
 		synchronized(this)
 		{
-			//while(true)
+			LOGGER.info("@@@ +++ SESSION IS CREATED: "+se.getSession().getId()+"\t"+se.getSession());
+			if(!abasSessionRegistry.getSessions().contains(se.getSession()))
 			{
-				try
-				{
-					Thread.sleep(50);
-					abasSessionRegistry.getSessions();
-				}
-				catch(Exception e)
-				{
-				}
+				// sessionRegistry.registerNewSession(se.getSession().getId(),se.getSession());
+				abasSessionRegistry.addSession(se.getSession());
 			}
-			// sessionRegistry.registerNewSession(se.getSession().getId(),se.getSession());
-			LOGGER.info("@@@ +++ SESSION IS CREATED: "+se.getSession());
-			LOGGER.info("@@@ +++ SESSION IS CREATED: "+se.getSession().getId());
-			LOGGER.info("@@@ +++ SESSION IS CREATED: "+abasSessionRegistry);
-			
-			abasSessionRegistry.addSession(se.getSession());
 		}
 	}
 	
@@ -52,11 +41,12 @@ public class AbasSessionListener implements HttpSessionListener
 	{
 		synchronized(this)
 		{
-			// sessionRegistry.removeSessionInformation(se.getSession().getId());
-			LOGGER.info("@@@ --- SESSION IS DESTROYED: "+se.getSession());
-			LOGGER.info("@@@ --- SESSION IS DESTROYED: "+se.getSession().getId());
-			abasSessionRegistry.removeSession(se.getSession());
-			
+			LOGGER.info("@@@ --- SESSION IS DESTROYED: "+se.getSession().getId()+"\t"+se.getSession());
+			if(!abasSessionRegistry.getSessions().contains(se.getSession()))
+			{
+				// sessionRegistry.removeSessionInformation(se.getSession().getId());
+				abasSessionRegistry.removeSession(se.getSession());
+			}
 		}
 	}
 	

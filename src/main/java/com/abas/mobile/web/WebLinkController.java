@@ -57,9 +57,9 @@ public class WebLinkController
 			LOGGER.info("@@@ getValueNames:"+hs.getValueNames());
 			LOGGER.info("@@@ getSessionContext:"+hs.getSessionContext().toString());
 			LOGGER.info("@@@ getServletContext:"+hs.getServletContext().toString());
-
-
 		}
+		
+		
 		
 		// LOGGER.info(""+sessionRegistry.getAllSessions(SecurityContextHolder.getContext().getAuthentication().getPrincipal(),false).size());
 		//
