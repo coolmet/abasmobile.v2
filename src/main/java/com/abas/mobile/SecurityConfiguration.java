@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
@@ -29,44 +31,40 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import com.abas.mobile.model.AbasUserDetails;
 
 @Configuration
 @EnableGlobalMethodSecurity(securedEnabled=true,prePostEnabled=true,jsr250Enabled=true)
+@EnableConfigurationProperties(
+{AbasConfigProperties.class,AbasMobileUsersProperties.class})
 @EnableWebSecurity
 public class SecurityConfiguration
 {
 	Logger LOGGER=LoggerFactory.getLogger(SprinBootAppConfiguration.class);
 	
-	@Autowired
-	private SessionRegistry sessionRegistry;
+	// @Autowired
+	// private SessionRegistry sessionRegistry;
 	
 	@Autowired
 	private UserDetailsService userDetailsService;
 	
 	@Autowired
-	private SpringBootAppProperties springBootAppProperties;
+	AbasMobileUsersProperties abasMobileUsers;
 	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception
 	{
-		 auth.inMemoryAuthentication().withUser("wh").password(passwordEncoder().encode("wh")).roles("USER_WH")
-		 .and()
-		 .withUser("pdc").password(passwordEncoder().encode("pdc")).roles("USER_PDC")
-		 .and()
-		 .withUser("abasadmin").password(passwordEncoder().encode("abasadmin")).roles("ADMIN");
-		
-		// LOGGER.info("#################"+springBootAppProperties.getWhUser());
-		// auth.inMemoryAuthentication().withUser(springBootAppProperties.getWhUser()).password(passwordEncoder().encode(springBootAppProperties.getWhPass())).roles(springBootAppProperties.getWhRole())
-		// .and()
-		// .withUser(springBootAppProperties.getPdcUser()).password(passwordEncoder().encode(springBootAppProperties.getPdcPass())).roles(springBootAppProperties.getPdcRole())
-		// .and()
-		// .withUser(springBootAppProperties.getAdminUser()).password(passwordEncoder().encode(springBootAppProperties.getAdminPass())).roles(springBootAppProperties.getAdminRole());
+		for(AbasUserDetails user:abasMobileUsers.getUsers())
+		{
+			auth.inMemoryAuthentication().withUser(user.getUsername()).password(this.passwordEncoder().encode(user.getPassword())).roles(user.getRoles());
+		}
 		
 	}
 	
@@ -143,7 +141,7 @@ public class SecurityConfiguration
 	}
 	
 	@Bean
-	public RememberMeServices rememberMeServices()
+	public RememberMeServices rememberMeServices() throws Exception
 	{
 		// Key must be equal to rememberMe().key()
 		TokenBasedRememberMeServices rememberMeServices=new TokenBasedRememberMeServices("your_key",userDetailsService);
@@ -154,7 +152,7 @@ public class SecurityConfiguration
 	}
 	
 	@Bean
-	public PasswordEncoder passwordEncoder()
+	public PasswordEncoder passwordEncoder() throws Exception
 	{
 		Map encoders=new HashMap<>();
 		encoders.put("bcrypt",new BCryptPasswordEncoder());
@@ -165,12 +163,6 @@ public class SecurityConfiguration
 		// return new BCryptPasswordEncoder();
 		PasswordEncoder passwordEncoder=new DelegatingPasswordEncoder("bcrypt",encoders);
 		return passwordEncoder;
-	}
-	
-	@Bean
-	public HttpSessionEventPublisher httpSessionEventPublisher()
-	{
-		return new HttpSessionEventPublisher();
 	}
 	
 	@Bean
@@ -185,7 +177,7 @@ public class SecurityConfiguration
 	@PostConstruct
 	public void init()
 	{
-		LOGGER.info("@@@ SecurityConfiguration class init completed: "+sessionRegistry.getAllPrincipals().size());
+		LOGGER.info("@@@ SecurityConfiguration class init completed: "+sessionRegistry().getAllPrincipals().size());
 	}
 	
 	@Bean
@@ -193,4 +185,16 @@ public class SecurityConfiguration
 	{
 		return new SessionRegistryImpl();
 	}
+	
+	@Bean
+	public HttpSessionEventPublisher httpSessionEventPublisher()
+	{
+		return new HttpSessionEventPublisher();
+	}
+	
+	// @Bean
+	// public ServletListenerRegistrationBean<HttpSessionEventPublisher> httpSessionEventPublisher()
+	// {
+	// return new ServletListenerRegistrationBean<HttpSessionEventPublisher>(new HttpSessionEventPublisher());
+	// }
 }

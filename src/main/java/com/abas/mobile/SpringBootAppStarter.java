@@ -11,7 +11,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 // @EnableJpaAuditing(auditorAwareRef="myWebAppAuditorAware")
 @SpringBootApplication
 @EnableAutoConfiguration
-@EnableConfigurationProperties(value=SpringBootAppProperties.class)
 @ServletComponentScan
 public class SpringBootAppStarter
 {
@@ -19,9 +18,8 @@ public class SpringBootAppStarter
 	{
 		// SpringApplication.run(SpringBootAppStarter.class,args);
 		new SpringApplicationBuilder(SpringBootAppStarter.class)
-		                                                        .properties("spring.config.name:application,abasconfig,abaslogconfig,webserverconfig",
+		                                                        .properties("spring.config.name:application,abasconfig,abaslogconfig,abasmobileusers,webserverconfig",
 		                                                                    "spring.config.location:classpath:/config/,classpath:/")
 		                                                        .build().run(args);
 	}
 }
- 

@@ -25,15 +25,15 @@
 					<td>Granted Authorities</td>
 				</tr>
 			</thead>
-			<th:block th:each="session,iterStat:${activeSessions}">
+			<th:block th:each="sessioninfo,iterStat:${allSessions}">
 				<tr th:bgcolor="${iterStat.odd}?white:lightgray">
-					<td th:text="${session.getUsername()}" />
-					<td th:text="${session.getPassword()}" />
-					<td th:text="${session.isEnabled()}" />
-					<td th:text="${session.isAccountNonExpired()}" />
-					<td th:text="${session.isCredentialsNonExpired()}" />
-					<td th:text="${session.isAccountNonLocked()}" />
-					<td th:text="${session.getAuthorities().toString()}" />
+					<td th:text="${sessioninfo.getUsername()}" />
+					<td th:text="${sessioninfo.getPassword()}" />
+					<td th:text="${sessioninfo.isEnabled()}" />
+					<td th:text="${sessioninfo.isAccountNonExpired()}" />
+					<td th:text="${sessioninfo.isCredentialsNonExpired()}" />
+					<td th:text="${sessioninfo.isAccountNonLocked()}" />
+					<td th:text="${sessioninfo.getAuthorities().toString()}" />
 				</tr>
 			</th:block>
 		</table>
@@ -53,13 +53,13 @@
 				</tr>
 			</thead>
 			<th:block>
-				<td th:text="${currenstSession.getUsername()}">
-				<td th:text="${currenstSession.getPassword()}">
-				<td th:text="${currenstSession.isEnabled()}">
-				<td th:text="${currenstSession.isAccountNonExpired()}">
-				<td th:text="${currenstSession.isCredentialsNonExpired()}">
-				<td th:text="${currenstSession.isAccountNonLocked()}">
-				<td th:text="${currenstSession.getAuthorities().toString()}">
+				<td th:text="${activeSession.getUsername()}">
+				<td th:text="${activeSession.getPassword()}">
+				<td th:text="${activeSession.isEnabled()}">
+				<td th:text="${activeSession.isAccountNonExpired()}">
+				<td th:text="${activeSession.isCredentialsNonExpired()}">
+				<td th:text="${activeSession.isAccountNonLocked()}">
+				<td th:text="${activeSession.getAuthorities().toString()}">
 			</th:block>
 		</table>
 	</div>

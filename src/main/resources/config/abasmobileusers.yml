@@ -1,0 +1,22 @@
+users:
+  admins:
+    - username: admin
+      password: admin
+      roles: ADMIN,USER_WH,USER_PDC
+    - username: admin1
+      password: admin1
+      roles: ADMIN
+  whs:
+    - username: wh
+      password: wh
+      roles: USER_WH
+    - username: wh1
+      password: wh1
+      roles: USER_WH  
+  pdcs:
+    - username: pdc
+      password: pdc
+      roles: USER_PDC
+    - username: pdc1
+      password: pdc1
+      roles: USER_PDC   
