@@ -83,6 +83,7 @@ public class SecurityConfiguration
 			http.authorizeRequests()
 			    .antMatchers("/",
 			                 "/**/css/**",
+			                 "/**/fonts/**",
 			                 "/**/js/**",
 			                 "/**/images/**",
 			                 "/index")
