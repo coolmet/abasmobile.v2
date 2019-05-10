@@ -2,7 +2,7 @@ users:
   admins:
     - username: admin
       password: admin
-      roles: ADMIN,USER_WH,USER_PDC
+      roles: ADMIN
     - username: admin1
       password: admin1
       roles: ADMIN

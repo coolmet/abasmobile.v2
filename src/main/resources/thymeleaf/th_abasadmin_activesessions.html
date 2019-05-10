@@ -5,24 +5,47 @@
 <title>Empty</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale = 1.0, minimum-scale=1.0, maximum-scale=1.2, user-scalable=no" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/abasstyle.css}" />
 
 </head>
 
 
 <body>
 
+	<div class="topleft">
+		<button class="navbutton" onclick="window.location.href='/'" sec:authorize="hasRole('ANONYMOUS')">
+			<img src="images/home48.png">
+		</button>
+		<button class="navbutton" onclick="window.location.href='/abasadmin'" sec:authorize="hasRole('ADMIN')">
+			<img src="images/home48.png">
+		</button>
+		<button class="navbutton" onclick="window.location.href='/wh'" sec:authorize="hasRole('USER_WH')">
+			<img src="images/home48.png">
+		</button>
+		<button class="navbutton" onclick="window.location.href='/pdc'" sec:authorize="hasRole('USER_PDC')">
+			<img src="images/home48.png">
+		</button>
+	</div>
+	<div sec:authorize="isAuthenticated()">
+		<div class="topright">
+			<button class="navbutton" onclick="window.location.href='/logout'">
+				<img src="images/logout48.png">
+			</button>
+		</div>
+	</div>
+
 	<!-- ################################## -->
 	<div style="float: left; padding-left: 10px">
-		<table>
+		<table id=usertable>
 			<thead>
-				<tr style="font-weight: bold;" bgcolor="lightblue">
-					<td>Username</td>
-					<td>Password</td>
-					<td>Enabled</td>
-					<td>AccountNonExpired</td>
-					<td>credentialsNonExpired</td>
-					<td>AccountNonLocked</td>
-					<td>Granted Authorities</td>
+				<tr style="font-weight: bold;" bgcolor="#5DBCD2">
+					<th>Username</th>
+					<th>Password</th>
+					<th>Enabled</th>
+					<th>AccountNonExpired</th>
+					<th>credentialsNonExpired</th>
+					<th>AccountNonLocked</th>
+					<th>Granted Authorities</th>
 				</tr>
 			</thead>
 			<th:block th:each="sessioninfo,iterStat:${allSessions}">
@@ -36,22 +59,6 @@
 					<td th:text="${sessioninfo.getAuthorities().toString()}" />
 				</tr>
 			</th:block>
-		</table>
-	</div>
-	<!-- ################################## -->
-	<div style="float: left; padding-left: 10px">
-		<table>
-			<thead>
-				<tr style="font-weight: bold;" bgcolor="lightblue">
-					<td>Username</td>
-					<td>Password</td>
-					<td>Enabled</td>
-					<td>AccountNonExpired</td>
-					<td>credentialsNonExpired</td>
-					<td>AccountNonLocked</td>
-					<td>Granted Authorities</td>
-				</tr>
-			</thead>
 			<th:block>
 				<td th:text="${activeSession.getUsername()}">
 				<td th:text="${activeSession.getPassword()}">
@@ -63,5 +70,7 @@
 			</th:block>
 		</table>
 	</div>
+	<!-- ################################## -->
+
 
 </body>

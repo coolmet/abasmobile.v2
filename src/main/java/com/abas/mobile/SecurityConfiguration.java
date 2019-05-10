@@ -81,13 +81,20 @@ public class SecurityConfiguration
 		protected void configure(HttpSecurity http) throws Exception
 		{
 			http.authorizeRequests()
-			    .antMatchers("/",
-			                 "/**/css/**",
+			    .antMatchers("/**/css/**",
 			                 "/**/fonts/**",
 			                 "/**/js/**",
-			                 "/**/images/**",
-			                 "/index")
+			                 "/**/images/**")
 			    .permitAll()
+			    //
+			    .antMatchers(// @formatter:off
+			                 "/",
+			                 "/index"
+			                 // @formatter:on
+				)
+			    .access("hasRole('ANONYMOUS')").anyRequest()
+			    .authenticated()
+			    //
 			    .antMatchers(// @formatter:off
 			                 "/abasadmin",
 			                 "/abasadmin/*",
