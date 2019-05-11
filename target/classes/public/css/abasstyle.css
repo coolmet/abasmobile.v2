@@ -172,6 +172,8 @@ button:focus {outline:0 !important;}
 #usertable {
   border-collapse: collapse;
   width: 100%;
+  float: left; 
+  margin-top: 80px;
 }
 
 #usertable td, #usertable th {

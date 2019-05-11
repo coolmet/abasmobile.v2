@@ -9,10 +9,10 @@ users:
   whs:
     - username: wh
       password: wh
-      roles: USER_WH
+      roles: USER_WAREHOUSE
     - username: wh1
       password: wh1
-      roles: USER_WH  
+      roles: USER_WAREHOUSE  
   pdcs:
     - username: pdc
       password: pdc
@@ -20,3 +20,12 @@ users:
     - username: pdc1
       password: pdc1
       roles: USER_PDC   
+  shpms:
+    - username: shpm
+      password: shpm
+      roles: USER_SHIPMENT
+    - username: shpm1
+      password: shpm1
+      roles: USER_SHIPMENT   
+      
+      

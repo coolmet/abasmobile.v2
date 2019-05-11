@@ -43,7 +43,7 @@ import com.abas.mobile.model.AbasUserDetails;
 @Configuration
 @EnableGlobalMethodSecurity(securedEnabled=true,prePostEnabled=true,jsr250Enabled=true)
 @EnableConfigurationProperties(
-{AbasConfigProperties.class,AbasMobileUsersProperties.class})
+{ConfigPropertiesAbas.class,ConfigPropertiesSpring.class,ConfigPropertiesServer.class,AbasMobileUsersProperties.class})
 @EnableWebSecurity
 public class SecurityConfiguration
 {
@@ -96,21 +96,23 @@ public class SecurityConfiguration
 			    .authenticated()
 			    //
 			    .antMatchers(// @formatter:off
-			                 "/abasadmin",
-			                 "/abasadmin/*",
-			                 "/abasadmin/**"
+			                 "/admin",
+			                 "/admin/*",
+			                 "/admin/**"
 			                 // @formatter:on
 				)
 			    .access("hasRole('ADMIN')").anyRequest()
 			    .authenticated()
+			    //
 			    .antMatchers(// @formatter:off
 			                 "/wh",
 			                 "/wh/*",
 			                 "/wh/**"
 			                 // @formatter:on
 				)
-			    .access("hasRole('USER_WH')").anyRequest()
+			    .access("hasRole('USER_WAREHOUSE')").anyRequest()
 			    .authenticated()
+			    //
 			    .antMatchers(// @formatter:off
 			                 "/pdc",
 			                 "/pdc/*",
@@ -118,8 +120,20 @@ public class SecurityConfiguration
 			                 // @formatter:on
 				)
 			    .access("hasRole('USER_PDC')").anyRequest()
-			    .authenticated();
-				
+			    .authenticated()
+			    //
+			    .antMatchers(// @formatter:off
+			                 "/shpm",
+			                 "/shpm/*",
+			                 "/shpm/**"
+			                 // @formatter:on
+				)
+			    .access("hasRole('USER_SHIPMENT')").anyRequest()
+			    .authenticated()
+			//
+			;
+			
+			
 			http.formLogin().loginPage("/login")// .loginPage("/login")
 			    .loginProcessingUrl("/login")// .loginProcessingUrl("/login")
 			    .defaultSuccessUrl("/default",true)// .defaultSuccessUrl("/default",true)

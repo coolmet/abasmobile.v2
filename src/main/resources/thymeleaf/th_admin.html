@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale = 1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
 <link rel="stylesheet" type="text/css" th:href="@{/css/abasstyle.css}" />
+
 </head>
 
 
@@ -15,17 +16,15 @@
 	<div th:insert="fragments/headernavbar.html :: FRG_header_navbar"></div>
 
 	<div class="abascontainer">
-		<button class="button button-16" onclick="window.location.href='/admin'">
-			<span>Admin </span>
+		<button class="button button-16" onclick="window.location.href='/admin/actuators'">
+			<span>Actuators </span>
 		</button>
-		<button class="button button-16" onclick="window.location.href='/wh'">
-			<span>Warehouse </span>
+		<button class="button button-16" onclick="window.location.href='/admin/activesessions'">
+			<span>Active Sessions </span>
 		</button>
-		<button class="button button-16" onclick="window.location.href='/pdc'">
-			<span>PDC </span>
-		</button>
-		<button class="button button-16" onclick="window.location.href='/shpm'">
-			<span>Shipment </span>
+		<button class="button button-16" onclick="window.location.href='/admin/settings'">
+			<span>Settings </span>
 		</button>
 	</div>
+
 </body>

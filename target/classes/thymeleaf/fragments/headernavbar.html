@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+
+<head>
+<title>Empty</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale = 1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+</head>
+
+
+<body>
+
+	<th:block th:fragment="FRG_header_navbar">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/abasstyle.css}" />
+	
+		<div class="topleft" th:if="${#httpServletRequest.requestURI != '/' and #httpServletRequest.requestURI != '/index' }">
+			<button class="navbutton" title="Home" onclick="window.location.href='/'" sec:authorize="hasRole('ANONYMOUS')">
+				<img src="/images/home48.png">
+			</button>
+			<button class="navbutton" title="Home" onclick="window.location.href='/admin'" sec:authorize="hasRole('ADMIN')">
+				<img src="/images/home48.png">
+			</button>
+			<button class="navbutton" title="Home" onclick="window.location.href='/wh'" sec:authorize="hasRole('USER_WAREHOUSE')">
+				<img src="/images/home48.png">
+			</button>
+			<button class="navbutton" title="Home" onclick="window.location.href='/pdc'" sec:authorize="hasRole('USER_PDC')">
+				<img src="/images/home48.png">
+			</button>
+			<button class="navbutton" title="Home" onclick="window.location.href='/shpm'" sec:authorize="hasRole('USER_SHIPMENT')">
+				<img src="/images/home48.png">
+			</button>
+		</div>
+		<div sec:authorize="isAuthenticated()">
+			<div class="topright">
+				<button class="navbutton" title="Logout" onclick="window.location.href='/logout'">
+					<img src="/images/logout48.png">
+				</button>
+			</div>
+		</div>
+	</th:block>
+
+
+</body>

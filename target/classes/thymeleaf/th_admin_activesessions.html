@@ -12,30 +12,9 @@
 
 <body>
 
-	<div class="topleft">
-		<button class="navbutton" onclick="window.location.href='/'" sec:authorize="hasRole('ANONYMOUS')">
-			<img src="images/home48.png">
-		</button>
-		<button class="navbutton" onclick="window.location.href='/abasadmin'" sec:authorize="hasRole('ADMIN')">
-			<img src="images/home48.png">
-		</button>
-		<button class="navbutton" onclick="window.location.href='/wh'" sec:authorize="hasRole('USER_WH')">
-			<img src="images/home48.png">
-		</button>
-		<button class="navbutton" onclick="window.location.href='/pdc'" sec:authorize="hasRole('USER_PDC')">
-			<img src="images/home48.png">
-		</button>
-	</div>
-	<div sec:authorize="isAuthenticated()">
-		<div class="topright">
-			<button class="navbutton" onclick="window.location.href='/logout'">
-				<img src="images/logout48.png">
-			</button>
-		</div>
-	</div>
+	<div th:insert="fragments/headernavbar.html :: FRG_header_navbar"></div>
 
 	<!-- ################################## -->
-	<div style="float: left; padding-left: 10px">
 		<table id=usertable>
 			<thead>
 				<tr style="font-weight: bold;" bgcolor="#5DBCD2">
@@ -69,7 +48,6 @@
 				<td th:text="${activeSession.getAuthorities().toString()}">
 			</th:block>
 		</table>
-	</div>
 	<!-- ################################## -->
 
 

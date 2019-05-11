@@ -15,7 +15,13 @@ import com.abas.mobile.model.AbasUserDetails;
 public class SprinBootAppConfiguration
 {
 	@Autowired
-	private AbasConfigProperties abasConfig;
+	private ConfigPropertiesAbas configAbas;
+	
+	@Autowired
+	private ConfigPropertiesSpring configSpring;
+	
+	@Autowired
+	private ConfigPropertiesServer configServer;
 	
 	@Autowired
 	private AbasMobileUsersProperties abasMobileUsers;
@@ -31,18 +37,25 @@ public class SprinBootAppConfiguration
 		requestMappingHandlerAdapter.setIgnoreDefaultModelOnRedirect(true);
 		System.out.println(AnsiOutput.toString(AnsiColor.BRIGHT_BLUE,"________________________________________\n",AnsiColor.DEFAULT));
 		System.out.println("\u001b[40m \u001B[38;5;220m @@@@@: SprinBootAppConfiguration->init()-> "+AnsiOutput.toString(AnsiColor.DEFAULT));
-		LOGGER.debug("@@@ abas.edp.password\t\t= "+abasConfig.getEdpPassword());
+		//
+		LOGGER.debug("@@@ abas.edp.password\t\t= "+configAbas.getEdp().getPassword());
 		for(AbasUserDetails user:abasMobileUsers.getUsers())
 		{
 			LOGGER.debug("@@@ abas.users\t\t= "+user.getUsername()+":"+user.getPassword()+":"+Arrays.toString(user.getRoles()));
 		}
 		//
-		LOGGER.info("@@@ abas.edp.password\t= "+"*****");
-		LOGGER.info("@@@ abas.edp.port\t\t= "+abasConfig.getEdpPort());
-		LOGGER.info("@@@ abas.server.ip\t\t= "+abasConfig.getServerIp());
-		LOGGER.info("@@@ abas.s3.dir\t\t= "+abasConfig.getS3Dir());
-		LOGGER.info("@@@ abas.base.dir\t\t= "+abasConfig.getBaseDir());
-		LOGGER.info("@@@ abas.mandant\t\t= "+abasConfig.getMandant());
+		LOGGER.info("@@@ abas.edp.password\t\t= "+"*****");
+		LOGGER.info("@@@ abas.edp.port\t\t\t= "+configAbas.getEdp().getPort());
+		LOGGER.info("@@@ abas.edp.serverip\t\t= "+configAbas.getEdp().getServerip());
+		LOGGER.info("@@@ abas.s3.dir\t\t\t= "+configAbas.getS3().getDir());
+		LOGGER.info("@@@ abas.s3.basedir\t\t\t= "+configAbas.getS3().getBaseDir());
+		LOGGER.info("@@@ abas.s3.mandant\t\t\t= "+configAbas.getS3().getMandant());
+		//
+		LOGGER.info("@@@ spring.mvc.locale\t\t= "+configSpring.getMvc().getLocale());
+		LOGGER.info("@@@ server.port\t\t\t= "+configServer.getPort());
+		LOGGER.info("@@@ server.connection-timeout\t= "+configServer.getConnectionTimeout());
+		LOGGER.info("@@@ server.servlet.session.timeout\t= "+configServer.getServlet().getSession().getTimeout());
+		//
 		System.out.println("\u001b[40m \u001B[38;5;220m @@@@@: __________________________________ ");
 		System.out.println(AnsiOutput.toString(AnsiColor.DEFAULT,AnsiColor.BRIGHT_BLUE,"________________________________________",AnsiColor.DEFAULT));
 	}
