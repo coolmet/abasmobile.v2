@@ -23,6 +23,20 @@ public class LanguageService
 		languages.add(new Language(0,"Deutsch","de","de_DE",new Locale("de_DE")));
 	}
 	
+	public String getDefaultLocaleLongName()
+	{
+		
+		Locale defLocale=LocaleContextHolder.getLocale();
+		for(Language lang:languages)
+		{
+			if(lang.getLocale().equals(defLocale))
+			{
+				return lang.getLocaleLongName();
+			}
+		}
+		return "";
+	}
+	
 	public List<Language> getLanguages()
 	{
 		return languages;

@@ -168,7 +168,7 @@ button:focus {outline:0 !important;}
 	box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 
-/*######################################TABLE################## */
+/*######################################USER TABLE################## */
 #usertable {
   border-collapse: collapse;
   width: 100%;
@@ -191,4 +191,48 @@ button:focus {outline:0 !important;}
   text-align: left;
   background-color: #5DBCD2;
   color: white;
+}
+/*######################################SETTINGS TABLE################## */
+table#settings {
+  background-color: #5DBCD2;
+  border-spacing: 1px;
+  font-size: 12px;
+}
+
+table#settings td, table#settings th {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 2px;
+}
+
+/*######################################ALERT################## */
+.alert-danger {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+  opacity: 1;
+  transition: opacity 0.6s;
+}
+
+.alert-success {
+  padding: 20px;
+  background-color: green;
+  color: white;
+  opacity: 1;
+  transition: opacity 0.6s;
+}
+
+.alertclosebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.alertclosebtn:hover {
+  color: black;
 }

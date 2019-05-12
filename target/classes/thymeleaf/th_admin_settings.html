@@ -12,6 +12,94 @@
 
 <body>
 
+	<div th:insert="fragments/headernavbar.html :: FRG_header_navbar"></div>
 
-	
+	<div class="abascontainer2">
+		<form method="POST" th:action="@{/admin/settings}">
+			<table id="settings">
+				<tr>
+					<td th:text="abas_edp_password">
+					<td>
+						<input type="text" name="abas_edp_password" id="abas_edp_password" th:value="${abas_edp_password}">
+					</td>
+				</tr>
+				<tr>
+					<td th:text="abas_edp_port">
+					<td>
+						<input type="text" name="abas_edp_port" id="abas_edp_port" th:value="${abas_edp_port}">
+					</td>
+				</tr>
+				<tr>
+					<td th:text="abas_edp_serverip">
+					<td>
+						<input type="text" name="abas_edp_serverip" id="abas_edp_serverip" th:value="${abas_edp_serverip}">
+					</td>
+				</tr>
+				<tr>
+					<td th:text="abas_s3_dir">
+					<td>
+						<input type="text" name="abas_s3_dir" id="abas_s3_dir" th:value="${abas_s3_dir}">
+					</td>
+				</tr>
+				<tr>
+					<td th:text="abas_s3_basedir">
+					<td>
+						<input type="text" name="abas_s3_basedir" id="abas_s3_basedir" th:value="${abas_s3_basedir}">
+					</td>
+				</tr>
+				<tr>
+					<td th:text="abas_s3_mandant">
+					<td>
+						<input type="text" name="abas_s3_mandant" id="abas_s3_mandant" th:value="${abas_s3_mandant}">
+					</td>
+				</tr>
+				<tr>
+					<td th:text="spring_mvc_locale">
+					<td>
+						<select name="spring_mvc_locale">
+							<option th:each="language,status : ${@languageService.getLanguages()}" th:value="${language.localeLongName}" th:text="${language.localeLongName}" th:selected="(${language.localeLongName}==${@languageService.getDefaultLocaleLongName()})">
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td th:text="server_port">
+					<td>
+						<input type="text" name="server_port" id="server_port" th:value="${server_port}">
+					</td>
+				</tr>
+				<tr>
+					<td th:text="server_connection_timeout">
+					<td>
+						<input type="text" name="server_connection_timeout" id="server_connection_timeout" th:value="${server_connection_timeout}">
+					</td>
+				</tr>
+				<tr>
+					<td th:text="server_servlet_session_timeout">
+					<td>
+						<input type="text" name="server_servlet_session_timeout" id="server_servlet_session_timeout" th:value="${server_servlet_session_timeout}">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" style="text-align: center;">
+						<button id="update" type="submit" th:text="Update"></button>
+					</td>
+				</tr>
+			</table>
+
+			<div th:if="${message} != null and ${status} == false " style="color: red; margin: 8px 0px;">
+				<div class="alert-danger">
+					<span class="alertclosebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+					<span th:utext="${message}"></span>
+				</div>
+			</div>
+
+			<div th:if="${message} != null and ${status} == true " style="color: green; margin: 8px 0px;">
+				<div class="alert-success">
+					<span class="alertclosebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+					<span th:utext="${message}"></span>
+				</div>
+			</div>
+
+		</form>
+	</div>
 </body>
