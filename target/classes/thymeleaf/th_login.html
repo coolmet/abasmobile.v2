@@ -2,12 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
 
 <head>
-<title>Empty</title>
+<title th:text="#{login.pagetitle}"></title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale = 1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-<link rel="stylesheet" type="text/css" th:href="@{/css/abasstyle.css}" />
+<!--===============================================================================================-->
+<link rel="icon" type="image/png" th:href="@{/images/mobile.ico}" />
+<!--===============================================================================================-->
 
+<link rel="stylesheet" type="text/css" th:href="@{/css/abasstyle.css}" />
 
 </head>
 
@@ -20,28 +23,33 @@
 		<h1>Login Page</h1>
 
 		<form th:action="login" method="post">
-			<label for="username">Username</label>
+			<label for="username" th:text="#{login.label.username}"></label>
 			:
 			<input type="text" id="username" name="username" autofocus="autofocus" />
 			<br />
-			<label for="password">Password</label>
+			<label for="password" th:text="#{login.label.password}"></label>
 			:
 			<input type="password" id="password" name="password" />
 			<br />
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-			Remember Me:
-			<input name="remember-me" type="checkbox">
+
+			<label for="remember-me" th:text="#{login.label.rememberme}"></label>
+			<input id="remember-me" name="remember-me" type="checkbox">
 			<br />
-			<input type="submit" value="Log in" />
+			<input type="submit" th:value="#{login.button.submit}" />
 		</form>
 
+
 		<div th:if="${#request.getParameter('loginFailed') == 'true'}" style="color: red; margin: 10px 0px;">
-			<div class="alert alert-danger" role="alert">
+			<div class="alert-danger">
+				<span class="alertclosebtn" onclick="this.parentElement.style.display='none';">&times;</span>
 				Login Failed!!!
 				<br />
 				Reason :
 				<span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}" th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}"> Static summary </span>
 			</div>
 		</div>
+
+
 	</div>
 </body>

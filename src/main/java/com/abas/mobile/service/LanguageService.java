@@ -18,9 +18,44 @@ public class LanguageService
 	{
 		System.out.println("------------------------------");
 		languages=new ArrayList<>();
-		languages.add(new Language(0,"Turkish","tr","tr_TR",new Locale("tr_TR")));
-		languages.add(new Language(0,"English","en","en_EN",new Locale("en_EN")));
-		languages.add(new Language(0,"Deutsch","de","de_DE",new Locale("de_DE")));
+		languages.add(new Language(0,"Turkish","tr","TR","tr_TR",new Locale("tr","TR")));
+		languages.add(new Language(0,"English","en","EN","en_EN",new Locale("en","EN")));
+		languages.add(new Language(0,"Deutsch","de","DE","de_DE",new Locale("de","DE")));
+	}
+	
+	public Locale getLocale(String localeLongName)
+	{
+		for(Language lang:languages)
+		{
+			if(lang.getLocaleLongName().equals(localeLongName))
+			{
+				return lang.getLocale();
+			}
+		}
+		return null;
+	}
+	public String getLanguageCode(String localeLongName)
+	{
+		for(Language lang:languages)
+		{
+			if(lang.getLocaleLongName().equals(localeLongName))
+			{
+				return lang.getLanguageCode();
+			}
+		}
+		return "";
+	}
+	
+	public String getCountryCode(String localeLongName)
+	{
+		for(Language lang:languages)
+		{
+			if(lang.getLocaleLongName().equals(localeLongName))
+			{
+				return lang.getCountryCode();
+			}
+		}
+		return "";
 	}
 	
 	public String getDefaultLocaleLongName()

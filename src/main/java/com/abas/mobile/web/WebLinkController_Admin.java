@@ -60,64 +60,79 @@ public class WebLinkController_Admin
 	
 	@RequestMapping(value=
 	{"/admin/settings"})
-	public ModelAndView settings(HttpSession session,
-	                             HttpServletRequest request,
-	                             @ModelAttribute(value="abas_edp_password") String abas_edp_password,
-	                             @ModelAttribute(value="abas_edp_port") String abas_edp_port,
-	                             @ModelAttribute(value="abas_edp_serverip") String abas_edp_serverip,
-	                             @ModelAttribute(value="abas_s3_dir") String abas_s3_dir,
-	                             @ModelAttribute(value="abas_s3_basedir") String abas_s3_basedir,
-	                             @ModelAttribute(value="abas_s3_mandant") String abas_s3_mandant,
-	                             @ModelAttribute(value="spring_mvc_locale") String spring_mvc_locale,
-	                             @ModelAttribute(value="server_port") String server_port,
-	                             @ModelAttribute(value="server_connection_timeout") String server_connection_timeout,
-	                             @ModelAttribute(value="server_servlet_session_timeout") String server_servlet_session_timeout)
+	public ModelAndView settings(HttpSession session,HttpServletRequest request)
 	{
-		LOGGER.info("@@@ "+spring_mvc_locale+"\t"+request.getParameter("spring_mvc_locale"));
+		LOGGER.info("@@@ "+request.getMethod()+"::");
 		ModelAndView mav=new ModelAndView();
-		if(abas_edp_password==null||abas_edp_password.equals(""))
+		if(request.getMethod().equals("GET"))
 		{
-			mav.addObject("abas_edp_password",configAbas.getEdp().getPassword());
-			mav.addObject("abas_edp_port",""+configAbas.getEdp().getPort());
-			mav.addObject("abas_edp_serverip",configAbas.getEdp().getServerip());
-			mav.addObject("abas_s3_dir",configAbas.getS3().getDir());
-			mav.addObject("abas_s3_basedir",configAbas.getS3().getBaseDir());
-			mav.addObject("abas_s3_mandant",configAbas.getS3().getMandant());
-			mav.addObject("spring_mvc_locale",configSpring.getMvc().getLocale());
-			mav.addObject("server_port",""+configServer.getPort());
-			mav.addObject("server_connection_timeout",configServer.getConnectionTimeout());
-			mav.addObject("server_servlet_session_timeout",configServer.getServlet().getSession().getTimeout());
-			mav.addObject("message",session.getAttribute("settings_message"+session.getId()));
-			mav.addObject("status",session.getAttribute("settings_status"+session.getId()));
-			mav.setViewName("th_admin_settings");
-			session.removeAttribute("settings_abas_edp_password"+session.getId());
-			session.removeAttribute("settings_abas_edp_port"+session.getId());
-			session.removeAttribute("settings_abas_edp_serverip"+session.getId());
-			session.removeAttribute("settings_abas_s3_dir"+session.getId());
-			session.removeAttribute("settings_abas_s3_basedir"+session.getId());
-			session.removeAttribute("settings_abas_s3_mandant"+session.getId());
-			session.removeAttribute("settings_spring_mvc_locale"+session.getId());
-			session.removeAttribute("settings_server_port"+session.getId());
-			session.removeAttribute("settings_server_connection_timeout"+session.getId());
-			session.removeAttribute("settings_server_servlet_session_timeout"+session.getId());
-			session.removeAttribute("settings_message"+session.getId());
-			session.removeAttribute("settings_status"+session.getId());
+			if(session.getAttribute("settings_message"+session.getId())==null)
+			{
+				mav.addObject("abas_edp_password",configAbas.getEdp().getPassword());
+				mav.addObject("abas_edp_port",""+configAbas.getEdp().getPort());
+				mav.addObject("abas_edp_serverip",configAbas.getEdp().getServerip());
+				mav.addObject("abas_s3_dir",configAbas.getS3().getDir());
+				mav.addObject("abas_s3_basedir",configAbas.getS3().getBaseDir());
+				mav.addObject("abas_s3_mandant",configAbas.getS3().getMandant());
+				mav.addObject("spring_mvc_locale",configSpring.getMvc().getLocale());
+				mav.addObject("server_port",""+configServer.getPort());
+				mav.addObject("server_connection_timeout",configServer.getConnectionTimeout());
+				mav.addObject("server_servlet_session_timeout",configServer.getServlet().getSession().getTimeout());
+				mav.addObject("message","");
+				mav.addObject("status","");
+			}
+			else
+			{
+				mav.addObject("abas_edp_password",session.getAttribute("settings_abas_edp_password"+session.getId()));
+				mav.addObject("abas_edp_port",session.getAttribute("settings_abas_edp_port"+session.getId()));
+				mav.addObject("abas_edp_serverip",session.getAttribute("settings_abas_edp_serverip"+session.getId()));
+				mav.addObject("abas_s3_dir",session.getAttribute("settings_abas_s3_dir"+session.getId()));
+				mav.addObject("abas_s3_basedir",session.getAttribute("settings_abas_s3_basedir"+session.getId()));
+				mav.addObject("abas_s3_mandant",session.getAttribute("settings_abas_s3_mandant"+session.getId()));
+				mav.addObject("spring_mvc_locale",session.getAttribute("settings_spring_mvc_locale"+session.getId()));
+				mav.addObject("server_port",session.getAttribute("settings_server_port"+session.getId()));
+				mav.addObject("server_connection_timeout",session.getAttribute("settings_server_connection_timeout"+session.getId()));
+				mav.addObject("server_servlet_session_timeout",session.getAttribute("settings_server_servlet_session_timeout"+session.getId()));
+				mav.addObject("message",session.getAttribute("settings_message"+session.getId()));
+				mav.addObject("status",session.getAttribute("settings_status"+session.getId()));
+				session.removeAttribute("settings_abas_edp_password"+session.getId());
+				session.removeAttribute("settings_abas_edp_port"+session.getId());
+				session.removeAttribute("settings_abas_edp_serverip"+session.getId());
+				session.removeAttribute("settings_abas_s3_dir"+session.getId());
+				session.removeAttribute("settings_abas_s3_basedir"+session.getId());
+				session.removeAttribute("settings_abas_s3_mandant"+session.getId());
+				session.removeAttribute("settings_spring_mvc_locale"+session.getId());
+				session.removeAttribute("settings_server_port"+session.getId());
+				session.removeAttribute("settings_server_connection_timeout"+session.getId());
+				session.removeAttribute("settings_server_servlet_session_timeout"+session.getId());
+				session.removeAttribute("settings_message"+session.getId());
+				session.removeAttribute("settings_status"+session.getId());
+			}
+			mav.setViewName("th_admin_settings");			
 		}
-		else // save butonu
+		else if(request.getMethod().equals("POST")) // save butonu
 		{
 			// SAVE
-			LOGGER.info("@@@ "+abas_edp_password+"\t"+abas_edp_port+"\t"+abas_edp_serverip+"\t"+abas_s3_dir+"\t"+abas_s3_basedir+"\t"+abas_s3_mandant+"\t"+spring_mvc_locale+"\t"+server_port+"\t"+server_connection_timeout+"\t"+server_servlet_session_timeout);
-			MessageInfo result=updateSettingsService.update(abas_edp_password,abas_edp_port,abas_edp_serverip,abas_s3_dir,abas_s3_basedir,abas_s3_mandant,spring_mvc_locale,server_port,server_connection_timeout,server_servlet_session_timeout);
-			session.setAttribute("settings_abas_edp_password"+session.getId(),abas_edp_password);
-			session.setAttribute("settings_abas_edp_port"+session.getId(),abas_edp_port);
-			session.setAttribute("settings_abas_edp_serverip"+session.getId(),abas_edp_serverip);
-			session.setAttribute("settings_abas_s3_dir"+session.getId(),abas_s3_dir);
-			session.setAttribute("settings_abas_s3_basedir"+session.getId(),abas_s3_basedir);
-			session.setAttribute("settings_abas_s3_mandant"+session.getId(),abas_s3_mandant);
-			session.setAttribute("settings_spring_mvc_locale"+session.getId(),spring_mvc_locale);
-			session.setAttribute("settings_server_port"+session.getId(),server_port);
-			session.setAttribute("settings_server_connection_timeout"+session.getId(),server_connection_timeout);
-			session.setAttribute("settings_server_servlet_session_timeout"+session.getId(),server_servlet_session_timeout);
+			MessageInfo result=updateSettingsService.update(request.getParameter("abas_edp_password"),
+			                                                request.getParameter("abas_edp_port"),
+			                                                request.getParameter("abas_edp_serverip"),
+			                                                request.getParameter("abas_s3_dir"),
+			                                                request.getParameter("abas_s3_basedir"),
+			                                                request.getParameter("abas_s3_mandant"),
+			                                                request.getParameter("spring_mvc_locale"),
+			                                                request.getParameter("server_port"),
+			                                                request.getParameter("server_connection_timeout"),
+			                                                request.getParameter("server_servlet_session_timeout"));
+			session.setAttribute("settings_abas_edp_password"+session.getId(),request.getParameter("abas_edp_password"));
+			session.setAttribute("settings_abas_edp_port"+session.getId(),request.getParameter("abas_edp_port"));
+			session.setAttribute("settings_abas_edp_serverip"+session.getId(),request.getParameter("abas_edp_serverip"));
+			session.setAttribute("settings_abas_s3_dir"+session.getId(),request.getParameter("abas_s3_dir"));
+			session.setAttribute("settings_abas_s3_basedir"+session.getId(),request.getParameter("abas_s3_basedir"));
+			session.setAttribute("settings_abas_s3_mandant"+session.getId(),request.getParameter("abas_s3_mandant"));
+			session.setAttribute("settings_spring_mvc_locale"+session.getId(),request.getParameter("spring_mvc_locale"));
+			session.setAttribute("settings_server_port"+session.getId(),request.getParameter("server_port"));
+			session.setAttribute("settings_server_connection_timeout"+session.getId(),request.getParameter("server_connection_timeout"));
+			session.setAttribute("settings_server_servlet_session_timeout"+session.getId(),request.getParameter("server_servlet_session_timeout"));
 			session.setAttribute("settings_message"+session.getId(),result.getMessage());
 			session.setAttribute("settings_status"+session.getId(),result.isStatus());
 			mav.setViewName("redirect:/admin/settings");

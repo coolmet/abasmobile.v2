@@ -6,7 +6,8 @@ public class Language
 {
 	private int id;
 	private String displayName;
-	private String localeName;
+	private String languageCode;
+	private String countryCode;
 	private String localeLongName;
 	private Locale locale;
 	
@@ -14,12 +15,13 @@ public class Language
 	{
 	}
 	
-	public Language(int id,String displayName,String localeName,String localeLongName,Locale locale)
+	public Language(int id,String displayName,String languageCode,String countryCode,String localeLongName,Locale locale)
 	{
 		super();
 		this.id=id;
 		this.displayName=displayName;
-		this.localeName=localeName;
+		this.languageCode=languageCode;
+		this.countryCode=countryCode;
 		this.localeLongName=localeLongName;
 		this.locale=locale;
 	}
@@ -44,14 +46,24 @@ public class Language
 		this.displayName=displayName;
 	}
 	
-	public String getLocaleName()
+	public String getLanguageCode()
 	{
-		return localeName;
+		return languageCode;
 	}
 	
-	public void setLocaleName(String localeName)
+	public void setLanguageCode(String languageCode)
 	{
-		this.localeName=localeName;
+		this.languageCode=languageCode;
+	}
+	
+	public String getCountryCode()
+	{
+		return countryCode;
+	}
+	
+	public void setCountryCode(String countryCode)
+	{
+		this.countryCode=countryCode;
 	}
 	
 	public String getLocaleLongName()

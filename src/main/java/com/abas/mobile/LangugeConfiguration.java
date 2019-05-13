@@ -17,12 +17,16 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+import com.abas.mobile.service.LanguageService;
 
 @Configuration
 public class LangugeConfiguration implements WebMvcConfigurer
 {
 	@Autowired
 	private ConfigPropertiesSpring configSpring;
+	
+	@Autowired
+	private LanguageService languageService;
 	
 	@Bean
 	public MessageSource messageSource()
@@ -37,7 +41,7 @@ public class LangugeConfiguration implements WebMvcConfigurer
 	public LocaleResolver localeResolver()
 	{
 		SessionLocaleResolver sessionLocaleResolver=new SessionLocaleResolver();
-		sessionLocaleResolver.setDefaultLocale(new Locale(configSpring.getMvc().getLocale()));// "tr","TR"
+		sessionLocaleResolver.setDefaultLocale(languageService.getLocale(configSpring.getMvc().getLocale()));// "tr","TR"
 		return sessionLocaleResolver;
 	}
 	

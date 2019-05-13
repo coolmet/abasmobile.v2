@@ -2,9 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
 
 <head>
-<title>Abas Admin</title>
+<title th:text="#{index.pagetitle}"></title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale = 1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+<!--===============================================================================================-->
+<link rel="icon" type="image/png" th:href="@{/images/mobile.ico}" />
+<!--===============================================================================================-->
 
 <link rel="stylesheet" type="text/css" th:href="@{/css/abasstyle.css}" />
 </head>
@@ -15,17 +19,9 @@
 	<div th:insert="fragments/headernavbar.html :: FRG_header_navbar"></div>
 
 	<div class="abascontainer">
-		<button class="button button-16" onclick="window.location.href='/admin'">
-			<span>Admin </span>
-		</button>
-		<button class="button button-16" onclick="window.location.href='/wh'">
-			<span>Warehouse </span>
-		</button>
-		<button class="button button-16" onclick="window.location.href='/pdc'">
-			<span>PDC </span>
-		</button>
-		<button class="button button-16" onclick="window.location.href='/shpm'">
-			<span>Shipment </span>
-		</button>
+		<button class="button button-16" onclick="window.location.href='/admin'" 	th:text="#{index.button.admin}"> 		</button>
+		<button class="button button-16" onclick="window.location.href='/wh'" 		th:text="#{index.button.warehouse}"> 	</button>
+		<button class="button button-16" onclick="window.location.href='/pdc'"		th:text="#{index.button.pdc}">			</button>
+		<button class="button button-16" onclick="window.location.href='/shpm'"		th:text="#{index.button.shipment}">		</button>
 	</div>
 </body>

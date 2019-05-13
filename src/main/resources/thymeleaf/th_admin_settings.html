@@ -2,9 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
 
 <head>
-<title>Empty</title>
+<title th:text="#{admin.settings.pagetitle}"></title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale = 1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+<!--===============================================================================================-->
+<link rel="icon" type="image/png" th:href="@{/images/mobile.ico}" />
+<!--===============================================================================================-->
+
 <link rel="stylesheet" type="text/css" th:href="@{/css/abasstyle.css}" />
 
 </head>
@@ -16,75 +21,6 @@
 
 	<div class="abascontainer2">
 		<form method="POST" th:action="@{/admin/settings}">
-			<table id="settings">
-				<tr>
-					<td th:text="abas_edp_password">
-					<td>
-						<input type="text" name="abas_edp_password" id="abas_edp_password" th:value="${abas_edp_password}">
-					</td>
-				</tr>
-				<tr>
-					<td th:text="abas_edp_port">
-					<td>
-						<input type="text" name="abas_edp_port" id="abas_edp_port" th:value="${abas_edp_port}">
-					</td>
-				</tr>
-				<tr>
-					<td th:text="abas_edp_serverip">
-					<td>
-						<input type="text" name="abas_edp_serverip" id="abas_edp_serverip" th:value="${abas_edp_serverip}">
-					</td>
-				</tr>
-				<tr>
-					<td th:text="abas_s3_dir">
-					<td>
-						<input type="text" name="abas_s3_dir" id="abas_s3_dir" th:value="${abas_s3_dir}">
-					</td>
-				</tr>
-				<tr>
-					<td th:text="abas_s3_basedir">
-					<td>
-						<input type="text" name="abas_s3_basedir" id="abas_s3_basedir" th:value="${abas_s3_basedir}">
-					</td>
-				</tr>
-				<tr>
-					<td th:text="abas_s3_mandant">
-					<td>
-						<input type="text" name="abas_s3_mandant" id="abas_s3_mandant" th:value="${abas_s3_mandant}">
-					</td>
-				</tr>
-				<tr>
-					<td th:text="spring_mvc_locale">
-					<td>
-						<select name="spring_mvc_locale">
-							<option th:each="language,status : ${@languageService.getLanguages()}" th:value="${language.localeLongName}" th:text="${language.localeLongName}" th:selected="(${language.localeLongName}==${@languageService.getDefaultLocaleLongName()})">
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td th:text="server_port">
-					<td>
-						<input type="text" name="server_port" id="server_port" th:value="${server_port}">
-					</td>
-				</tr>
-				<tr>
-					<td th:text="server_connection_timeout">
-					<td>
-						<input type="text" name="server_connection_timeout" id="server_connection_timeout" th:value="${server_connection_timeout}">
-					</td>
-				</tr>
-				<tr>
-					<td th:text="server_servlet_session_timeout">
-					<td>
-						<input type="text" name="server_servlet_session_timeout" id="server_servlet_session_timeout" th:value="${server_servlet_session_timeout}">
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2" style="text-align: center;">
-						<button id="update" type="submit" th:text="Update"></button>
-					</td>
-				</tr>
-			</table>
 
 			<div th:if="${message} != null and ${status} == false " style="color: red; margin: 8px 0px;">
 				<div class="alert-danger">
@@ -99,6 +35,78 @@
 					<span th:utext="${message}"></span>
 				</div>
 			</div>
+
+
+			<table id="settings">
+				<tr>
+					<td th:text="#{admin.settings.label.edppassword}">
+					<td>
+						<input type="text" name="abas_edp_password" id="abas_edp_password" th:value="${abas_edp_password}">
+					</td>
+				</tr>
+				<tr>
+					<td th:text="#{admin.settings.label.edpport}">
+					<td>
+						<input type="text" name="abas_edp_port" id="abas_edp_port" th:value="${abas_edp_port}">
+					</td>
+				</tr>
+				<tr>
+					<td th:text="#{admin.settings.label.serverip}">
+					<td>
+						<input type="text" name="abas_edp_serverip" id="abas_edp_serverip" th:value="${abas_edp_serverip}">
+					</td>
+				</tr>
+				<tr>
+					<td th:text="#{admin.settings.label.s3dir}">
+					<td>
+						<input type="text" name="abas_s3_dir" id="abas_s3_dir" th:value="${abas_s3_dir}">
+					</td>
+				</tr>
+				<tr>
+					<td th:text="#{admin.settings.label.basedir}">
+					<td>
+						<input type="text" name="abas_s3_basedir" id="abas_s3_basedir" th:value="${abas_s3_basedir}">
+					</td>
+				</tr>
+				<tr>
+					<td th:text="#{admin.settings.label.mandant}">
+					<td>
+						<input type="text" name="abas_s3_mandant" id="abas_s3_mandant" th:value="${abas_s3_mandant}">
+					</td>
+				</tr>
+				<tr>
+					<td th:text="#{admin.settings.label.locale}">
+					<td>
+						<select name="spring_mvc_locale">
+							<option th:each="language,status : ${@languageService.getLanguages()}" th:value="${language.localeLongName}" th:text="${language.localeLongName}" th:selected="(${language.localeLongName}==${@languageService.getDefaultLocaleLongName()})">
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td th:text="#{admin.settings.label.serverport}">
+					<td>
+						<input type="text" name="server_port" id="server_port" th:value="${server_port}">
+					</td>
+				</tr>
+				<tr>
+					<td th:text="#{admin.settings.label.connectiontimeout}">
+					<td>
+						<input type="text" name="server_connection_timeout" id="server_connection_timeout" th:value="${server_connection_timeout}">
+					</td>
+				</tr>
+				<tr>
+					<td th:text="#{admin.settings.label.sessiontimeout}">
+					<td>
+						<input type="text" name="server_servlet_session_timeout" id="server_servlet_session_timeout" th:value="${server_servlet_session_timeout}">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" style="text-align: center;">
+						<button id="update" type="submit" th:text="#{admin.settings.button.update}"></button>
+					</td>
+				</tr>
+			</table>
+
 
 		</form>
 	</div>
