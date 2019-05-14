@@ -2,13 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
 
 <head>
-<title>Empty</title>
+<title th:text="#{activesessions.pagetitle}"></title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale = 1.0, minimum-scale=1.0, maximum-scale=1.2, user-scalable=no" />
+
+<!--===============================================================================================-->
+<link rel="icon" type="image/png" th:href="@{/images/mobile.ico}" />
+<!--===============================================================================================-->
+
 <link rel="stylesheet" type="text/css" th:href="@{/css/abasstyle.css}" />
 
 </head>
-
 
 <body>
 
@@ -18,13 +22,13 @@
 		<table id=usertable>
 			<thead>
 				<tr style="font-weight: bold;" bgcolor="#5DBCD2">
-					<th>Username</th>
-					<th>Password</th>
-					<th>Enabled</th>
-					<th>AccountNonExpired</th>
-					<th>credentialsNonExpired</th>
-					<th>AccountNonLocked</th>
-					<th>Granted Authorities</th>
+					<th th:text="#{activesessions.label.username}"/>
+					<th th:text="#{activesessions.label.password}"/>
+					<th th:text="#{activesessions.label.enabled}"/>
+					<th th:text="#{activesessions.label.accountnotexpired}"/>
+					<th th:text="#{activesessions.label.credentialsnotexpired}"/>
+					<th th:text="#{activesessions.label.accountnotlocked}"/>
+					<th th:text="#{activesessions.label.grantedauthorities}"/>
 				</tr>
 			</thead>
 			<th:block th:each="sessioninfo,iterStat:${allSessions}">

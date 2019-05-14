@@ -159,6 +159,18 @@ button:focus {outline:0 !important;}
   left: 5%;
 }
 
+.topcenter1 {
+  position: absolute;
+  top: 2%;
+  left: 30%;
+}
+
+.topcenter2 {
+  position: absolute;
+  top: 2%;
+  right: 30%;
+}
+
 .navbutton
 {
 	background: none; 
@@ -174,6 +186,7 @@ button:focus {outline:0 !important;}
   width: 100%;
   float: left; 
   margin-top: 80px;
+  font-size: 10px;
 }
 
 #usertable td, #usertable th {

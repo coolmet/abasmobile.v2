@@ -12,7 +12,85 @@
 
 	<th:block th:fragment="FRG_header_navbar">
 		<link rel="stylesheet" type="text/css" th:href="@{/css/abasstyle.css}" />
-	
+
+		<script type="text/javascript">
+			/*	
+			 if (window.addEventListener) // all browsers except IE before version 9
+			 { 
+			 window.addEventListener("beforeunload", OnBeforeUnLoad, false);
+			 }
+			 else // IE before version 9
+			 {
+			 if (window.attachEvent)
+			 { 
+			 window.attachEvent("onbeforeunload", OnBeforeUnLoad);
+			 }
+			 }
+			 function OnBeforeUnLoad(e)
+			 {
+			 e.preventDefault();
+			 var confirmationMessage = 'Are you sure you want to leave?'; // "\o/";
+			 (e || window.event).returnValue = confirmationMessage; //Gecko + IE , Webkit, Safari, Chrome
+			 console.log(confirmationMessage);
+			 return confirmationMessage;
+			 }		
+			
+			 document.addEventListener('readystatechange', event => {
+
+			 if (event.target.readyState === "interactive") {      //same as:  document.addEventListener("DOMContentLoaded"...   // same as  jQuery.ready
+			 openFullscreen();
+			 }
+
+			 if (event.target.readyState === "complete") {
+			 openFullscreen();
+			 }
+
+			 });
+			 window.onload = function()
+			 {
+			 openFullscreen();
+			 }*/
+			var elem = document.documentElement;
+			function openFullScreen()
+				{
+					if (elem.requestFullscreen)
+						{
+							elem.requestFullscreen();
+						}
+					else if (elem.mozRequestFullScreen)
+						{ /* Firefox */
+							elem.mozRequestFullScreen();
+						}
+					else if (elem.webkitRequestFullscreen)
+						{ /* Chrome, Safari & Opera */
+							elem.webkitRequestFullscreen();
+						}
+					else if (elem.msRequestFullscreen)
+						{ /* IE/Edge */
+							elem.msRequestFullscreen();
+						}
+				}
+			function closeFullScreen()
+				{
+					if (document.exitFullscreen)
+						{
+							document.exitFullscreen();
+						}
+					else if (document.mozCancelFullScreen)
+						{
+							document.mozCancelFullScreen();
+						}
+					else if (document.webkitExitFullscreen)
+						{
+							document.webkitExitFullscreen();
+						}
+					else if (document.msExitFullscreen)
+						{
+							document.msExitFullscreen();
+						}
+				}
+		</script>
+
 		<div class="topleft" th:if="${#httpServletRequest.requestURI != '/' and #httpServletRequest.requestURI != '/index' }">
 			<button class="navbutton" th:title="#{headernavbar.tooltip.home}" onclick="window.location.href='/'" sec:authorize="hasRole('ANONYMOUS')">
 				<img src="/images/home48.png">
@@ -29,7 +107,17 @@
 			<button class="navbutton" th:title="#{headernavbar.tooltip.home}" onclick="window.location.href='/shpm'" sec:authorize="hasRole('USER_SHIPMENT')">
 				<img src="/images/home48.png">
 			</button>
+			
+			<button class="navbutton" th:title="#{headernavbar.tooltip.logout}" onclick="openFullScreen();">
+				<img src="/images/fullo48.png">
+			</button>
+
+			<button class="navbutton" th:title="#{headernavbar.tooltip.logout}" onclick="closeFullScreen();">
+				<img src="/images/fulli48.png">
+			</button>
 		</div>
+
+
 		<div sec:authorize="isAuthenticated()">
 			<div class="topright">
 				<button class="navbutton" th:title="#{headernavbar.tooltip.logout}" onclick="window.location.href='/logout'">
@@ -37,6 +125,8 @@
 				</button>
 			</div>
 		</div>
+
+
 	</th:block>
 
 
