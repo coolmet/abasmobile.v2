@@ -14,81 +14,69 @@
 		<link rel="stylesheet" type="text/css" th:href="@{/css/abasstyle.css}" />
 
 		<script type="text/javascript">
-			/*	
-			 if (window.addEventListener) // all browsers except IE before version 9
-			 { 
-			 window.addEventListener("beforeunload", OnBeforeUnLoad, false);
-			 }
-			 else // IE before version 9
-			 {
-			 if (window.attachEvent)
-			 { 
-			 window.attachEvent("onbeforeunload", OnBeforeUnLoad);
-			 }
-			 }
-			 function OnBeforeUnLoad(e)
-			 {
-			 e.preventDefault();
-			 var confirmationMessage = 'Are you sure you want to leave?'; // "\o/";
-			 (e || window.event).returnValue = confirmationMessage; //Gecko + IE , Webkit, Safari, Chrome
-			 console.log(confirmationMessage);
-			 return confirmationMessage;
-			 }		
+			function simulateKey(keyCode, type, modifiers)
+				{
+					var evtName = (typeof (type) === "string") ? "key" + type : "keydown";
+					var modifier = (typeof (modifiers) === "object") ? modifier : {};
+
+					var event = document.createEvent("HTMLEvents");
+					event.initEvent(evtName, true, false);
+					event.keyCode = keyCode;
+
+					for ( var i in modifiers)
+						{
+							event[i] = modifiers[i];
+						}
+
+					document.body.dispatchEvent(event);
+				}
+
+			// Setup some tests
+
+			var onKeyEvent = function(event)
+				{
+					event.preventDefault();
+					var state = "pressed";
+
+					if (event.type !== "keypress")
+						{
+							state = event.type.replace("key", "");
+						}
+
+					console.log("Key with keyCode " + event.keyCode + " is " + state);
+				};
+
+			document.addEventListener("keypress", onKeyEvent, false);
+			document.addEventListener("keydown", onKeyEvent, false);
+			document.addEventListener("keyup", onKeyEvent, false);
+
+			function F11()
+				{
+
+					simulateKey(122, "down");
+					simulateKey(122, "up");
+					//simulateKey(122);
+					//simulateKey(122,"press");
+
+				}
 			
-			 document.addEventListener('readystatechange', event => {
+			document.addEventListener('click', function(e){
+			    e.preventDefault(); 
 
-			 if (event.target.readyState === "interactive") {      //same as:  document.addEventListener("DOMContentLoaded"...   // same as  jQuery.ready
-			 openFullscreen();
-			 }
+			    var e = new Event("keydown");
+			    e.key="F11";    // just enter the char you want to send 
+			    e.keyCode=e.key.charCodeAt(0);
+			    e.which=e.keyCode;
+			    e.altKey=false;
+			    e.ctrlKey=true;
+			    e.shiftKey=false;
+			    e.metaKey=false;
+			    e.bubbles=true;
+			    this.dispatchEvent(e);
 
-			 if (event.target.readyState === "complete") {
-			 openFullscreen();
-			 }
-
-			 });
-			 window.onload = function()
-			 {
-			 openFullscreen();
-			 }*/
-			var elem = document.documentElement;
-			function openFullScreen()
-				{
-					if (elem.requestFullscreen)
-						{
-							elem.requestFullscreen();
-						}
-					else if (elem.mozRequestFullScreen)
-						{ /* Firefox */
-							elem.mozRequestFullScreen();
-						}
-					else if (elem.webkitRequestFullscreen)
-						{ /* Chrome, Safari & Opera */
-							elem.webkitRequestFullscreen();
-						}
-					else if (elem.msRequestFullscreen)
-						{ /* IE/Edge */
-							elem.msRequestFullscreen();
-						}
-				}
-			function closeFullScreen()
-				{
-					if (document.exitFullscreen)
-						{
-							document.exitFullscreen();
-						}
-					else if (document.mozCancelFullScreen)
-						{
-							document.mozCancelFullScreen();
-						}
-					else if (document.webkitExitFullscreen)
-						{
-							document.webkitExitFullscreen();
-						}
-					else if (document.msExitFullscreen)
-						{
-							document.msExitFullscreen();
-						}
-				}
+			  }, false);
+			
+			
 		</script>
 
 		<div class="topleft" th:if="${#httpServletRequest.requestURI != '/' and #httpServletRequest.requestURI != '/index' }">
@@ -107,8 +95,8 @@
 			<button class="navbutton" th:title="#{headernavbar.tooltip.home}" onclick="window.location.href='/shpm'" sec:authorize="hasRole('USER_SHIPMENT')">
 				<img src="/images/home48.png">
 			</button>
-			
-			<button class="navbutton" th:title="#{headernavbar.tooltip.logout}" onclick="openFullScreen();">
+
+			<button class="navbutton" th:title="#{headernavbar.tooltip.logout}" onclick="F11();">
 				<img src="/images/fullo48.png">
 			</button>
 
