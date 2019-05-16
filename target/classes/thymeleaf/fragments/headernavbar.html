@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+
 
 <head>
 <title th:text="#{headernavbar.pagetitle}"></title>
 <meta charset="UTF-8" />
+
+
+
+
 
 </head>
 
@@ -12,86 +16,96 @@
 <body>
 
 	<th:block th:fragment="FRG_header_navbar">
+
 		<link rel="stylesheet" type="text/css" th:href="@{/css/abasstyle.css}" />
-
 		<script type="text/javascript">
-			function F11() {
-				var el = document.documentElement, rfs = el.requestFullscreen
-						|| el.webkitRequestFullScreen
-						|| el.mozRequestFullScreen || el.msRequestFullscreen;
-				rfs.call(el);
-
-			}
+			window.onload = function()
+				{
+					if (window.location.pathname == "/" && window.location.search =="")
+						{
+							winOpen();
+						}
+				}
 			//
-			// document.addEventListener("DOMContentLoaded", function(event){ winOpen(););}
-			// window.addEventListener('load', function(){winOpen();});
-			// window.onload = function(e) {	winOpen();	}
-			//$(document).ready(function() { winOpen(); });
-			//window.document.onload = function(e){ winOpen();  }
-			document.onload = function() {winOpen(); }
-			//
-			function winOpen() {
+			var popup;
+			function winOpen()
+				{
+					if (window.opener == null)//if (window.toolbar.visible && window.menubar.visible)//if(window.parent == window)//if (window.opener && window.opener !== window)
+						{
+							if (popup && !popup.closed)
+								{
+									popup.focus();
+								}
+							else
+								{
+									popup = window.open(window.location.href, '', "width=" + screen.availWidth + ",height=" + screen.availHeight + ",location=0,fullscreen=1,toolbar=0,menubar=0,resizable=0");
+									popup.moveTo(0, 0);
+									popup.opener = self;
+									popup.focus();
 
-				var w = window.open('/', '', 'width=100,height=100');
-				w.resizeTo(w.screen.availHeight, w.screen.availWidth);
-				w.focus();
-			}
-			function winClose() {
-				window.close();
-			}
+									popup.onbeforeunload = function(event)
+										{
+											//popupurl = window.location.href;
+										}
+
+									var timer = setInterval(function()
+										{
+											if (popup.closed)
+												{
+													clearInterval(timer);
+												}
+										}, 1000);
+								}
+						}
+				}
+			function winClose()
+				{
+					window.opener.location.href = window.location.href;
+					window.close();
+				}
 		</script>
 
-		<div class="topleft"
-			th:if="${#httpServletRequest.requestURI != '/' and #httpServletRequest.requestURI != '/index' }">
-			<button class="navbutton" th:title="#{headernavbar.tooltip.home}"
-				onclick="window.location.href='/'"
-				sec:authorize="hasRole('ANONYMOUS')">
-				<img src="/images/home48.png">
-			</button>
-			<button class="navbutton" th:title="#{headernavbar.tooltip.home}"
-				onclick="window.location.href='/admin'"
-				sec:authorize="hasRole('ADMIN')">
-				<img src="/images/home48.png">
-			</button>
-			<button class="navbutton" th:title="#{headernavbar.tooltip.home}"
-				onclick="window.location.href='/wh'"
-				sec:authorize="hasRole('USER_WAREHOUSE')">
-				<img src="/images/home48.png">
-			</button>
-			<button class="navbutton" th:title="#{headernavbar.tooltip.home}"
-				onclick="window.location.href='/pdc'"
-				sec:authorize="hasRole('USER_PDC')">
-				<img src="/images/home48.png">
-			</button>
-			<button class="navbutton" th:title="#{headernavbar.tooltip.home}"
-				onclick="window.location.href='/shpm'"
-				sec:authorize="hasRole('USER_SHIPMENT')">
-				<img src="/images/home48.png">
-			</button>
-
-			<button class="navbutton" th:title="#{headernavbar.tooltip.logout}"
-				onclick="winOpen();">
-				<img src="/images/fullo48.png">
-			</button>
-
-			<button class="navbutton" th:title="#{headernavbar.tooltip.logout}"
-				onclick="winClose();">
-				<img src="/images/fulli48.png">
-			</button>
-		</div>
-
-
-		<div sec:authorize="isAuthenticated()">
-			<div class="topright">
-				<button class="navbutton" th:title="#{headernavbar.tooltip.logout}"
-					onclick="window.location.href='/logout'">
-					<img src="/images/logout48.png">
+		<th:block th:if="${#httpServletRequest.requestURI != '/' and #httpServletRequest.requestURI != '/index' }">
+			<div class="topleft">
+				<button class="navbutton" th:title="#{headernavbar.tooltip.home}" onclick="window.location.href='/'" sec:authorize="hasRole('ANONYMOUS')">
+					<img src="/images/home48.png">
+				</button>
+				<button class="navbutton" th:title="#{headernavbar.tooltip.home}" onclick="window.location.href='/admin'" sec:authorize="hasRole('ADMIN')">
+					<img src="/images/home48.png">
+				</button>
+				<button class="navbutton" th:title="#{headernavbar.tooltip.home}" onclick="window.location.href='/wh'" sec:authorize="hasRole('USER_WAREHOUSE')">
+					<img src="/images/home48.png">
+				</button>
+				<button class="navbutton" th:title="#{headernavbar.tooltip.home}" onclick="window.location.href='/pdc'" sec:authorize="hasRole('USER_PDC')">
+					<img src="/images/home48.png">
+				</button>
+				<button class="navbutton" th:title="#{headernavbar.tooltip.home}" onclick="window.location.href='/shpm'" sec:authorize="hasRole('USER_SHIPMENT')">
+					<img src="/images/home48.png">
 				</button>
 			</div>
-		</div>
+
+			<div class="topcenter">
+				<button class="navbutton" th:title="#{headernavbar.tooltip.maximize}" onclick="winOpen();" style="margin-left: 5px;">
+					<img src="/images/fullo48.png">
+				</button>
+				<button class="navbutton" th:title="#{headernavbar.tooltip.minimize}" onclick="winClose();" style="margin-left: 5px;">
+					<img src="/images/fulli48.png">
+				</button>
+			</div>
+
+			<div sec:authorize="isAuthenticated()">
+				<div class="topright">
+					<button class="navbutton" th:title="#{headernavbar.tooltip.logout}" onclick="window.location.href='/logout'">
+						<img src="/images/logout48.png">
+					</button>
+				</div>
+			</div>
+		</th:block>
+
 
 
 	</th:block>
+
 
 
 </body>
