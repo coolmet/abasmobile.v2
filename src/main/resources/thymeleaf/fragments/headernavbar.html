@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
 
 <head>
 <title th:text="#{headernavbar.pagetitle}"></title>
@@ -14,93 +15,54 @@
 		<link rel="stylesheet" type="text/css" th:href="@{/css/abasstyle.css}" />
 
 		<script type="text/javascript">
-			function simulateKey(keyCode, type, modifiers)
-				{
-					var evtName = (typeof (type) === "string") ? "key" + type : "keydown";
-					var modifier = (typeof (modifiers) === "object") ? modifier : {};
-
-					var event = document.createEvent("HTMLEvents");
-					event.initEvent(evtName, true, false);
-					event.keyCode = keyCode;
-
-					for ( var i in modifiers)
-						{
-							event[i] = modifiers[i];
-						}
-
-					document.body.dispatchEvent(event);
-				}
-
-			// Setup some tests
-
-			var onKeyEvent = function(event)
-				{
-					event.preventDefault();
-					var state = "pressed";
-
-					if (event.type !== "keypress")
-						{
-							state = event.type.replace("key", "");
-						}
-
-					console.log("Key with keyCode " + event.keyCode + " is " + state);
-				};
-
-			document.addEventListener("keypress", onKeyEvent, false);
-			document.addEventListener("keydown", onKeyEvent, false);
-			document.addEventListener("keyup", onKeyEvent, false);
-
-			function F11()
-				{
-
-					simulateKey(122, "down");
-					simulateKey(122, "up");
-					//simulateKey(122);
-					//simulateKey(122,"press");
-
-				}
-			
-			document.addEventListener('click', function(e){
-			    e.preventDefault(); 
-
-			    var e = new Event("keydown");
-			    e.key="F11";    // just enter the char you want to send 
-			    e.keyCode=e.key.charCodeAt(0);
-			    e.which=e.keyCode;
-			    e.altKey=false;
-			    e.ctrlKey=true;
-			    e.shiftKey=false;
-			    e.metaKey=false;
-			    e.bubbles=true;
-			    this.dispatchEvent(e);
-
-			  }, false);
-			
-			
+			function F11() {
+				/*
+				var el = document.documentElement, rfs = el.requestFullscreen
+						|| el.webkitRequestFullScreen
+						|| el.mozRequestFullScreen || el.msRequestFullscreen;
+				rfs.call(el);*/
+				//
+				var w = window.open('/', '', 'width=100,height=100');
+				w.resizeTo(w.screen.availHeight, w.screen.availWidth);
+				w.focus();
+			}
 		</script>
 
-		<div class="topleft" th:if="${#httpServletRequest.requestURI != '/' and #httpServletRequest.requestURI != '/index' }">
-			<button class="navbutton" th:title="#{headernavbar.tooltip.home}" onclick="window.location.href='/'" sec:authorize="hasRole('ANONYMOUS')">
+		<div class="topleft"
+			th:if="${#httpServletRequest.requestURI != '/' and #httpServletRequest.requestURI != '/index' }">
+			<button class="navbutton" th:title="#{headernavbar.tooltip.home}"
+				onclick="window.location.href='/'"
+				sec:authorize="hasRole('ANONYMOUS')">
 				<img src="/images/home48.png">
 			</button>
-			<button class="navbutton" th:title="#{headernavbar.tooltip.home}" onclick="window.location.href='/admin'" sec:authorize="hasRole('ADMIN')">
+			<button class="navbutton" th:title="#{headernavbar.tooltip.home}"
+				onclick="window.location.href='/admin'"
+				sec:authorize="hasRole('ADMIN')">
 				<img src="/images/home48.png">
 			</button>
-			<button class="navbutton" th:title="#{headernavbar.tooltip.home}" onclick="window.location.href='/wh'" sec:authorize="hasRole('USER_WAREHOUSE')">
+			<button class="navbutton" th:title="#{headernavbar.tooltip.home}"
+				onclick="window.location.href='/wh'"
+				sec:authorize="hasRole('USER_WAREHOUSE')">
 				<img src="/images/home48.png">
 			</button>
-			<button class="navbutton" th:title="#{headernavbar.tooltip.home}" onclick="window.location.href='/pdc'" sec:authorize="hasRole('USER_PDC')">
+			<button class="navbutton" th:title="#{headernavbar.tooltip.home}"
+				onclick="window.location.href='/pdc'"
+				sec:authorize="hasRole('USER_PDC')">
 				<img src="/images/home48.png">
 			</button>
-			<button class="navbutton" th:title="#{headernavbar.tooltip.home}" onclick="window.location.href='/shpm'" sec:authorize="hasRole('USER_SHIPMENT')">
+			<button class="navbutton" th:title="#{headernavbar.tooltip.home}"
+				onclick="window.location.href='/shpm'"
+				sec:authorize="hasRole('USER_SHIPMENT')">
 				<img src="/images/home48.png">
 			</button>
 
-			<button class="navbutton" th:title="#{headernavbar.tooltip.logout}" onclick="F11();">
+			<button class="navbutton" th:title="#{headernavbar.tooltip.logout}"
+				onclick="F11();">
 				<img src="/images/fullo48.png">
 			</button>
 
-			<button class="navbutton" th:title="#{headernavbar.tooltip.logout}" onclick="closeFullScreen();">
+			<button class="navbutton" th:title="#{headernavbar.tooltip.logout}"
+				onclick="closeFullScreen();">
 				<img src="/images/fulli48.png">
 			</button>
 		</div>
@@ -108,7 +70,8 @@
 
 		<div sec:authorize="isAuthenticated()">
 			<div class="topright">
-				<button class="navbutton" th:title="#{headernavbar.tooltip.logout}" onclick="window.location.href='/logout'">
+				<button class="navbutton" th:title="#{headernavbar.tooltip.logout}"
+					onclick="window.location.href='/logout'">
 					<img src="/images/logout48.png">
 				</button>
 			</div>
