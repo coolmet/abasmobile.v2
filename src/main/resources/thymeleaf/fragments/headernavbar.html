@@ -16,15 +16,28 @@
 
 		<script type="text/javascript">
 			function F11() {
-				/*
 				var el = document.documentElement, rfs = el.requestFullscreen
 						|| el.webkitRequestFullScreen
 						|| el.mozRequestFullScreen || el.msRequestFullscreen;
-				rfs.call(el);*/
-				//
+				rfs.call(el);
+
+			}
+			//
+			// document.addEventListener("DOMContentLoaded", function(event){ winOpen(););}
+			// window.addEventListener('load', function(){winOpen();});
+			// window.onload = function(e) {	winOpen();	}
+			//$(document).ready(function() { winOpen(); });
+			//window.document.onload = function(e){ winOpen();  }
+			document.onload = function() {winOpen(); }
+			//
+			function winOpen() {
+
 				var w = window.open('/', '', 'width=100,height=100');
 				w.resizeTo(w.screen.availHeight, w.screen.availWidth);
 				w.focus();
+			}
+			function winClose() {
+				window.close();
 			}
 		</script>
 
@@ -57,12 +70,12 @@
 			</button>
 
 			<button class="navbutton" th:title="#{headernavbar.tooltip.logout}"
-				onclick="F11();">
+				onclick="winOpen();">
 				<img src="/images/fullo48.png">
 			</button>
 
 			<button class="navbutton" th:title="#{headernavbar.tooltip.logout}"
-				onclick="closeFullScreen();">
+				onclick="winClose();">
 				<img src="/images/fulli48.png">
 			</button>
 		</div>
