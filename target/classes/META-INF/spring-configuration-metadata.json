@@ -1,0 +1,142 @@
+{
+  "groups": [
+    {
+      "name": "abas",
+      "type": "com.abas.mobile.ConfigPropertiesAbas",
+      "sourceType": "com.abas.mobile.ConfigPropertiesAbas"
+    },
+    {
+      "name": "abas.edp",
+      "type": "com.abas.mobile.ConfigPropertiesAbas$Edp",
+      "sourceType": "com.abas.mobile.ConfigPropertiesAbas",
+      "sourceMethod": "public com.abas.mobile.ConfigPropertiesAbas.Edp getEdp() "
+    },
+    {
+      "name": "abas.s3",
+      "type": "com.abas.mobile.ConfigPropertiesAbas$S3",
+      "sourceType": "com.abas.mobile.ConfigPropertiesAbas",
+      "sourceMethod": "public com.abas.mobile.ConfigPropertiesAbas.S3 getS3() "
+    },
+    {
+      "name": "server",
+      "type": "com.abas.mobile.ConfigPropertiesServer",
+      "sourceType": "com.abas.mobile.ConfigPropertiesServer"
+    },
+    {
+      "name": "server.servlet",
+      "type": "com.abas.mobile.ConfigPropertiesServer$Servlet",
+      "sourceType": "com.abas.mobile.ConfigPropertiesServer",
+      "sourceMethod": "public com.abas.mobile.ConfigPropertiesServer.Servlet getServlet() "
+    },
+    {
+      "name": "server.servlet.session",
+      "type": "com.abas.mobile.ConfigPropertiesServer$Servlet$Session",
+      "sourceType": "com.abas.mobile.ConfigPropertiesServer$Servlet",
+      "sourceMethod": "public com.abas.mobile.ConfigPropertiesServer.Servlet.Session getSession() "
+    },
+    {
+      "name": "spring",
+      "type": "com.abas.mobile.ConfigPropertiesSpring",
+      "sourceType": "com.abas.mobile.ConfigPropertiesSpring"
+    },
+    {
+      "name": "spring.mvc",
+      "type": "com.abas.mobile.ConfigPropertiesSpring$Mvc",
+      "sourceType": "com.abas.mobile.ConfigPropertiesSpring",
+      "sourceMethod": "public com.abas.mobile.ConfigPropertiesSpring.Mvc getMvc() "
+    },
+    {
+      "name": "users",
+      "type": "com.abas.mobile.AbasMobileUsersProperties",
+      "sourceType": "com.abas.mobile.AbasMobileUsersProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "abas.edp.fopmode",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$Edp"
+    },
+    {
+      "name": "abas.edp.lang",
+      "type": "java.lang.String",
+      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$Edp"
+    },
+    {
+      "name": "abas.edp.password",
+      "type": "java.lang.String",
+      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$Edp"
+    },
+    {
+      "name": "abas.edp.port",
+      "type": "java.lang.Integer",
+      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$Edp"
+    },
+    {
+      "name": "abas.edp.serverip",
+      "type": "java.lang.String",
+      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$Edp"
+    },
+    {
+      "name": "abas.s3.base-dir",
+      "type": "java.lang.String",
+      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$S3"
+    },
+    {
+      "name": "abas.s3.dir",
+      "type": "java.lang.String",
+      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$S3"
+    },
+    {
+      "name": "abas.s3.mandant",
+      "type": "java.lang.String",
+      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$S3"
+    },
+    {
+      "name": "server.connection-timeout",
+      "type": "java.lang.String",
+      "sourceType": "com.abas.mobile.ConfigPropertiesServer"
+    },
+    {
+      "name": "server.port",
+      "type": "java.lang.Integer",
+      "sourceType": "com.abas.mobile.ConfigPropertiesServer"
+    },
+    {
+      "name": "server.servlet.session.timeout",
+      "type": "java.lang.String",
+      "sourceType": "com.abas.mobile.ConfigPropertiesServer$Servlet$Session"
+    },
+    {
+      "name": "spring.mvc.locale",
+      "type": "java.lang.String",
+      "sourceType": "com.abas.mobile.ConfigPropertiesSpring$Mvc"
+    },
+    {
+      "name": "users.admins",
+      "type": "java.util.List<com.abas.mobile.model.AbasUserDetails>",
+      "sourceType": "com.abas.mobile.AbasMobileUsersProperties"
+    },
+    {
+      "name": "users.pdcs",
+      "type": "java.util.List<com.abas.mobile.model.AbasUserDetails>",
+      "sourceType": "com.abas.mobile.AbasMobileUsersProperties"
+    },
+    {
+      "name": "users.shpms",
+      "type": "java.util.List<com.abas.mobile.model.AbasUserDetails>",
+      "sourceType": "com.abas.mobile.AbasMobileUsersProperties"
+    },
+    {
+      "name": "users.users",
+      "type": "java.util.List<com.abas.mobile.model.AbasUserDetails>",
+      "sourceType": "com.abas.mobile.AbasMobileUsersProperties"
+    },
+    {
+      "name": "users.whs",
+      "type": "java.util.List<com.abas.mobile.model.AbasUserDetails>",
+      "sourceType": "com.abas.mobile.AbasMobileUsersProperties"
+    }
+  ],
+  "hints": []
+}

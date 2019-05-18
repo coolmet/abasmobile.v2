@@ -51,6 +51,18 @@
 					</td>
 				</tr>
 				<tr>
+					<td th:text="#{admin.settings.label.edplang}">
+					<td>
+						<input type="text" name="abas_edp_lang" id="abas_edp_lang" th:value="${abas_edp_lang}">
+					</td>
+				</tr>
+				<tr>
+					<td th:text="#{admin.settings.label.edpfopmode}">
+					<td>
+						<input type="checkbox" name="abas_edp_fopmode" id="abas_edp_fopmode" th:value="${abas_edp_fopmode}" th:checked="${abas_edp_fopmode}">
+					</td>
+				</tr>
+				<tr>
 					<td th:text="#{admin.settings.label.serverip}">
 					<td>
 						<input type="text" name="abas_edp_serverip" id="abas_edp_serverip" th:value="${abas_edp_serverip}">

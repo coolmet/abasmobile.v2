@@ -3,7 +3,9 @@ package com.abas.mobile;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.core.annotation.Order;
 
 @ConfigurationProperties(prefix="abas")
@@ -84,6 +86,10 @@ public class ConfigPropertiesAbas
 		@Min(1025)
 		@Max(65536)
 		private int port;
+		@NotBlank
+		private String lang;
+		@NotBlank
+		private boolean fopmode;
 		
 		public String getServerip()
 		{
@@ -113,6 +119,26 @@ public class ConfigPropertiesAbas
 		public void setPort(int port)
 		{
 			this.port=port;
+		}
+		
+		public String getLang()
+		{
+			return lang;
+		}
+		
+		public void setLang(String lang)
+		{
+			this.lang=lang;
+		}
+		
+		public boolean isFopmode()
+		{
+			return fopmode;
+		}
+		
+		public void setFopmode(boolean fopmode)
+		{
+			this.fopmode=fopmode;
 		}
 		
 	}

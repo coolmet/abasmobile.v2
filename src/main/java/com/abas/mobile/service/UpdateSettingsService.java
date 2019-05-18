@@ -1,9 +1,38 @@
 package com.abas.mobile.service;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.Optional;
+import java.util.Properties;
+import java.util.TreeSet;
+import java.util.stream.StreamSupport;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
+import org.springframework.boot.devtools.restart.Restarter;
+import org.springframework.cloud.context.restart.RestartEndpoint;
+import org.springframework.cloud.endpoint.RefreshEndpoint;
 import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.core.env.MutablePropertySources;
+import org.springframework.core.env.PropertiesPropertySource;
+import org.springframework.core.env.PropertySource;
+import org.springframework.core.env.StandardEnvironment;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DefaultPropertiesPersister;
+import com.abas.mobile.SecurityConfiguration;
+import com.abas.mobile.SpringBootAppStarter;
 import com.abas.mobile.model.MessageInfo;
 
 @Service
@@ -12,8 +41,17 @@ public class UpdateSettingsService
 	@Autowired
 	private MessageSource messageSource;
 	
+	@Autowired
+	private SecurityConfiguration securityConfiguration;
+	
+	@Autowired
+	protected StandardEnvironment environment;
+	private PropertySource<?> appConfigPropertySource=null;
+	
 	public MessageInfo update(String abas_edp_password,
 	                          String abas_edp_port,
+	                          String abas_edp_lang,
+	                          String abas_edp_fopmode,
 	                          String abas_edp_serverip,
 	                          String abas_s3_dir,
 	                          String abas_s3_basedir,
@@ -24,7 +62,7 @@ public class UpdateSettingsService
 	                          String server_servlet_session_timeout)
 	{
 		MessageInfo result=new MessageInfo();
-		if(abas_edp_password.equals(""))
+		if(abas_edp_password.equals(null)||abas_edp_password.equals(""))
 		{
 			result.setMessage(messageSource.getMessage("admin.settings.message.edppassword.empty",new Object[0],LocaleContextHolder.getLocale()));
 			result.setStatus(false);
@@ -32,6 +70,16 @@ public class UpdateSettingsService
 		else if(abas_edp_port.equals(""))
 		{
 			result.setMessage(messageSource.getMessage("admin.settings.message.edpport.empty",new Object[0],LocaleContextHolder.getLocale()));
+			result.setStatus(false);
+		}
+		else if(abas_edp_lang.equals(""))
+		{
+			result.setMessage(messageSource.getMessage("admin.settings.message.lang.empty",new Object[0],LocaleContextHolder.getLocale()));
+			result.setStatus(false);
+		}
+		else if(abas_edp_fopmode.equals(""))
+		{
+			result.setMessage(messageSource.getMessage("admin.settings.message.fopmode.empty",new Object[0],LocaleContextHolder.getLocale()));
 			result.setStatus(false);
 		}
 		else if(abas_edp_serverip.equals(""))
@@ -76,9 +124,93 @@ public class UpdateSettingsService
 		}
 		else
 		{
+			try
+			{
+				
+				Properties props=new Properties()
+				{
+					@Override
+					public synchronized Enumeration<Object> keys()
+					{
+						return Collections.enumeration(new TreeSet<Object>(super.keySet()));
+					}
+				};
+				props.setProperty("abas.edp.password",abas_edp_password);
+				props.setProperty("abas.edp.port",abas_edp_port);
+				props.setProperty("abas.edp.serverip",abas_edp_serverip);
+				props.setProperty("abas.edp.lang",abas_edp_lang);
+				props.setProperty("abas.edp.fopmode",abas_edp_fopmode);
+				props.setProperty("abas.s3.dir",abas_s3_dir);
+				props.setProperty("abas.s3.basedir",abas_s3_basedir);
+				props.setProperty("abas.s3.mandant",abas_s3_mandant);
+				props.setProperty("#############","---");
+				props.setProperty("spring.mvc.locale",spring_mvc_locale);
+				props.setProperty("server.port",server_port);
+				props.setProperty("server.connection-timeout",server_connection_timeout);
+				props.setProperty("server.servlet.session.timeout",server_servlet_session_timeout);
+				File f=new File(this.getClass().getResource("/config/abasconfig.properties").getFile());
+				OutputStream out=new FileOutputStream(f);
+				DefaultPropertiesPersister p=new DefaultPropertiesPersister();
+				p.store(props,out,"Abas Mobile Settings");
+				//
+				MutablePropertySources propertySources=environment.getPropertySources();
+				StreamSupport.stream(propertySources.spliterator(),false).forEach(ff->
+				{
+					System.out.println("0: @@@@@@@@@@@@@@@"+ff.getName()+":"+ff.getName().contains("abasconfig.properties"));
+				});
+				//
+				// Optional<PropertySource<?>> appConfigPsOp=StreamSupport.stream(propertySources.spliterator(),false)
+				// .filter(ps->ps.getName().contains("abasconfig.properties"))
+				// .findFirst();
+				// if(!appConfigPsOp.isPresent())
+				// {
+				// throw new RuntimeException("Unable to find property Source as file");
+				// }
+				// appConfigPropertySource=appConfigPsOp.get();
+				// environment.getPropertySources()
+				// .replace(
+				// appConfigPropertySource.getName(),
+				// new PropertiesPropertySource(
+				// appConfigPropertySource.getName(),
+				// props));
+				// *********************
+				// ReloadableProperties r=new ReloadableProperties()
+				// {
+				//
+				// @Override
+				// protected void propertiesReloaded()
+				// {
+				// // TODO Auto-generated method stub
+				//
+				// }
+				// };
+				// r.setProperties(props);
+				// r.reload();
+				//
+				// refreshEndpoint.refresh();
+				// SpringBootAppStarter.restart();
+				
+				// Thread restartThread=new Thread(()->restartEndpoint.restart());
+				// restartThread.setDaemon(false);
+				// restartThread.start();
+				
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+				System.out.println(e.getLocalizedMessage());
+			}
 			result.setMessage(messageSource.getMessage("admin.settings.message.updated",new Object[0],LocaleContextHolder.getLocale()));
 			result.setStatus(true);
+			
 		}
 		return result;
 	}
+	
+	@Autowired
+	private RestartEndpoint restartEndpoint;
+	
+	@Autowired
+	private RefreshEndpoint refreshEndpoint;
+	
 }
