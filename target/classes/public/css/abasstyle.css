@@ -203,7 +203,7 @@ button:focus {outline:0 !important;}
   padding-bottom: 12px;
   text-align: left;
   background-color: #5DBCD2;
-  color: white;
+  color: black;
 }
 /*######################################SETTINGS TABLE################## */
 table#settings {

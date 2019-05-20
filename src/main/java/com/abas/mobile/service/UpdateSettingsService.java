@@ -14,6 +14,8 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.TreeSet;
 import java.util.stream.StreamSupport;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.boot.devtools.restart.Restarter;
@@ -32,6 +34,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.stereotype.Service;
 import org.springframework.util.DefaultPropertiesPersister;
 import com.abas.mobile.SecurityConfiguration;
+import com.abas.mobile.SprinBootAppConfiguration;
 import com.abas.mobile.SpringBootAppStarter;
 import com.abas.mobile.model.MessageInfo;
 
@@ -47,6 +50,7 @@ public class UpdateSettingsService
 	@Autowired
 	protected StandardEnvironment environment;
 	private PropertySource<?> appConfigPropertySource=null;
+	Logger LOGGER=LoggerFactory.getLogger(SprinBootAppConfiguration.class);
 	
 	public MessageInfo update(String abas_edp_password,
 	                          String abas_edp_port,
@@ -156,44 +160,8 @@ public class UpdateSettingsService
 				MutablePropertySources propertySources=environment.getPropertySources();
 				StreamSupport.stream(propertySources.spliterator(),false).forEach(ff->
 				{
-					System.out.println("0: @@@@@@@@@@@@@@@"+ff.getName()+":"+ff.getName().contains("abasconfig.properties"));
+					LOGGER.debug("@@@ "+ff.getName()+":"+ff.getName().contains("abasconfig.properties"));
 				});
-				//
-				// Optional<PropertySource<?>> appConfigPsOp=StreamSupport.stream(propertySources.spliterator(),false)
-				// .filter(ps->ps.getName().contains("abasconfig.properties"))
-				// .findFirst();
-				// if(!appConfigPsOp.isPresent())
-				// {
-				// throw new RuntimeException("Unable to find property Source as file");
-				// }
-				// appConfigPropertySource=appConfigPsOp.get();
-				// environment.getPropertySources()
-				// .replace(
-				// appConfigPropertySource.getName(),
-				// new PropertiesPropertySource(
-				// appConfigPropertySource.getName(),
-				// props));
-				// *********************
-				// ReloadableProperties r=new ReloadableProperties()
-				// {
-				//
-				// @Override
-				// protected void propertiesReloaded()
-				// {
-				// // TODO Auto-generated method stub
-				//
-				// }
-				// };
-				// r.setProperties(props);
-				// r.reload();
-				//
-				// refreshEndpoint.refresh();
-				// SpringBootAppStarter.restart();
-				
-				// Thread restartThread=new Thread(()->restartEndpoint.restart());
-				// restartThread.setDaemon(false);
-				// restartThread.start();
-				
 			}
 			catch(Exception e)
 			{
