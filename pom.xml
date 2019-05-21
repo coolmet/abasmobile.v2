@@ -133,16 +133,7 @@
 
 	<build>
 
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-				<excludes>
-					<exclude>**/production/**</exclude>
-				</excludes>
-			</resource>
-		</resources>
-
+		<!-- <resources> <resource> <directory>src/main/resources</directory> <filtering>true</filtering> <excludes> <exclude>**/production/**</exclude> </excludes> </resource> </resources> -->
 
 		<plugins>
 			<plugin>

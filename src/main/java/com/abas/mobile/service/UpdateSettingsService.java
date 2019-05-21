@@ -9,6 +9,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
@@ -55,6 +56,7 @@ public class UpdateSettingsService
 	
 	@Autowired
 	protected StandardEnvironment environment;
+	
 	private PropertySource<?> appConfigPropertySource=null;
 	Logger LOGGER=LoggerFactory.getLogger(SprinBootAppConfiguration.class);
 	
@@ -158,26 +160,13 @@ public class UpdateSettingsService
 				props.setProperty("server.port",server_port);
 				props.setProperty("server.connection-timeout",server_connection_timeout);
 				props.setProperty("server.servlet.session.timeout",server_servlet_session_timeout);
-				File f=null;
-				
-				try
-				{
-					f=resourceLoader.getResource("classpath:./config/abasconfig.properties").getFile();// springtools
-				}
-				catch(Exception rt)
-				{
-					try
-					{
-						f=new File("./config/abasconfig.properties");// jar
-					}
-					catch(Exception rtt)
-					{
-					}
-				}
+				File f=Arrays.stream(environment.getActiveProfiles()).anyMatch(env->(env.equalsIgnoreCase("prod")))
+				?new File("./config/abasconfig.properties")// jar
+				:resourceLoader.getResource("classpath:./config/abasconfig.properties").getFile();// springtools
 				
 				OutputStream out=new FileOutputStream(f);
 				DefaultPropertiesPersister p=new DefaultPropertiesPersister();
-				p.store(props,out,"Abas Mobile Settings");				
+				p.store(props,out,"Abas Mobile Settings");
 			}
 			catch(Exception e)
 			{

@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.stream.StreamSupport;
@@ -58,21 +59,17 @@ public abstract class ReloadablePropertiesService
 		}
 		appConfigPropertySource=appConfigPsOp.get();
 		try
-		{
-			configPath=Paths.get(resourceLoader.getResource("classpath:./config/abasconfig.properties").getFile().getPath());// springtools
-			Files.getLastModifiedTime(configPath).toMillis();
+		{			
+			configPath=Arrays.stream(environment.getActiveProfiles()).anyMatch(env->(env.equalsIgnoreCase("prod")))
+			?Paths.get("./config/abasconfig.properties")// jar
+			:Paths.get(resourceLoader.getResource("classpath:./config/abasconfig.properties").getFile().getPath());// springtools
+			
 		}
-		catch(Exception rt)
+		catch(IOException e)
 		{
-			try
-			{
-				configPath=Paths.get("./config/abasconfig.properties");// jar
-				Files.getLastModifiedTime(configPath).toMillis();
-			}
-			catch(Exception rtt)
-			{
-			}
+			e.printStackTrace();
 		}
+		
 	}
 	
 	@Scheduled(fixedRate=5000)
