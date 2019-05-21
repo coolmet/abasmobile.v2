@@ -42,6 +42,10 @@ public abstract class ReloadablePropertiesService
 		LOGGER.debug("@@@ Releadeble properties is starting");
 		System.out.println("###starting###");
 		MutablePropertySources propertySources=environment.getPropertySources();
+		StreamSupport.stream(propertySources.spliterator(),false).forEach(ff->
+		{
+			LOGGER.info("@@@ "+ff.getName()+":"+ff.getName().contains("abasconfig.properties"));
+		});
 		Optional<PropertySource<?>> appConfigPsOp=
 		StreamSupport.stream(propertySources.spliterator(),false)
 		             .filter(ps->ps.getName().contains("abasconfig.properties"))
@@ -55,39 +59,48 @@ public abstract class ReloadablePropertiesService
 		appConfigPropertySource=appConfigPsOp.get();
 		try
 		{
-			configPath=Paths.get(resourceLoader.getResource("classpath:/config/abasconfig.properties").getFile().getPath());
+			configPath=Paths.get(resourceLoader.getResource("classpath:./config/abasconfig.properties").getFile().getPath());// springtools
+			Files.getLastModifiedTime(configPath).toMillis();
 		}
-		catch(IOException e)
+		catch(Exception rt)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			try
+			{
+				configPath=Paths.get("./config/abasconfig.properties");// jar
+				Files.getLastModifiedTime(configPath).toMillis();
+			}
+			catch(Exception rtt)
+			{
+			}
 		}
-		
 	}
 	
 	@Scheduled(fixedRate=5000)
 	private void reload() throws IOException
 	{
-		LOGGER.debug("@@@ checking abasconfig.properties");
+		LOGGER.info("@@@ checking abasconfig.properties");
 		// Path configPath=Paths.get("./src/main/resources/config/abasconfig.properties");
 		// Path configPath=Paths.get(new ClassPathResource("./config/abasconfig.properties").getPath());
 		long currentModTs=Files.getLastModifiedTime(configPath).toMillis();
 		if(currentModTs>lastModTime)
 		{
-			LOGGER.debug("@@@ reloading abasconfig.properties \t>"+lastModTime+":"+currentModTs);
-			boolean isFirst=lastModTime==0;
+			
+			LOGGER.info("@@@ reloading abasconfig.properties \t>"+lastModTime+":"+currentModTs);
 			lastModTime=currentModTs;
 			Properties properties=new Properties();
 			InputStream inputStream=Files.newInputStream(configPath);
 			properties.load(inputStream);
+			LOGGER.info("@@@ xxxxxxxxx"+properties.getProperty("abas.s3.mandant"));
+			
 			environment.getPropertySources()
 			           .replace(
 			                    appConfigPropertySource.getName(),
 			                    new PropertiesPropertySource(
 			                                                 appConfigPropertySource.getName(),
 			                                                 properties));
-			LOGGER.debug("@@@ reloaded abasconfig.properties");
+			LOGGER.info("@@@ reloaded abasconfig.properties");
 			propertiesReloaded();
+			
 		}
 	}
 	

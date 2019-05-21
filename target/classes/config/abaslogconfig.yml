@@ -1,4 +1,4 @@
-logging.file: logs/abasmobile.log 
+logging.file: ./logs/abasmobile.log 
 logging:
   level:
     root: info

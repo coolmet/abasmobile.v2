@@ -7,6 +7,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
@@ -28,6 +30,7 @@ import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
 import org.springframework.core.env.StandardEnvironment;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -46,6 +49,9 @@ public class UpdateSettingsService
 	
 	@Autowired
 	private SecurityConfiguration securityConfiguration;
+	
+	@Autowired
+	private ResourceLoader resourceLoader;
 	
 	@Autowired
 	protected StandardEnvironment environment;
@@ -152,16 +158,26 @@ public class UpdateSettingsService
 				props.setProperty("server.port",server_port);
 				props.setProperty("server.connection-timeout",server_connection_timeout);
 				props.setProperty("server.servlet.session.timeout",server_servlet_session_timeout);
-				File f=new File(this.getClass().getResource("/config/abasconfig.properties").getFile());
+				File f=null;
+				
+				try
+				{
+					f=resourceLoader.getResource("classpath:./config/abasconfig.properties").getFile();// springtools
+				}
+				catch(Exception rt)
+				{
+					try
+					{
+						f=new File("./config/abasconfig.properties");// jar
+					}
+					catch(Exception rtt)
+					{
+					}
+				}
+				
 				OutputStream out=new FileOutputStream(f);
 				DefaultPropertiesPersister p=new DefaultPropertiesPersister();
-				p.store(props,out,"Abas Mobile Settings");
-				//
-				MutablePropertySources propertySources=environment.getPropertySources();
-				StreamSupport.stream(propertySources.spliterator(),false).forEach(ff->
-				{
-					LOGGER.debug("@@@ "+ff.getName()+":"+ff.getName().contains("abasconfig.properties"));
-				});
+				p.store(props,out,"Abas Mobile Settings");				
 			}
 			catch(Exception e)
 			{
