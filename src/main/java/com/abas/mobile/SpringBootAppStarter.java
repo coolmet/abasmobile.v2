@@ -28,6 +28,12 @@ public class SpringBootAppStarter
 		                                                                .properties("spring.config.name:application,abasconfig,abaslogconfig,abasmobileusers,webserverconfig",
 		                                                                            "spring.config.location:classpath:/config/,classpath:/")
 		                                                                .build().run(args);
+		
+	}
+	
+	public static void refresh()
+	{
+		context.refresh();
 	}
 	
 	public static void restart()

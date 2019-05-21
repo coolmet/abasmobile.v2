@@ -16,5 +16,6 @@ java ^
 -Dcom.sun.management.jmxremote.ssl=FALSE ^
 -Dcom.sun.management.jmxremote.authenticate=FALSE ^
 -Dlog4j.configuration=./config/abaslogconfig.yml ^
+-Dspring.profiles.active=prod ^
 -jar ./lib/abasmobile-0.0.1-SNAPSHOT.jar ^
 --spring.config.location=file:../config/abasconfig.properties,./config/
