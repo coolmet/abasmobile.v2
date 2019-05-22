@@ -18,9 +18,9 @@ public class LanguageService
 	{
 		System.out.println("------------------------------");
 		languages=new ArrayList<>();
-		languages.add(new Language(0,"Turkish","tr","TR","tr_TR",new Locale("tr","TR")));
-		languages.add(new Language(0,"English","en","EN","en_EN",new Locale("en","EN")));
-		languages.add(new Language(0,"Deutsch","de","DE","de_DE",new Locale("de","DE")));
+		languages.add(new Language(0,"Turkish","tr","TR","tr_TR",new Locale("tr","TR"),"T"));
+		languages.add(new Language(0,"English","en","EN","en_EN",new Locale("en","EN"),"E"));
+		languages.add(new Language(0,"Deutsch","de","DE","de_DE",new Locale("de","DE"),"D"));
 	}
 	
 	public Locale getLocale(String localeLongName)
@@ -34,6 +34,7 @@ public class LanguageService
 		}
 		return null;
 	}
+	
 	public String getLanguageCode(String localeLongName)
 	{
 		for(Language lang:languages)
@@ -41,6 +42,18 @@ public class LanguageService
 			if(lang.getLocaleLongName().equals(localeLongName))
 			{
 				return lang.getLanguageCode();
+			}
+		}
+		return "";
+	}
+	
+	public String getEdpLang(String localeLongName)
+	{
+		for(Language lang:languages)
+		{
+			if(lang.getLocaleLongName().equals(localeLongName))
+			{
+				return lang.getEdplang();
 			}
 		}
 		return "";
@@ -67,6 +80,32 @@ public class LanguageService
 			if(lang.getLocale().equals(defLocale))
 			{
 				return lang.getLocaleLongName();
+			}
+		}
+		return "";
+	}
+	
+	public String getDefaultLocaleEdpLang()
+	{
+		
+		Locale defLocale=LocaleContextHolder.getLocale();
+		for(Language lang:languages)
+		{
+			if(lang.getLocale().equals(defLocale))
+			{
+				return lang.getEdplang();
+			}
+		}
+		return "";
+	}
+	
+	public String getLocaleEdpLang(String localeLongName)
+	{		
+		for(Language lang:languages)
+		{
+			if(lang.getLocaleLongName().equals(localeLongName))
+			{
+				return lang.getEdplang();
 			}
 		}
 		return "";

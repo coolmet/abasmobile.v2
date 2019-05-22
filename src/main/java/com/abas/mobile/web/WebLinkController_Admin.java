@@ -62,6 +62,7 @@ public class WebLinkController_Admin
 	{"/admin/settings"})
 	public ModelAndView settings(HttpSession session,HttpServletRequest request)
 	{
+		
 		ModelAndView mav=new ModelAndView();
 		if(request.getMethod().equals("GET"))
 		{
@@ -113,23 +114,43 @@ public class WebLinkController_Admin
 				session.removeAttribute("settings_message"+session.getId());
 				session.removeAttribute("settings_status"+session.getId());
 			}
-			mav.setViewName("th_admin_settings");			
+			mav.setViewName("th_admin_settings");
 		}
 		else if(request.getMethod().equals("POST")) // save butonu
 		{
-			// SAVE
-			MessageInfo result=updateSettingsService.update(request.getParameter("abas_edp_password"),
-			                                                request.getParameter("abas_edp_port"),
-			                                                request.getParameter("abas_edp_lang"),
-			                                                ""+(request.getParameter("abas_edp_fopmode")!=null),
-			                                                request.getParameter("abas_edp_serverip"),
-			                                                request.getParameter("abas_s3_dir"),
-			                                                request.getParameter("abas_s3_basedir"),
-			                                                request.getParameter("abas_s3_mandant"),
-			                                                request.getParameter("spring_mvc_locale"),
-			                                                request.getParameter("server_port"),
-			                                                request.getParameter("server_connection_timeout"),
-			                                                request.getParameter("server_servlet_session_timeout"));
+			MessageInfo result=null;
+			if(request.getParameter("button").equals("testconnection"))
+			{
+				result=updateSettingsService.testconnection(request.getParameter("abas_edp_password"),
+				                                            request.getParameter("abas_edp_port"),
+				                                            request.getParameter("abas_edp_lang"),
+				                                            ""+(request.getParameter("abas_edp_fopmode")!=null),
+				                                            request.getParameter("abas_edp_serverip"),
+				                                            request.getParameter("abas_s3_dir"),
+				                                            request.getParameter("abas_s3_basedir"),
+				                                            request.getParameter("abas_s3_mandant"),
+				                                            request.getParameter("spring_mvc_locale"),
+				                                            request.getParameter("server_port"),
+				                                            request.getParameter("server_connection_timeout"),
+				                                            request.getParameter("server_servlet_session_timeout"));
+			}
+			else if(request.getParameter("button").equals("update"))
+			{
+				// SAVE
+				result=updateSettingsService.update(request.getParameter("abas_edp_password"),
+				                                    request.getParameter("abas_edp_port"),
+				                                    request.getParameter("abas_edp_lang"),
+				                                    ""+(request.getParameter("abas_edp_fopmode")!=null),
+				                                    request.getParameter("abas_edp_serverip"),
+				                                    request.getParameter("abas_s3_dir"),
+				                                    request.getParameter("abas_s3_basedir"),
+				                                    request.getParameter("abas_s3_mandant"),
+				                                    request.getParameter("spring_mvc_locale"),
+				                                    request.getParameter("server_port"),
+				                                    request.getParameter("server_connection_timeout"),
+				                                    request.getParameter("server_servlet_session_timeout"));
+				
+			}
 			session.setAttribute("settings_abas_edp_password"+session.getId(),request.getParameter("abas_edp_password"));
 			session.setAttribute("settings_abas_edp_port"+session.getId(),request.getParameter("abas_edp_port"));
 			session.setAttribute("settings_abas_edp_lang"+session.getId(),request.getParameter("abas_edp_lang"));
@@ -145,6 +166,7 @@ public class WebLinkController_Admin
 			session.setAttribute("settings_message"+session.getId(),result.getMessage());
 			session.setAttribute("settings_status"+session.getId(),result.isStatus());
 			mav.setViewName("redirect:/admin/settings");
+			
 		}
 		return mav;
 	}

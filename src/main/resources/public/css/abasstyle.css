@@ -230,6 +230,7 @@ table#settings td, table#settings th {
   color: white;
   opacity: 1;
   transition: opacity 0.6s;
+  font-size: 12px;
 }
 
 .alert-success {
@@ -238,6 +239,7 @@ table#settings td, table#settings th {
   color: white;
   opacity: 1;
   transition: opacity 0.6s;
+  font-size: 12px;
 }
 
 .alertclosebtn {

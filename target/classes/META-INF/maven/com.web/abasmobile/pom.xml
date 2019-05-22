@@ -129,6 +129,14 @@
 			<artifactId>jackson-dataformat-xml</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>abas.jedp</groupId>
+			<artifactId>edp</artifactId>
+			<version>3.49</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/extlibs/abas-jedp-3.49.jar</systemPath>
+		</dependency>
+
 	</dependencies>
 
 	<properties>
@@ -146,6 +154,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<includeSystemScope>true</includeSystemScope>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

@@ -9,6 +9,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
@@ -41,6 +42,10 @@ import com.abas.mobile.SecurityConfiguration;
 import com.abas.mobile.SprinBootAppConfiguration;
 import com.abas.mobile.SpringBootAppStarter;
 import com.abas.mobile.model.MessageInfo;
+import de.abas.ceks.jedp.EDPFactory;
+import de.abas.ceks.jedp.EDPMessage;
+import de.abas.ceks.jedp.EDPMessageListener;
+import de.abas.ceks.jedp.EDPSession;
 
 @Service
 public class UpdateSettingsService
@@ -49,15 +54,14 @@ public class UpdateSettingsService
 	private MessageSource messageSource;
 	
 	@Autowired
-	private SecurityConfiguration securityConfiguration;
-	
-	@Autowired
 	private ResourceLoader resourceLoader;
 	
 	@Autowired
 	protected StandardEnvironment environment;
 	
-	private PropertySource<?> appConfigPropertySource=null;
+	@Autowired
+	protected LanguageService languageService;
+	
 	Logger LOGGER=LoggerFactory.getLogger(SprinBootAppConfiguration.class);
 	
 	public MessageInfo update(String abas_edp_password,
@@ -180,10 +184,80 @@ public class UpdateSettingsService
 		return result;
 	}
 	
-	@Autowired
-	private RestartEndpoint restartEndpoint;
+	public MessageInfo testconnection(String abas_edp_password,
+	                                  String abas_edp_port,
+	                                  String abas_edp_lang,
+	                                  String abas_edp_fopmode,
+	                                  String abas_edp_serverip,
+	                                  String abas_s3_dir,
+	                                  String abas_s3_basedir,
+	                                  String abas_s3_mandant,
+	                                  String spring_mvc_locale,
+	                                  String server_port,
+	                                  String server_connection_timeout,
+	                                  String server_servlet_session_timeout)
+	{
+		MessageInfo result=new MessageInfo();
+		//
+		ArrayList<EDPMessage> edpMessages=new ArrayList<EDPMessage>();
+		//
+		EDPSession session=null;
+		try
+		{
+			if(session==null)
+			{
+				session=EDPFactory.createEDPSession();
+				session.setConnectTimeout(5000);
+				session.resetErrorMessageListener();
+				session.setErrorMessageListener(this.edpMessageListener(edpMessages));
+				session.setStatusMessageListener(this.edpMessageListener(edpMessages));
+			}
+			if(!session.isConnected())
+			{
+				session.beginSession(abas_edp_serverip,Integer.parseInt(abas_edp_port),abas_s3_mandant,abas_edp_password,"AbasMobile_TestConnection",true);
+				session.setEKSLanguage(abas_edp_lang);
+				
+			}
+			if(session.isConnected())
+			{
+				result.setStatus(true);				
+				result.setMessage("Connection successfully\n"+session.getABASVersion()+" "+session.getOperatorCode());
+				session.endSession();
+			}
+			else
+			{
+				result.setStatus(false);
+				result.setMessage("Connection failed");
+			}
+		}
+		catch(Exception rt)
+		{
+			result.setStatus(false);
+			result.setMessage(rt.getLocalizedMessage());
+		}
+		finally
+		{
+			if(session!=null&&session.isConnected())
+			{
+				session.endSession();
+			}
+		}
+		for(EDPMessage edpMessage:edpMessages)
+		{
+			LOGGER.info("@@@ "+edpMessage.getMessageCategory()+":"+edpMessage.getMessageType()+":"+edpMessage.getMessageText());
+		}
+		return result;
+	}
 	
-	@Autowired
-	private RefreshEndpoint refreshEndpoint;
-	
+	public EDPMessageListener edpMessageListener(ArrayList<EDPMessage> edpMessage)
+	{
+		return new EDPMessageListener()
+		{
+			@Override
+			public void receivedMessage(EDPMessage em)
+			{
+				edpMessage.add(em);
+			}
+		};
+	}
 }
