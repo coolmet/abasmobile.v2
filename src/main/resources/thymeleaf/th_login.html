@@ -24,19 +24,18 @@
 
 		<form th:action="login" method="post">
 			<label for="username" th:text="#{login.label.username}"></label>
-			:
+			<br />
 			<input type="text" id="username" name="username" autofocus="autofocus" />
 			<br />
 			<label for="password" th:text="#{login.label.password}"></label>
-			:
+			<br />
 			<input type="password" id="password" name="password" />
 			<br />
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-
 			<label for="remember-me" th:text="#{login.label.rememberme}"></label>
 			<input id="remember-me" name="remember-me" type="checkbox">
 			<br />
-			<input type="submit" th:value="#{login.button.submit}" />
+			<button id="update" type="submit" th:text="#{login.button.submit}"></button>
 		</form>
 
 
