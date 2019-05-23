@@ -25,14 +25,14 @@
 			<div th:if="${message} != null and ${status} == false " style="color: red; margin: 8px 0px;">
 				<div class="alert-danger">
 					<span class="alertclosebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-					<span th:utext="${message}"></span>
+					<p th:utext="${message}"></p>
 				</div>
 			</div>
 
 			<div th:if="${message} != null and ${status} == true " style="color: green; margin: 8px 0px;">
 				<div class="alert-success">
 					<span class="alertclosebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-					<span th:utext="${message}"></span>
+					<p th:utext="${message}"></p>
 				</div>
 			</div>
 

@@ -207,21 +207,20 @@ public class UpdateSettingsService
 			if(session==null)
 			{
 				session=EDPFactory.createEDPSession();
-				session.setConnectTimeout(5000);
-				session.resetErrorMessageListener();
-				session.setErrorMessageListener(this.edpMessageListener(edpMessages));
-				session.setStatusMessageListener(this.edpMessageListener(edpMessages));
+				session.setConnectTimeout(5000);				
 			}
 			if(!session.isConnected())
 			{
 				session.beginSession(abas_edp_serverip,Integer.parseInt(abas_edp_port),abas_s3_mandant,abas_edp_password,"AbasMobile_TestConnection",true);
 				session.setEKSLanguage(abas_edp_lang);
-				
+				session.resetErrorMessageListener();
+				session.setErrorMessageListener(this.edpMessageListener(edpMessages));
+				session.setStatusMessageListener(this.edpMessageListener(edpMessages));
 			}
 			if(session.isConnected())
 			{
 				result.setStatus(true);				
-				result.setMessage("Connection successfully\n"+session.getABASVersion()+" "+session.getOperatorCode());
+				result.setMessage("Connection successfully "+session.getABASVersion()+" "+session.getOperatorCode());
 				session.endSession();
 			}
 			else

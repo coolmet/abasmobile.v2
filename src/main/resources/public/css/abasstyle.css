@@ -225,7 +225,7 @@ table#settings td, table#settings th {
 
 /*######################################ALERT################## */
 .alert-danger {
-  padding: 20px;
+  padding: 5px;
   background-color: #d9534f;
   color: white;
   opacity: 1;
@@ -234,7 +234,7 @@ table#settings td, table#settings th {
 }
 
 .alert-success {
-  padding: 20px;
+  padding: 5px;
   background-color: #5cb85c;
   color: white;
   opacity: 1;
