@@ -43,10 +43,12 @@ public class SprinBootAppConfiguration
 		{
 			LOGGER.debug("@@@ abas.users\t\t= "+user.getUsername()+":"+user.getPassword()+":"+Arrays.toString(user.getRoles()));
 		}
-		//
+		// 
 		LOGGER.info("@@@ abas.edp.password\t\t= "+"*****");
 		LOGGER.info("@@@ abas.edp.port\t\t\t= "+configAbas.getEdp().getPort());
 		LOGGER.info("@@@ abas.edp.serverip\t\t= "+configAbas.getEdp().getServerip());
+		LOGGER.info("@@@ abas.edp.fopmode\t\t\t= "+configAbas.getEdp().isFopmode());
+		LOGGER.info("@@@ abas.edp.fl\t\t\t= "+configAbas.getEdp().isFl());
 		LOGGER.info("@@@ abas.s3.dir\t\t\t= "+configAbas.getS3().getDir());
 		LOGGER.info("@@@ abas.s3.basedir\t\t\t= "+configAbas.getS3().getBaseDir());
 		LOGGER.info("@@@ abas.s3.mandant\t\t\t= "+configAbas.getS3().getMandant());

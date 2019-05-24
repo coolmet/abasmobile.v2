@@ -42,10 +42,21 @@ import com.abas.mobile.SecurityConfiguration;
 import com.abas.mobile.SprinBootAppConfiguration;
 import com.abas.mobile.SpringBootAppStarter;
 import com.abas.mobile.model.MessageInfo;
+import de.abas.ceks.jedp.EDPConstants;
+import de.abas.ceks.jedp.EDPCredentialsProvider;
 import de.abas.ceks.jedp.EDPFactory;
 import de.abas.ceks.jedp.EDPMessage;
 import de.abas.ceks.jedp.EDPMessageListener;
+import de.abas.ceks.jedp.EDPServerAction;
 import de.abas.ceks.jedp.EDPSession;
+import de.abas.ceks.jedp.EDPSessionOption;
+import de.abas.ceks.jedp.EDPSessionState;
+import de.abas.ceks.jedp.EDPTools;
+import de.abas.ceks.jedp.internal.session.EDPDataConnection;
+import de.abas.ceks.jedp.internal.session.EDPFactoryTools;
+import de.abas.ceks.jedp.internal.session.EDPSessionImpl;
+import de.abas.ceks.jedp.internal.session.EDPSessionInternal;
+import de.abas.ceks.jedp.log.EDPLogger;
 
 @Service
 public class UpdateSettingsService
@@ -68,6 +79,7 @@ public class UpdateSettingsService
 	                          String abas_edp_port,
 	                          String abas_edp_lang,
 	                          String abas_edp_fopmode,
+	                          String abas_edp_fl,
 	                          String abas_edp_serverip,
 	                          String abas_s3_dir,
 	                          String abas_s3_basedir,
@@ -90,12 +102,17 @@ public class UpdateSettingsService
 		}
 		else if(abas_edp_lang.equals(""))
 		{
-			result.setMessage(messageSource.getMessage("admin.settings.message.lang.empty",new Object[0],LocaleContextHolder.getLocale()));
+			result.setMessage(messageSource.getMessage("admin.settings.message.edplang.empty",new Object[0],LocaleContextHolder.getLocale()));
 			result.setStatus(false);
 		}
 		else if(abas_edp_fopmode.equals(""))
 		{
-			result.setMessage(messageSource.getMessage("admin.settings.message.fopmode.empty",new Object[0],LocaleContextHolder.getLocale()));
+			result.setMessage(messageSource.getMessage("admin.settings.message.edpfopmode.empty",new Object[0],LocaleContextHolder.getLocale()));
+			result.setStatus(false);
+		}
+		else if(abas_edp_fl.equals(""))
+		{
+			result.setMessage(messageSource.getMessage("admin.settings.message.edpfl.empty",new Object[0],LocaleContextHolder.getLocale()));
 			result.setStatus(false);
 		}
 		else if(abas_edp_serverip.equals(""))
@@ -156,6 +173,7 @@ public class UpdateSettingsService
 				props.setProperty("abas.edp.serverip",abas_edp_serverip);
 				props.setProperty("abas.edp.lang",abas_edp_lang);
 				props.setProperty("abas.edp.fopmode",abas_edp_fopmode);
+				props.setProperty("abas.edp.fl",abas_edp_fl);
 				props.setProperty("abas.s3.dir",abas_s3_dir);
 				props.setProperty("abas.s3.basedir",abas_s3_basedir);
 				props.setProperty("abas.s3.mandant",abas_s3_mandant);
@@ -166,8 +184,15 @@ public class UpdateSettingsService
 				props.setProperty("server.servlet.session.timeout",server_servlet_session_timeout);
 				File f=Arrays.stream(environment.getActiveProfiles()).anyMatch(env->(env.equalsIgnoreCase("prod")))
 				?new File("./config/abasconfig.properties")// jar
-				:resourceLoader.getResource("classpath:./config/abasconfig.properties").getFile();// springtools
+				:new File("./src/main/resources/config/abasconfig.properties");// springtools
 				
+				// LOGGER.info("@@>>>>>>"+resourceLoader.getResource("classpath:./config/abasconfig.properties").getFile().getAbsolutePath());
+				// LOGGER.info("@@>>>>>>"+resourceLoader.getResource("./config/abasconfig.properties").getFile().getAbsolutePath());
+				// LOGGER.info("@@>>>>>>"+resourceLoader.getResource("file:./config/abasconfig.properties").getFile().getAbsolutePath());
+				// LOGGER.info("@@>>>>>>"+getClass().getClassLoader().getResource("./config/abasconfig.properties").getFile().toString());
+				// LOGGER.info("@@>>>>>>"+new File("./config/abasconfig.properties").getAbsolutePath());
+				// LOGGER.info("@@>>>>>>"+new File("./src/main/resources/config/abasconfig.properties").getAbsolutePath());
+
 				OutputStream out=new FileOutputStream(f);
 				DefaultPropertiesPersister p=new DefaultPropertiesPersister();
 				p.store(props,out,"Abas Mobile Settings");
@@ -188,6 +213,7 @@ public class UpdateSettingsService
 	                                  String abas_edp_port,
 	                                  String abas_edp_lang,
 	                                  String abas_edp_fopmode,
+	                                  String abas_edp_fl,
 	                                  String abas_edp_serverip,
 	                                  String abas_s3_dir,
 	                                  String abas_s3_basedir,
@@ -206,12 +232,17 @@ public class UpdateSettingsService
 		{
 			if(session==null)
 			{
+				
 				session=EDPFactory.createEDPSession();
 				session.setConnectTimeout(5000);				
 			}
 			if(!session.isConnected())
-			{
-				session.beginSession(abas_edp_serverip,Integer.parseInt(abas_edp_port),abas_s3_mandant,abas_edp_password,"AbasMobile_TestConnection",true);
+			{				
+				//String host, int port, String mandant, String username, String passwort, boolean forceLicence, String appName
+				session.beginSessionWebUser(abas_edp_serverip,Integer.parseInt(abas_edp_port),abas_s3_mandant,"admin2","admin2",Boolean.parseBoolean(abas_edp_fl),"AbasMobile_TestConnection");
+				//String host, int port, String mandant, String passwort, String appName, boolean readOnly
+				//session.beginSession(abas_edp_serverip,Integer.parseInt(abas_edp_port),abas_s3_mandant,abas_edp_password,"AbasMobile_TestConnection",true);
+				//
 				session.setEKSLanguage(abas_edp_lang);
 				session.resetErrorMessageListener();
 				session.setErrorMessageListener(this.edpMessageListener(edpMessages));

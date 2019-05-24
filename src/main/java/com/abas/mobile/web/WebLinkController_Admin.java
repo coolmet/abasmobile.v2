@@ -72,6 +72,7 @@ public class WebLinkController_Admin
 				mav.addObject("abas_edp_port",""+configAbas.getEdp().getPort());
 				mav.addObject("abas_edp_lang",configAbas.getEdp().getLang());
 				mav.addObject("abas_edp_fopmode",""+configAbas.getEdp().isFopmode());
+				mav.addObject("abas_edp_fl",""+configAbas.getEdp().isFl());
 				mav.addObject("abas_edp_serverip",configAbas.getEdp().getServerip());
 				mav.addObject("abas_s3_dir",configAbas.getS3().getDir());
 				mav.addObject("abas_s3_basedir",configAbas.getS3().getBaseDir());
@@ -89,6 +90,7 @@ public class WebLinkController_Admin
 				mav.addObject("abas_edp_port",session.getAttribute("settings_abas_edp_port"+session.getId()));
 				mav.addObject("abas_edp_lang",session.getAttribute("settings_abas_edp_lang"+session.getId()));
 				mav.addObject("abas_edp_fopmode",session.getAttribute("settings_abas_edp_fopmode"+session.getId()));
+				mav.addObject("abas_edp_fl",session.getAttribute("settings_abas_edp_fl"+session.getId()));
 				mav.addObject("abas_edp_serverip",session.getAttribute("settings_abas_edp_serverip"+session.getId()));
 				mav.addObject("abas_s3_dir",session.getAttribute("settings_abas_s3_dir"+session.getId()));
 				mav.addObject("abas_s3_basedir",session.getAttribute("settings_abas_s3_basedir"+session.getId()));
@@ -103,6 +105,7 @@ public class WebLinkController_Admin
 				session.removeAttribute("settings_abas_edp_port"+session.getId());
 				session.removeAttribute("settings_abas_edp_lang"+session.getId());
 				session.removeAttribute("settings_abas_edp_fopmode"+session.getId());
+				session.removeAttribute("settings_abas_edp_fl"+session.getId());
 				session.removeAttribute("settings_abas_edp_serverip"+session.getId());
 				session.removeAttribute("settings_abas_s3_dir"+session.getId());
 				session.removeAttribute("settings_abas_s3_basedir"+session.getId());
@@ -125,6 +128,7 @@ public class WebLinkController_Admin
 				                                            request.getParameter("abas_edp_port"),
 				                                            request.getParameter("abas_edp_lang"),
 				                                            ""+(request.getParameter("abas_edp_fopmode")!=null),
+				                                            ""+(request.getParameter("abas_edp_fl")!=null),
 				                                            request.getParameter("abas_edp_serverip"),
 				                                            request.getParameter("abas_s3_dir"),
 				                                            request.getParameter("abas_s3_basedir"),
@@ -141,6 +145,7 @@ public class WebLinkController_Admin
 				                                    request.getParameter("abas_edp_port"),
 				                                    request.getParameter("abas_edp_lang"),
 				                                    ""+(request.getParameter("abas_edp_fopmode")!=null),
+				                                    ""+(request.getParameter("abas_edp_fl")!=null),
 				                                    request.getParameter("abas_edp_serverip"),
 				                                    request.getParameter("abas_s3_dir"),
 				                                    request.getParameter("abas_s3_basedir"),
@@ -155,6 +160,7 @@ public class WebLinkController_Admin
 			session.setAttribute("settings_abas_edp_port"+session.getId(),request.getParameter("abas_edp_port"));
 			session.setAttribute("settings_abas_edp_lang"+session.getId(),request.getParameter("abas_edp_lang"));
 			session.setAttribute("settings_abas_edp_fopmode"+session.getId(),request.getParameter("abas_edp_fopmode")!=null);
+			session.setAttribute("settings_abas_edp_fl"+session.getId(),request.getParameter("abas_edp_fl")!=null);
 			session.setAttribute("settings_abas_edp_serverip"+session.getId(),request.getParameter("abas_edp_serverip"));
 			session.setAttribute("settings_abas_s3_dir"+session.getId(),request.getParameter("abas_s3_dir"));
 			session.setAttribute("settings_abas_s3_basedir"+session.getId(),request.getParameter("abas_s3_basedir"));

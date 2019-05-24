@@ -53,12 +53,32 @@
   ],
   "properties": [
     {
+      "name": "abas.edp.fl",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$Edp"
+    },
+    {
+      "name": "abas.edp.fopmode",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$Edp"
+    },
+    {
       "name": "abas.edp.fopmode",
       "type": "java.lang.Boolean",
       "sourceType": "com.abas.mobile.ConfigPropertiesAbas$Edp"
     },
     {
       "name": "abas.edp.lang",
+      "type": "java.lang.String",
+      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$Edp"
+    },
+    {
+      "name": "abas.edp.lang",
+      "type": "java.lang.String",
+      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$Edp"
+    },
+    {
+      "name": "abas.edp.password",
       "type": "java.lang.String",
       "sourceType": "com.abas.mobile.ConfigPropertiesAbas$Edp"
     },
@@ -73,6 +93,16 @@
       "sourceType": "com.abas.mobile.ConfigPropertiesAbas$Edp"
     },
     {
+      "name": "abas.edp.port",
+      "type": "java.lang.Integer",
+      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$Edp"
+    },
+    {
+      "name": "abas.edp.serverip",
+      "type": "java.lang.String",
+      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$Edp"
+    },
+    {
       "name": "abas.edp.serverip",
       "type": "java.lang.String",
       "sourceType": "com.abas.mobile.ConfigPropertiesAbas$Edp"
@@ -83,7 +113,22 @@
       "sourceType": "com.abas.mobile.ConfigPropertiesAbas$S3"
     },
     {
+      "name": "abas.s3.base-dir",
+      "type": "java.lang.String",
+      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$S3"
+    },
+    {
       "name": "abas.s3.dir",
+      "type": "java.lang.String",
+      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$S3"
+    },
+    {
+      "name": "abas.s3.dir",
+      "type": "java.lang.String",
+      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$S3"
+    },
+    {
+      "name": "abas.s3.mandant",
       "type": "java.lang.String",
       "sourceType": "com.abas.mobile.ConfigPropertiesAbas$S3"
     },

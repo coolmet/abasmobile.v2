@@ -1,5 +1,6 @@
 package com.abas.mobile.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -73,10 +74,16 @@ public abstract class ReloadablePropertiesService
 			isProdMode=Arrays.stream(environment.getActiveProfiles()).anyMatch(env->(env.equalsIgnoreCase("prod")));
 			configPath=Arrays.stream(environment.getActiveProfiles()).anyMatch(env->(env.equalsIgnoreCase("prod")))
 			?Paths.get("./config/abasconfig.properties")// jar
-			:Paths.get(resourceLoader.getResource("classpath:./config/abasconfig.properties").getFile().getPath());// springtools
+			:Paths.get(new File("./src/main/resources/config/abasconfig.properties").getPath());// springtools
 			
+			// LOGGER.info("@@>>>>>>"+resourceLoader.getResource("classpath:./config/abasconfig.properties").getFile().getAbsolutePath());
+			// LOGGER.info("@@>>>>>>"+resourceLoader.getResource("./config/abasconfig.properties").getFile().getAbsolutePath());
+			// LOGGER.info("@@>>>>>>"+resourceLoader.getResource("file:./config/abasconfig.properties").getFile().getAbsolutePath());
+			// LOGGER.info("@@>>>>>>"+getClass().getClassLoader().getResource("./config/abasconfig.properties").getFile().toString());
+			// LOGGER.info("@@>>>>>>"+new File("./config/abasconfig.properties").getAbsolutePath());
+			// LOGGER.info("@@>>>>>>"+new File("./src/main/resources/config/abasconfig.properties").getAbsolutePath());
 		}
-		catch(IOException e)
+		catch(Exception e)
 		{
 			e.printStackTrace();
 		}

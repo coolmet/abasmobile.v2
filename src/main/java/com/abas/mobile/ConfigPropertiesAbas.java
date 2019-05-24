@@ -90,6 +90,8 @@ public class ConfigPropertiesAbas
 		private String lang;
 		@NotBlank
 		private boolean fopmode;
+		@NotBlank
+		private boolean fl;
 		
 		public String getServerip()
 		{
@@ -139,6 +141,16 @@ public class ConfigPropertiesAbas
 		public void setFopmode(boolean fopmode)
 		{
 			this.fopmode=fopmode;
+		}
+		
+		public boolean isFl()
+		{
+			return fl;
+		}
+		
+		public void setFl(boolean fl)
+		{
+			this.fl=fl;
 		}
 		
 	}
