@@ -1,10 +1,13 @@
 package com.abas.mobile.model;
 
-public class AbasUserDetails
+import java.util.Arrays;
+
+public class AbasUserDetailsModel
 {
 	private String username;
 	private String password;
 	private String[] roles;
+		
 	
 	public String getUsername()
 	{
@@ -34,6 +37,11 @@ public class AbasUserDetails
 	public void setRoles(String[] roles)
 	{
 		this.roles=roles;
+	}
+	
+	public String getRolesAsString()
+	{
+		return Arrays.toString(getRoles());
 	}
 	
 }

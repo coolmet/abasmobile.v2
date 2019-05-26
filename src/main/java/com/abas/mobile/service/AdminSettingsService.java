@@ -2,64 +2,45 @@ package com.abas.mobile.service;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.Enumeration;
-import java.util.Optional;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.TreeSet;
-import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
-import org.springframework.boot.devtools.restart.Restarter;
-import org.springframework.cloud.context.restart.RestartEndpoint;
-import org.springframework.cloud.endpoint.RefreshEndpoint;
 import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.core.env.MutablePropertySources;
-import org.springframework.core.env.PropertiesPropertySource;
-import org.springframework.core.env.PropertySource;
 import org.springframework.core.env.StandardEnvironment;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DefaultPropertiesPersister;
-import com.abas.mobile.SecurityConfiguration;
+import org.yaml.snakeyaml.DumperOptions;
+import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.introspector.Property;
+import org.yaml.snakeyaml.nodes.NodeTuple;
+import org.yaml.snakeyaml.nodes.Tag;
+import org.yaml.snakeyaml.representer.Representer;
+import com.abas.mobile.AbasUserProperties;
 import com.abas.mobile.SprinBootAppConfiguration;
-import com.abas.mobile.SpringBootAppStarter;
+import com.abas.mobile.model.AbasUserDetailsModel;
+import com.abas.mobile.model.AbasUserPropertiesModel;
 import com.abas.mobile.model.MessageInfo;
-import de.abas.ceks.jedp.EDPConstants;
-import de.abas.ceks.jedp.EDPCredentialsProvider;
 import de.abas.ceks.jedp.EDPFactory;
 import de.abas.ceks.jedp.EDPMessage;
 import de.abas.ceks.jedp.EDPMessageListener;
-import de.abas.ceks.jedp.EDPServerAction;
+import de.abas.ceks.jedp.EDPQuery;
 import de.abas.ceks.jedp.EDPSession;
-import de.abas.ceks.jedp.EDPSessionOption;
-import de.abas.ceks.jedp.EDPSessionState;
-import de.abas.ceks.jedp.EDPTools;
-import de.abas.ceks.jedp.internal.session.EDPDataConnection;
-import de.abas.ceks.jedp.internal.session.EDPFactoryTools;
-import de.abas.ceks.jedp.internal.session.EDPSessionImpl;
-import de.abas.ceks.jedp.internal.session.EDPSessionInternal;
-import de.abas.ceks.jedp.log.EDPLogger;
 
 @Service
-public class UpdateSettingsService
+public class AdminSettingsService
 {
 	@Autowired
 	private MessageSource messageSource;
@@ -73,21 +54,24 @@ public class UpdateSettingsService
 	@Autowired
 	protected LanguageService languageService;
 	
+	@Autowired
+	AbasUserProperties abasUserProperties;
+	
 	Logger LOGGER=LoggerFactory.getLogger(SprinBootAppConfiguration.class);
 	
-	public MessageInfo update(String abas_edp_password,
-	                          String abas_edp_port,
-	                          String abas_edp_lang,
-	                          String abas_edp_fopmode,
-	                          String abas_edp_fl,
-	                          String abas_edp_serverip,
-	                          String abas_s3_dir,
-	                          String abas_s3_basedir,
-	                          String abas_s3_mandant,
-	                          String spring_mvc_locale,
-	                          String server_port,
-	                          String server_connection_timeout,
-	                          String server_servlet_session_timeout)
+	public MessageInfo updateSettings(String abas_edp_password,
+	                                  String abas_edp_port,
+	                                  String abas_edp_lang,
+	                                  String abas_edp_fopmode,
+	                                  String abas_edp_fl,
+	                                  String abas_edp_serverip,
+	                                  String abas_s3_dir,
+	                                  String abas_s3_basedir,
+	                                  String abas_s3_mandant,
+	                                  String spring_mvc_locale,
+	                                  String server_port,
+	                                  String server_connection_timeout,
+	                                  String server_servlet_session_timeout)
 	{
 		MessageInfo result=new MessageInfo();
 		if(abas_edp_password.equals(null)||abas_edp_password.equals(""))
@@ -192,7 +176,7 @@ public class UpdateSettingsService
 				// LOGGER.info("@@>>>>>>"+getClass().getClassLoader().getResource("./config/abasconfig.properties").getFile().toString());
 				// LOGGER.info("@@>>>>>>"+new File("./config/abasconfig.properties").getAbsolutePath());
 				// LOGGER.info("@@>>>>>>"+new File("./src/main/resources/config/abasconfig.properties").getAbsolutePath());
-
+				
 				OutputStream out=new FileOutputStream(f);
 				DefaultPropertiesPersister p=new DefaultPropertiesPersister();
 				p.store(props,out,"Abas Mobile Settings");
@@ -209,19 +193,13 @@ public class UpdateSettingsService
 		return result;
 	}
 	
-	public MessageInfo testconnection(String abas_edp_password,
+	public MessageInfo testConnection(String abas_edp_password,
 	                                  String abas_edp_port,
 	                                  String abas_edp_lang,
 	                                  String abas_edp_fopmode,
 	                                  String abas_edp_fl,
 	                                  String abas_edp_serverip,
-	                                  String abas_s3_dir,
-	                                  String abas_s3_basedir,
-	                                  String abas_s3_mandant,
-	                                  String spring_mvc_locale,
-	                                  String server_port,
-	                                  String server_connection_timeout,
-	                                  String server_servlet_session_timeout)
+	                                  String abas_s3_mandant)
 	{
 		MessageInfo result=new MessageInfo();
 		//
@@ -234,14 +212,14 @@ public class UpdateSettingsService
 			{
 				
 				session=EDPFactory.createEDPSession();
-				session.setConnectTimeout(5000);				
+				session.setConnectTimeout(5000);
 			}
 			if(!session.isConnected())
-			{				
-				//String host, int port, String mandant, String username, String passwort, boolean forceLicence, String appName
-				session.beginSessionWebUser(abas_edp_serverip,Integer.parseInt(abas_edp_port),abas_s3_mandant,"admin2","admin2",Boolean.parseBoolean(abas_edp_fl),"AbasMobile_TestConnection");
-				//String host, int port, String mandant, String passwort, String appName, boolean readOnly
-				//session.beginSession(abas_edp_serverip,Integer.parseInt(abas_edp_port),abas_s3_mandant,abas_edp_password,"AbasMobile_TestConnection",true);
+			{
+				// String host, int port, String mandant, String username, String passwort, boolean forceLicence, String appName
+				// session.beginSessionWebUser(abas_edp_serverip,Integer.parseInt(abas_edp_port),abas_s3_mandant,"admin2","admin2",Boolean.parseBoolean(abas_edp_fl),"AbasMobile_TestConnection");
+				// String host, int port, String mandant, String passwort, String appName, boolean readOnly
+				session.beginSession(abas_edp_serverip,Integer.parseInt(abas_edp_port),abas_s3_mandant,abas_edp_password,"AbasMobile_TestConnection",true);
 				//
 				session.setEKSLanguage(abas_edp_lang);
 				session.resetErrorMessageListener();
@@ -250,7 +228,157 @@ public class UpdateSettingsService
 			}
 			if(session.isConnected())
 			{
-				result.setStatus(true);				
+				result.setStatus(true);
+				result.setMessage("Connection successfully "+session.getABASVersion()+" "+session.getOperatorCode());
+				session.endSession();
+			}
+			else
+			{
+				result.setStatus(false);
+				result.setMessage("Connection failed");
+			}
+		}
+		catch(Exception rt)
+		{
+			result.setStatus(false);
+			result.setMessage(rt.getLocalizedMessage());
+		}
+		finally
+		{
+			if(session!=null&&session.isConnected())
+			{
+				session.endSession();
+			}
+		}
+		for(EDPMessage edpMessage:edpMessages)
+		{
+			LOGGER.info("@@@ "+edpMessage.getMessageCategory()+":"+edpMessage.getMessageType()+":"+edpMessage.getMessageText());
+		}
+		return result;
+	}
+	
+	public MessageInfo syncPasswords(String abas_edp_password,
+	                                 String abas_edp_port,
+	                                 String abas_edp_lang,
+	                                 String abas_edp_fopmode,
+	                                 String abas_edp_fl,
+	                                 String abas_edp_serverip,
+	                                 String abas_s3_mandant)
+	{
+		MessageInfo result=new MessageInfo();
+		// **********************
+		for(AbasUserDetailsModel user:abasUserProperties.getUsers())
+		{
+			LOGGER.info("@@@   >>>"+user.getPassword()+":"+user.getRolesAsString());
+		}
+		Map<String,Object> users=new LinkedHashMap<String,Object>();
+		AbasUserPropertiesModel model=new AbasUserPropertiesModel();
+		//
+		for(AbasUserDetailsModel adminuser:abasUserProperties.getAdmins())
+		{
+			model.addAdmins(adminuser.getUsername(),adminuser.getPassword(),adminuser.getRoles()[0]);
+		}
+		//
+		for(AbasUserDetailsModel whsuser:abasUserProperties.getWhs())
+		{
+			model.addWhs(whsuser.getUsername(),whsuser.getPassword(),whsuser.getRoles()[0]);
+		}
+		//
+		for(AbasUserDetailsModel pdcsuser:abasUserProperties.getPdcs())
+		{
+			model.addPdcs(pdcsuser.getUsername(),pdcsuser.getPassword(),pdcsuser.getRoles()[0]);
+		}
+		//
+		for(AbasUserDetailsModel shpmsuser:abasUserProperties.getShpms())
+		{
+			model.addShpms(shpmsuser.getUsername(),shpmsuser.getPassword(),shpmsuser.getRoles()[0]);
+		}
+		//
+		users.put("users",model);
+		DumperOptions options=new DumperOptions();
+		options.setExplicitStart(false);
+		options.setIndent(2);
+		Representer representer=new Representer()
+		{
+			@Override
+			protected NodeTuple representJavaBeanProperty(Object javaBean,Property property,Object propertyValue,Tag customTag)
+			{
+				// if value of property is null, ignore it.
+				if(int.class.equals(property.getType()))
+				{
+					return null;
+				}
+				else
+				{
+					return super.representJavaBeanProperty(javaBean,property,propertyValue,customTag);
+				}
+			}
+		};
+		representer.addClassTag(com.abas.mobile.model.AbasUserPropertiesModel.class,Tag.MAP);
+		Yaml yaml=new Yaml(representer,options);
+		String output=yaml.dump(users);
+		LOGGER.info("@@@@@"+output);
+		// FileOutputStream fileOutputStream = new FileOutputStream(file);
+		// fileOutputStream.write(sourceByte);
+		// fileOutputStream.close();
+		
+		// **********************
+		//
+		ArrayList<EDPMessage> edpMessages=new ArrayList<EDPMessage>();
+		//
+		EDPSession session=null;
+		EDPQuery edpQuery=null;
+		try
+		{
+			if(session==null)
+			{
+				
+				session=EDPFactory.createEDPSession();
+				session.setConnectTimeout(5000);
+			}
+			if(!session.isConnected())
+			{
+				// String host, int port, String mandant, String username, String passwort, boolean forceLicence, String appName
+				// session.beginSessionWebUser(abas_edp_serverip,Integer.parseInt(abas_edp_port),abas_s3_mandant,"admin2","admin2",Boolean.parseBoolean(abas_edp_fl),"AbasMobile_TestConnection");
+				// String host, int port, String mandant, String passwort, String appName, boolean readOnly
+				session.beginSession(abas_edp_serverip,Integer.parseInt(abas_edp_port),abas_s3_mandant,abas_edp_password,"AbasMobile_SynchronizePasswords",true);
+				//
+				session.setEKSLanguage(abas_edp_lang);
+				session.resetErrorMessageListener();
+				session.setErrorMessageListener(this.edpMessageListener(edpMessages));
+				session.setStatusMessageListener(this.edpMessageListener(edpMessages));
+			}
+			if(session.isConnected())
+			{
+				if(edpQuery==null)
+				{
+					edpQuery=session.createQuery();
+				}
+				edpQuery.startQuery("93:1","","sperre=false",false,9,true,true,"ymaiswh;ymaispdc;ymaisshpm;login;ymapass".split(";"),0,0);
+				//edpQuery.startQuery("93:1","","sperre=false",false,"ymaiswh,ymaispdc,ymaisshpm,login,ymapass");
+				if(edpQuery!=null)
+				{
+					while(edpQuery.getNextRecord())
+					{
+						if(Boolean.parseBoolean(edpQuery.getField("ymaiswh")))
+						{
+							LOGGER.info("@@@### wh:"+edpQuery.getField("login")+":"+edpQuery.getField("ymapass"));
+						}
+						else if(Boolean.parseBoolean(edpQuery.getField("ymaispdc")))
+						{
+							LOGGER.info("@@@### pdc:"+edpQuery.getField("login")+":"+edpQuery.getField("ymapass"));
+						}
+						else if(Boolean.parseBoolean(edpQuery.getField("ymaisshpm")))
+						{
+							LOGGER.info("@@@### shpm:"+edpQuery.getField("login")+":"+edpQuery.getField("ymapass"));
+						}
+					}
+				}
+				edpQuery.breakQuery();
+				edpQuery=null;
+				//
+				
+				result.setStatus(true);
 				result.setMessage("Connection successfully "+session.getABASVersion()+" "+session.getOperatorCode());
 				session.endSession();
 			}
@@ -287,6 +415,20 @@ public class UpdateSettingsService
 			public void receivedMessage(EDPMessage em)
 			{
 				edpMessage.add(em);
+				
+				try
+				{
+					throw new Exception("message");
+				}
+				catch(Exception rt)
+				{
+					StackTraceElement e[]=rt.getStackTrace();
+					for(int i=0;i<e.length;i++)
+					{
+						if(this.getClass().getTypeName().contains(e[i].getClassName()))
+						LOGGER.info(">>>"+e[i]);
+					}
+				}
 			}
 		};
 	}

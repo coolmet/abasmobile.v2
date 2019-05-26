@@ -9,7 +9,7 @@ import org.springframework.boot.ansi.AnsiColor;
 import org.springframework.boot.ansi.AnsiOutput;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
-import com.abas.mobile.model.AbasUserDetails;
+import com.abas.mobile.model.AbasUserDetailsModel;
 
 @Configuration
 public class SprinBootAppConfiguration
@@ -24,7 +24,7 @@ public class SprinBootAppConfiguration
 	private ConfigPropertiesServer configServer;
 	
 	@Autowired
-	private AbasMobileUsersProperties abasMobileUsers;
+	private AbasUserProperties abasUserProperties;
 	
 	@Autowired
 	private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
@@ -39,7 +39,7 @@ public class SprinBootAppConfiguration
 		System.out.println("\u001b[40m \u001B[38;5;220m @@@@@: SprinBootAppConfiguration->init()-> "+AnsiOutput.toString(AnsiColor.DEFAULT));
 		//
 		LOGGER.debug("@@@ abas.edp.password\t\t= "+configAbas.getEdp().getPassword());
-		for(AbasUserDetails user:abasMobileUsers.getUsers())
+		for(AbasUserDetailsModel user:abasUserProperties.getUsers())
 		{
 			LOGGER.debug("@@@ abas.users\t\t= "+user.getUsername()+":"+user.getPassword()+":"+Arrays.toString(user.getRoles()));
 		}

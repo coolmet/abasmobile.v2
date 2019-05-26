@@ -1,31 +1,31 @@
-users:
+users: 
   admins:
     - username: admin
       password: admin
-      roles: ADMIN
+      roles: [ADMIN]
     - username: admin1
       password: admin1
-      roles: ADMIN
+      roles: [ADMIN]
   whs:
     - username: wh
       password: wh
-      roles: USER_WAREHOUSE
+      roles: [USER_WAREHOUSE]
     - username: wh1
       password: wh1
-      roles: USER_WAREHOUSE  
+      roles: [USER_WAREHOUSE]
   pdcs:
     - username: pdc
       password: pdc
-      roles: USER_PDC
+      roles: [USER_PDC]
     - username: pdc1
       password: pdc1
-      roles: USER_PDC   
+      roles: [USER_PDC]  
   shpms:
     - username: shpm
       password: shpm
-      roles: USER_SHIPMENT
+      roles: [USER_SHIPMENT]
     - username: shpm1
       password: shpm1
-      roles: USER_SHIPMENT   
+      roles: [USER_SHIPMENT]
       
       

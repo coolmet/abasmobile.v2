@@ -20,6 +20,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.User;
@@ -38,15 +39,15 @@ import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.CharacterEncodingFilter;
-import com.abas.mobile.model.AbasUserDetails;
+import com.abas.mobile.model.AbasUserDetailsModel;
 
 @Configuration
 @EnableGlobalMethodSecurity(securedEnabled=true,prePostEnabled=true,jsr250Enabled=true)
 @EnableConfigurationProperties(
-{ConfigPropertiesAbas.class,ConfigPropertiesSpring.class,ConfigPropertiesServer.class,AbasMobileUsersProperties.class})
+{ConfigPropertiesAbas.class,ConfigPropertiesSpring.class,ConfigPropertiesServer.class,AbasUserProperties.class})
 @EnableWebSecurity
 public class SecurityConfiguration
-{	
+{
 	Logger LOGGER=LoggerFactory.getLogger(SprinBootAppConfiguration.class);
 	
 	// @Autowired
@@ -56,12 +57,13 @@ public class SecurityConfiguration
 	private UserDetailsService userDetailsService;
 	
 	@Autowired
-	AbasMobileUsersProperties abasMobileUsers;
+	AbasUserProperties abasUserProperties;
 	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception
 	{
-		for(AbasUserDetails user:abasMobileUsers.getUsers())
+		// User uu = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		for(AbasUserDetailsModel user:abasUserProperties.getUsers())
 		{
 			auth.inMemoryAuthentication().withUser(user.getUsername()).password(this.passwordEncoder().encode(user.getPassword())).roles(user.getRoles());
 		}
@@ -132,7 +134,6 @@ public class SecurityConfiguration
 			    .authenticated()
 			//
 			;
-			
 			
 			http.formLogin().loginPage("/login")// .loginPage("/login")
 			    .loginProcessingUrl("/login")// .loginProcessingUrl("/login")

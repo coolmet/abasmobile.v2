@@ -24,7 +24,7 @@ import com.abas.mobile.ConfigPropertiesSpring;
 import com.abas.mobile.HttpSessionConfig;
 import com.abas.mobile.SprinBootAppConfiguration;
 import com.abas.mobile.model.MessageInfo;
-import com.abas.mobile.service.UpdateSettingsService;
+import com.abas.mobile.service.AdminSettingsService;
 
 @Controller
 public class WebLinkController_Admin
@@ -45,7 +45,7 @@ public class WebLinkController_Admin
 	private ConfigPropertiesServer configServer;
 	
 	@Autowired
-	UpdateSettingsService updateSettingsService;
+	AdminSettingsService adminSettingsService;
 	
 	Logger LOGGER=LoggerFactory.getLogger(SprinBootAppConfiguration.class);
 	
@@ -119,41 +119,45 @@ public class WebLinkController_Admin
 			}
 			mav.setViewName("th_admin_settings");
 		}
-		else if(request.getMethod().equals("POST")) // save butonu
+		else if(request.getMethod().equals("POST")) // post butonlari
 		{
 			MessageInfo result=null;
-			if(request.getParameter("button").equals("testconnection"))
+			if(request.getParameter("button").equals("testconnection")) // testconnection post butonu
 			{
-				result=updateSettingsService.testconnection(request.getParameter("abas_edp_password"),
-				                                            request.getParameter("abas_edp_port"),
-				                                            request.getParameter("abas_edp_lang"),
-				                                            ""+(request.getParameter("abas_edp_fopmode")!=null),
-				                                            ""+(request.getParameter("abas_edp_fl")!=null),
-				                                            request.getParameter("abas_edp_serverip"),
-				                                            request.getParameter("abas_s3_dir"),
-				                                            request.getParameter("abas_s3_basedir"),
-				                                            request.getParameter("abas_s3_mandant"),
-				                                            request.getParameter("spring_mvc_locale"),
-				                                            request.getParameter("server_port"),
-				                                            request.getParameter("server_connection_timeout"),
-				                                            request.getParameter("server_servlet_session_timeout"));
+				result=adminSettingsService.testConnection(request.getParameter("abas_edp_password"),
+				                                           request.getParameter("abas_edp_port"),
+				                                           request.getParameter("abas_edp_lang"),
+				                                           ""+(request.getParameter("abas_edp_fopmode")!=null),
+				                                           ""+(request.getParameter("abas_edp_fl")!=null),
+				                                           request.getParameter("abas_edp_serverip"),
+				                                           request.getParameter("abas_s3_mandant"));
 			}
-			else if(request.getParameter("button").equals("update"))
+			else if(request.getParameter("button").equals("update")) // update post butonu
 			{
-				// SAVE
-				result=updateSettingsService.update(request.getParameter("abas_edp_password"),
-				                                    request.getParameter("abas_edp_port"),
-				                                    request.getParameter("abas_edp_lang"),
-				                                    ""+(request.getParameter("abas_edp_fopmode")!=null),
-				                                    ""+(request.getParameter("abas_edp_fl")!=null),
-				                                    request.getParameter("abas_edp_serverip"),
-				                                    request.getParameter("abas_s3_dir"),
-				                                    request.getParameter("abas_s3_basedir"),
-				                                    request.getParameter("abas_s3_mandant"),
-				                                    request.getParameter("spring_mvc_locale"),
-				                                    request.getParameter("server_port"),
-				                                    request.getParameter("server_connection_timeout"),
-				                                    request.getParameter("server_servlet_session_timeout"));
+				result=adminSettingsService.updateSettings(request.getParameter("abas_edp_password"),
+				                                           request.getParameter("abas_edp_port"),
+				                                           request.getParameter("abas_edp_lang"),
+				                                           ""+(request.getParameter("abas_edp_fopmode")!=null),
+				                                           ""+(request.getParameter("abas_edp_fl")!=null),
+				                                           request.getParameter("abas_edp_serverip"),
+				                                           request.getParameter("abas_s3_dir"),
+				                                           request.getParameter("abas_s3_basedir"),
+				                                           request.getParameter("abas_s3_mandant"),
+				                                           request.getParameter("spring_mvc_locale"),
+				                                           request.getParameter("server_port"),
+				                                           request.getParameter("server_connection_timeout"),
+				                                           request.getParameter("server_servlet_session_timeout"));
+				
+			}
+			else if(request.getParameter("button").equals("syncpasswords")) // syncpasswords post butonu
+			{
+				result=adminSettingsService.syncPasswords(request.getParameter("abas_edp_password"),
+				                                          request.getParameter("abas_edp_port"),
+				                                          request.getParameter("abas_edp_lang"),
+				                                          ""+(request.getParameter("abas_edp_fopmode")!=null),
+				                                          ""+(request.getParameter("abas_edp_fl")!=null),
+				                                          request.getParameter("abas_edp_serverip"),
+				                                          request.getParameter("abas_s3_mandant"));
 				
 			}
 			session.setAttribute("settings_abas_edp_password"+session.getId(),request.getParameter("abas_edp_password"));

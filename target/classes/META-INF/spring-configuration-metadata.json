@@ -47,8 +47,8 @@
     },
     {
       "name": "users",
-      "type": "com.abas.mobile.AbasMobileUsersProperties",
-      "sourceType": "com.abas.mobile.AbasMobileUsersProperties"
+      "type": "com.abas.mobile.AbasUserProperties",
+      "sourceType": "com.abas.mobile.AbasUserProperties"
     }
   ],
   "properties": [
@@ -159,28 +159,28 @@
     },
     {
       "name": "users.admins",
-      "type": "java.util.List<com.abas.mobile.model.AbasUserDetails>",
-      "sourceType": "com.abas.mobile.AbasMobileUsersProperties"
+      "type": "java.util.List<com.abas.mobile.model.AbasUserDetailsModel>",
+      "sourceType": "com.abas.mobile.AbasUserProperties"
     },
     {
       "name": "users.pdcs",
-      "type": "java.util.List<com.abas.mobile.model.AbasUserDetails>",
-      "sourceType": "com.abas.mobile.AbasMobileUsersProperties"
+      "type": "java.util.List<com.abas.mobile.model.AbasUserDetailsModel>",
+      "sourceType": "com.abas.mobile.AbasUserProperties"
     },
     {
       "name": "users.shpms",
-      "type": "java.util.List<com.abas.mobile.model.AbasUserDetails>",
-      "sourceType": "com.abas.mobile.AbasMobileUsersProperties"
+      "type": "java.util.List<com.abas.mobile.model.AbasUserDetailsModel>",
+      "sourceType": "com.abas.mobile.AbasUserProperties"
     },
     {
       "name": "users.users",
-      "type": "java.util.List<com.abas.mobile.model.AbasUserDetails>",
-      "sourceType": "com.abas.mobile.AbasMobileUsersProperties"
+      "type": "java.util.List<com.abas.mobile.model.AbasUserDetailsModel>",
+      "sourceType": "com.abas.mobile.AbasUserProperties"
     },
     {
       "name": "users.whs",
-      "type": "java.util.List<com.abas.mobile.model.AbasUserDetails>",
-      "sourceType": "com.abas.mobile.AbasMobileUsersProperties"
+      "type": "java.util.List<com.abas.mobile.model.AbasUserDetailsModel>",
+      "sourceType": "com.abas.mobile.AbasUserProperties"
     }
   ],
   "hints": []
