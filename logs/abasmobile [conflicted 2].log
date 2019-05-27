@@ -1,0 +1,217 @@
+2019-05-27 21:31:02.619 [restartedMain] INFO  com.abas.mobile.SpringBootAppStarter - No active profile set, falling back to default profiles: default
+2019-05-27 21:31:03.006 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-05-27 21:31:03.011 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 5ms. Found 0 repository interfaces.
+2019-05-27 21:31:03.063 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=7444ff38-ec21-349e-b719-b3e58bbf94f8
+2019-05-27 21:31:03.097 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$c9e108d7] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-27 21:31:03.102 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration$$EnhancerBySpringCGLIB$$628ed111] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-27 21:31:03.105 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-27 21:31:03.105 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@16679c4e' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-27 21:31:03.110 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration$$EnhancerBySpringCGLIB$$876373c3] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-27 21:31:03.115 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.method.configuration.Jsr250MetadataSourceConfiguration' of type [org.springframework.security.config.annotation.method.configuration.Jsr250MetadataSourceConfiguration$$EnhancerBySpringCGLIB$$acb88bd9] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-27 21:31:03.115 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'jsr250MethodSecurityMetadataSource' of type [org.springframework.security.access.annotation.Jsr250MethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-27 21:31:03.115 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-27 21:31:03.123 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$49615609] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-27 21:31:03.131 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$e5fb0bd4] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-27 21:31:03.341 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9034 (http)
+2019-05-27 21:31:03.342 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2019-05-27 21:31:03.343 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.19]
+2019-05-27 21:31:03.417 [restartedMain] INFO  org.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2019-05-27 21:31:03.419 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2019-05-27 21:31:03.419 [restartedMain] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 797 ms
+2019-05-27 21:31:03.721 [restartedMain] INFO  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 97d9ebea-181b-42ab-98da-d78e1461d440
+
+2019-05-27 21:31:04.418 [restartedMain] INFO  c.a.mobile.SprinBootAppConfiguration - @@@ SecurityConfiguration class init completed: 0
+2019-05-27 21:31:04.462 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
+2019-05-27 21:31:04.464 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
+2019-05-27 21:31:04.474 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-05-27 21:31:04.484 [restartedMain] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2019-05-27 21:31:04.495 [restartedMain] INFO  o.h.t.s.internal.SchemaCreatorImpl - HHH000476: Executing import script 'org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl@67af62eb'
+2019-05-27 21:31:04.495 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-05-27 21:31:04.526 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2019-05-27 21:31:04.756 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2019-05-27 21:31:04.770 [restartedMain] INFO  c.a.mobile.SprinBootAppConfiguration - @@@ abas.edp.password		= *****
+2019-05-27 21:31:04.770 [restartedMain] INFO  c.a.mobile.SprinBootAppConfiguration - @@@ abas.edp.port			= 6550
+2019-05-27 21:31:04.770 [restartedMain] INFO  c.a.mobile.SprinBootAppConfiguration - @@@ abas.edp.serverip		= 192.168.1.5
+2019-05-27 21:31:04.770 [restartedMain] INFO  c.a.mobile.SprinBootAppConfiguration - @@@ abas.edp.fopmode			= false
+2019-05-27 21:31:04.770 [restartedMain] INFO  c.a.mobile.SprinBootAppConfiguration - @@@ abas.edp.fl			= true
+2019-05-27 21:31:04.770 [restartedMain] INFO  c.a.mobile.SprinBootAppConfiguration - @@@ abas.s3.dir			= /u/abas/s3
+2019-05-27 21:31:04.770 [restartedMain] INFO  c.a.mobile.SprinBootAppConfiguration - @@@ abas.s3.basedir			= /u/abas
+2019-05-27 21:31:04.770 [restartedMain] INFO  c.a.mobile.SprinBootAppConfiguration - @@@ abas.s3.mandant			= erp
+2019-05-27 21:31:04.771 [restartedMain] INFO  c.a.mobile.SprinBootAppConfiguration - @@@ spring.mvc.locale		= tr_TR
+2019-05-27 21:31:04.771 [restartedMain] INFO  c.a.mobile.SprinBootAppConfiguration - @@@ server.port			= 9034
+2019-05-27 21:31:04.771 [restartedMain] INFO  c.a.mobile.SprinBootAppConfiguration - @@@ server.connection-timeout	= 30m
+2019-05-27 21:31:04.771 [restartedMain] INFO  c.a.mobile.SprinBootAppConfiguration - @@@ server.servlet.session.timeout	= 30m
+2019-05-27 21:31:04.884 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6b193285, org.springframework.security.web.context.SecurityContextPersistenceFilter@50c5b24a, org.springframework.security.web.header.HeaderWriterFilter@6600809, org.springframework.web.filter.CharacterEncodingFilter@53a8ece8, org.springframework.security.web.authentication.logout.LogoutFilter@ac34377, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@5decd166, org.springframework.security.web.session.ConcurrentSessionFilter@15dacb39, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@56e3c81b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4983da7d, org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter@11d84d80, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@68f4601a, org.springframework.security.web.session.SessionManagementFilter@17811fcd, org.springframework.security.web.access.ExceptionTranslationFilter@4a91e969, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@475feac4]
+2019-05-27 21:31:04.906 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-05-27 21:31:04.974 [restartedMain] WARN  o.t.templatemode.TemplateMode - [THYMELEAF][restartedMain] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
+2019-05-27 21:31:05.149 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 22 endpoint(s) beneath base path '/admin/actuator'
+2019-05-27 21:31:05.183 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2019-05-27 21:31:06.730 [restartedMain] INFO  o.s.cloud.commons.util.InetUtils - Cannot determine local hostname
+2019-05-27 21:31:06.803 [restartedMain] INFO  c.a.mobile.SprinBootAppConfiguration - @@@ application initialization completed
+2019-05-27 21:31:06.848 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9034 (http) with context path ''
+2019-05-27 21:31:06.849 [restartedMain] INFO  com.abas.mobile.SpringBootAppStarter - Started SpringBootAppStarter in 7.344 seconds (JVM running for 1434.141)
+2019-05-27 21:31:06.854 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2019-05-27 21:31:07.462 [http-nio-9034-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-05-27 21:31:07.464 [http-nio-9034-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2019-05-27 21:31:07.470 [http-nio-9034-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 6 ms
+2019-05-27 21:31:08.896 [http-nio-9034-exec-10] INFO  c.a.mobile.SprinBootAppConfiguration - @@@   >>>admin:[ADMIN]
+2019-05-27 21:31:08.896 [http-nio-9034-exec-10] INFO  c.a.mobile.SprinBootAppConfiguration - @@@   >>>admin1:[ADMIN]
+2019-05-27 21:31:08.896 [http-nio-9034-exec-10] INFO  c.a.mobile.SprinBootAppConfiguration - @@@   >>>wh:[USER_WAREHOUSE]
+2019-05-27 21:31:08.896 [http-nio-9034-exec-10] INFO  c.a.mobile.SprinBootAppConfiguration - @@@   >>>wh1:[USER_WAREHOUSE]
+2019-05-27 21:31:08.896 [http-nio-9034-exec-10] INFO  c.a.mobile.SprinBootAppConfiguration - @@@   >>>pdc:[USER_PDC]
+2019-05-27 21:31:08.896 [http-nio-9034-exec-10] INFO  c.a.mobile.SprinBootAppConfiguration - @@@   >>>pdc1:[USER_PDC]
+2019-05-27 21:31:08.896 [http-nio-9034-exec-10] INFO  c.a.mobile.SprinBootAppConfiguration - @@@   >>>shpm:[USER_SHIPMENT]
+2019-05-27 21:31:08.896 [http-nio-9034-exec-10] INFO  c.a.mobile.SprinBootAppConfiguration - @@@   >>>shpm1:[USER_SHIPMENT]
+2019-05-27 21:31:08.903 [http-nio-9034-exec-10] INFO  c.a.mobile.SprinBootAppConfiguration - @@@@@users:
+  admins:
+  - password: admin
+    roles: [ADMIN]
+    username: admin
+  - password: admin1
+    roles: [ADMIN]
+    username: admin1
+  pdcs:
+  - password: pdc
+    roles: [USER_PDC]
+    username: pdc
+  - password: pdc1
+    roles: [USER_PDC]
+    username: pdc1
+  shpms:
+  - password: shpm
+    roles: [USER_SHIPMENT]
+    username: shpm
+  - password: shpm1
+    roles: [USER_SHIPMENT]
+    username: shpm1
+  whs:
+  - password: wh
+    roles: [USER_WAREHOUSE]
+    username: wh
+  - password: wh1
+    roles: [USER_WAREHOUSE]
+    username: wh1
+
+2019-05-27 21:31:09.021 [http-nio-9034-exec-10] INFO  c.a.mobile.SprinBootAppConfiguration - >>>
+2019-05-27 21:31:09.021 [http-nio-9034-exec-10] INFO  c.a.mobile.SprinBootAppConfiguration - >>>com.abas.mobile.service.AdminSettingsService$3.receivedMessage(AdminSettingsService.java:437)
+2019-05-27 21:31:09.021 [http-nio-9034-exec-10] INFO  c.a.mobile.SprinBootAppConfiguration - >>>com.abas.mobile.service.AdminSettingsService.syncPasswords(AdminSettingsService.java:357)
+2019-05-27 21:31:09.042 [http-nio-9034-exec-10] INFO  c.a.mobile.SprinBootAppConfiguration - @@@ ERROR:0:ymapass: Alan bulunamadı
+2019-05-27 21:31:30.000 [Thread-29] INFO  o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'taskScheduler'
+2019-05-27 21:31:30.001 [Thread-29] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2019-05-27 21:31:30.001 [Thread-29] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-05-27 21:31:30.001 [Thread-29] INFO  o.h.t.s.i.SchemaDropperImpl$DelayedDropActionImpl - HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
+2019-05-27 21:31:30.006 [Thread-29] INFO  o.s.b.f.s.DisposableBeanAdapter - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-199]
+2019-05-27 21:31:30.007 [Thread-29] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown initiated...
+2019-05-27 21:31:30.010 [Thread-29] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown completed.
+2019-05-27 21:31:33.634 [restartedMain] INFO  com.abas.mobile.SpringBootAppStarter - No active profile set, falling back to default profiles: default
+2019-05-27 21:31:34.004 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-05-27 21:31:34.009 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 5ms. Found 0 repository interfaces.
+2019-05-27 21:31:34.118 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=7444ff38-ec21-349e-b719-b3e58bbf94f8
+2019-05-27 21:31:34.160 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$c9e108d7] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-27 21:31:34.163 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration$$EnhancerBySpringCGLIB$$628ed111] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-27 21:31:34.165 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-27 21:31:34.165 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@7ca0ebfa' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-27 21:31:34.168 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration$$EnhancerBySpringCGLIB$$876373c3] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-27 21:31:34.172 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.config.annotation.method.configuration.Jsr250MetadataSourceConfiguration' of type [org.springframework.security.config.annotation.method.configuration.Jsr250MetadataSourceConfiguration$$EnhancerBySpringCGLIB$$acb88bd9] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-27 21:31:34.172 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'jsr250MethodSecurityMetadataSource' of type [org.springframework.security.access.annotation.Jsr250MethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-27 21:31:34.172 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-27 21:31:34.175 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$49615609] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-27 21:31:34.179 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$e5fb0bd4] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-27 21:31:34.375 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9034 (http)
+2019-05-27 21:31:34.376 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2019-05-27 21:31:34.376 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.19]
+2019-05-27 21:31:34.445 [restartedMain] INFO  org.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2019-05-27 21:31:34.447 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2019-05-27 21:31:34.447 [restartedMain] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 811 ms
+2019-05-27 21:31:34.755 [restartedMain] INFO  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 2f790ae1-2d2c-4b02-b90a-6b805fb58150
+
+2019-05-27 21:31:35.458 [restartedMain] INFO  c.a.mobile.SprinBootAppConfiguration - @@@ SecurityConfiguration class init completed: 0
+2019-05-27 21:31:35.502 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Starting...
+2019-05-27 21:31:35.504 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Start completed.
+2019-05-27 21:31:35.515 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-05-27 21:31:35.526 [restartedMain] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2019-05-27 21:31:35.536 [restartedMain] INFO  o.h.t.s.internal.SchemaCreatorImpl - HHH000476: Executing import script 'org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl@67af62eb'
+2019-05-27 21:31:35.537 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-05-27 21:31:35.565 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2019-05-27 21:31:35.786 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2019-05-27 21:31:35.800 [restartedMain] INFO  c.a.mobile.SprinBootAppConfiguration - @@@ abas.edp.password		= *****
+2019-05-27 21:31:35.801 [restartedMain] INFO  c.a.mobile.SprinBootAppConfiguration - @@@ abas.edp.port			= 6550
+2019-05-27 21:31:35.801 [restartedMain] INFO  c.a.mobile.SprinBootAppConfiguration - @@@ abas.edp.serverip		= 192.168.1.5
+2019-05-27 21:31:35.801 [restartedMain] INFO  c.a.mobile.SprinBootAppConfiguration - @@@ abas.edp.fopmode			= false
+2019-05-27 21:31:35.801 [restartedMain] INFO  c.a.mobile.SprinBootAppConfiguration - @@@ abas.edp.fl			= true
+2019-05-27 21:31:35.801 [restartedMain] INFO  c.a.mobile.SprinBootAppConfiguration - @@@ abas.s3.dir			= /u/abas/s3
+2019-05-27 21:31:35.801 [restartedMain] INFO  c.a.mobile.SprinBootAppConfiguration - @@@ abas.s3.basedir			= /u/abas
+2019-05-27 21:31:35.801 [restartedMain] INFO  c.a.mobile.SprinBootAppConfiguration - @@@ abas.s3.mandant			= erp
+2019-05-27 21:31:35.801 [restartedMain] INFO  c.a.mobile.SprinBootAppConfiguration - @@@ spring.mvc.locale		= tr_TR
+2019-05-27 21:31:35.801 [restartedMain] INFO  c.a.mobile.SprinBootAppConfiguration - @@@ server.port			= 9034
+2019-05-27 21:31:35.801 [restartedMain] INFO  c.a.mobile.SprinBootAppConfiguration - @@@ server.connection-timeout	= 30m
+2019-05-27 21:31:35.801 [restartedMain] INFO  c.a.mobile.SprinBootAppConfiguration - @@@ server.servlet.session.timeout	= 30m
+2019-05-27 21:31:35.904 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7d06ad7a, org.springframework.security.web.context.SecurityContextPersistenceFilter@116bae0f, org.springframework.security.web.header.HeaderWriterFilter@1cc2ca7e, org.springframework.web.filter.CharacterEncodingFilter@233de94a, org.springframework.security.web.authentication.logout.LogoutFilter@5e884686, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4744ae4c, org.springframework.security.web.session.ConcurrentSessionFilter@f680d58, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1b700766, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@11459b3b, org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter@135b22d6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@416905af, org.springframework.security.web.session.SessionManagementFilter@577ba883, org.springframework.security.web.access.ExceptionTranslationFilter@12a18795, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5c104eae]
+2019-05-27 21:31:35.927 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-05-27 21:31:35.993 [restartedMain] WARN  o.t.templatemode.TemplateMode - [THYMELEAF][restartedMain] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
+2019-05-27 21:31:36.165 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 22 endpoint(s) beneath base path '/admin/actuator'
+2019-05-27 21:31:36.199 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2019-05-27 21:31:37.727 [restartedMain] INFO  o.s.cloud.commons.util.InetUtils - Cannot determine local hostname
+2019-05-27 21:31:37.794 [restartedMain] INFO  c.a.mobile.SprinBootAppConfiguration - @@@ application initialization completed
+2019-05-27 21:31:37.838 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9034 (http) with context path ''
+2019-05-27 21:31:37.839 [restartedMain] INFO  com.abas.mobile.SpringBootAppStarter - Started SpringBootAppStarter in 7.284 seconds (JVM running for 1465.131)
+2019-05-27 21:31:37.843 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2019-05-27 21:31:40.065 [http-nio-9034-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-05-27 21:31:40.068 [http-nio-9034-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2019-05-27 21:31:40.092 [http-nio-9034-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 24 ms
+2019-05-27 21:31:41.403 [http-nio-9034-exec-10] INFO  c.a.mobile.SprinBootAppConfiguration - @@@   >>>admin:[ADMIN]
+2019-05-27 21:31:41.403 [http-nio-9034-exec-10] INFO  c.a.mobile.SprinBootAppConfiguration - @@@   >>>admin1:[ADMIN]
+2019-05-27 21:31:41.403 [http-nio-9034-exec-10] INFO  c.a.mobile.SprinBootAppConfiguration - @@@   >>>wh:[USER_WAREHOUSE]
+2019-05-27 21:31:41.403 [http-nio-9034-exec-10] INFO  c.a.mobile.SprinBootAppConfiguration - @@@   >>>wh1:[USER_WAREHOUSE]
+2019-05-27 21:31:41.403 [http-nio-9034-exec-10] INFO  c.a.mobile.SprinBootAppConfiguration - @@@   >>>pdc:[USER_PDC]
+2019-05-27 21:31:41.404 [http-nio-9034-exec-10] INFO  c.a.mobile.SprinBootAppConfiguration - @@@   >>>pdc1:[USER_PDC]
+2019-05-27 21:31:41.404 [http-nio-9034-exec-10] INFO  c.a.mobile.SprinBootAppConfiguration - @@@   >>>shpm:[USER_SHIPMENT]
+2019-05-27 21:31:41.404 [http-nio-9034-exec-10] INFO  c.a.mobile.SprinBootAppConfiguration - @@@   >>>shpm1:[USER_SHIPMENT]
+2019-05-27 21:31:41.411 [http-nio-9034-exec-10] INFO  c.a.mobile.SprinBootAppConfiguration - @@@@@users:
+  admins:
+  - password: admin
+    roles: [ADMIN]
+    username: admin
+  - password: admin1
+    roles: [ADMIN]
+    username: admin1
+  pdcs:
+  - password: pdc
+    roles: [USER_PDC]
+    username: pdc
+  - password: pdc1
+    roles: [USER_PDC]
+    username: pdc1
+  shpms:
+  - password: shpm
+    roles: [USER_SHIPMENT]
+    username: shpm
+  - password: shpm1
+    roles: [USER_SHIPMENT]
+    username: shpm1
+  whs:
+  - password: wh
+    roles: [USER_WAREHOUSE]
+    username: wh
+  - password: wh1
+    roles: [USER_WAREHOUSE]
+    username: wh1
+
+2019-05-27 22:10:23.932 [RMI TCP Connection(3)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+2019-05-27 22:10:23.934 [RMI TCP Connection(3)-127.0.0.1] INFO  o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'taskScheduler'
+2019-05-27 22:10:23.935 [RMI TCP Connection(3)-127.0.0.1] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2019-05-27 22:10:23.935 [RMI TCP Connection(3)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-05-27 22:10:23.935 [RMI TCP Connection(3)-127.0.0.1] INFO  o.h.t.s.i.SchemaDropperImpl$DelayedDropActionImpl - HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
+2019-05-27 22:10:23.938 [RMI TCP Connection(3)-127.0.0.1] INFO  o.s.b.f.s.DisposableBeanAdapter - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-199]
+2019-05-27 22:10:23.938 [RMI TCP Connection(3)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Shutdown initiated...
+2019-05-27 22:10:23.941 [RMI TCP Connection(3)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Shutdown completed.
+2019-05-27 22:10:24.202 [RMI TCP Connection(3)-127.0.0.1] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2019-05-27 22:10:24.204 [RMI TCP Connection(3)-127.0.0.1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Destroying Spring FrameworkServlet 'dispatcherServlet'

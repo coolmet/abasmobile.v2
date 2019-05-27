@@ -267,13 +267,7 @@ public class AdminSettingsService
 	{
 		MessageInfo result=new MessageInfo();
 		// **********************
-		for(AbasUserDetailsModel user:abasUserProperties.getUsers())
-		{
-			LOGGER.info("@@@   >>>"+user.getPassword()+":"+user.getRolesAsString());
-		}
-		Map<String,Object> users=new LinkedHashMap<String,Object>();
 		AbasUserPropertiesModel model=new AbasUserPropertiesModel();
-		//
 		for(AbasUserDetailsModel adminuser:abasUserProperties.getAdmins())
 		{
 			model.addAdmins(adminuser.getUsername(),adminuser.getPassword(),adminuser.getRoles()[0]);
@@ -293,36 +287,6 @@ public class AdminSettingsService
 		{
 			model.addShpms(shpmsuser.getUsername(),shpmsuser.getPassword(),shpmsuser.getRoles()[0]);
 		}
-		//
-		users.put("users",model);
-		DumperOptions options=new DumperOptions();
-		options.setExplicitStart(false);
-		options.setIndent(2);
-		Representer representer=new Representer()
-		{
-			@Override
-			protected NodeTuple representJavaBeanProperty(Object javaBean,Property property,Object propertyValue,Tag customTag)
-			{
-				// if value of property is null, ignore it.
-				if(int.class.equals(property.getType()))
-				{
-					return null;
-				}
-				else
-				{
-					return super.representJavaBeanProperty(javaBean,property,propertyValue,customTag);
-				}
-			}
-		};
-		representer.addClassTag(com.abas.mobile.model.AbasUserPropertiesModel.class,Tag.MAP);
-		Yaml yaml=new Yaml(representer,options);
-		String output=yaml.dump(users);
-		LOGGER.info("@@@@@"+output);
-		// FileOutputStream fileOutputStream = new FileOutputStream(file);
-		// fileOutputStream.write(sourceByte);
-		// fileOutputStream.close();
-		
-		// **********************
 		//
 		ArrayList<EDPMessage> edpMessages=new ArrayList<EDPMessage>();
 		//
@@ -354,23 +318,23 @@ public class AdminSettingsService
 				{
 					edpQuery=session.createQuery();
 				}
-				edpQuery.startQuery("93:1","","sperre=false",false,9,true,true,"ymaiswh;ymaispdc;ymaisshpm;login;ymapass".split(";"),0,0);
-				//edpQuery.startQuery("93:1","","sperre=false",false,"ymaiswh,ymaispdc,ymaisshpm,login,ymapass");
+				// edpQuery.startQuery("93:1","","sperre=false",false,9,true,true,"ymaiswh;ymaispdc;ymaisshpm;login;ymapass".split(";"),0,0);
+				edpQuery.startQuery("93:1","","sperre=false",false,"ymaiswh,ymaispdc,ymaisshpm,login,ymapass");
 				if(edpQuery!=null)
 				{
 					while(edpQuery.getNextRecord())
 					{
 						if(Boolean.parseBoolean(edpQuery.getField("ymaiswh")))
 						{
-							LOGGER.info("@@@### wh:"+edpQuery.getField("login")+":"+edpQuery.getField("ymapass"));
+							model.addWhs(edpQuery.getField("login"),edpQuery.getField(4),"[USER_WAREHOUSE]");
 						}
 						else if(Boolean.parseBoolean(edpQuery.getField("ymaispdc")))
 						{
-							LOGGER.info("@@@### pdc:"+edpQuery.getField("login")+":"+edpQuery.getField("ymapass"));
+							model.addPdcs(edpQuery.getField("login"),edpQuery.getField(4),"[USER_PDC]");
 						}
 						else if(Boolean.parseBoolean(edpQuery.getField("ymaisshpm")))
 						{
-							LOGGER.info("@@@### shpm:"+edpQuery.getField("login")+":"+edpQuery.getField("ymapass"));
+							model.addShpms(edpQuery.getField("login"),edpQuery.getField(4),"[USER_SHIPMENT]");
 						}
 					}
 				}
@@ -397,12 +361,60 @@ public class AdminSettingsService
 		{
 			if(session!=null&&session.isConnected())
 			{
+				if(edpQuery!=null)
+				{
+					edpQuery.breakQuery();
+					edpQuery=null;
+				}
 				session.endSession();
 			}
 		}
 		for(EDPMessage edpMessage:edpMessages)
 		{
-			LOGGER.info("@@@ "+edpMessage.getMessageCategory()+":"+edpMessage.getMessageType()+":"+edpMessage.getMessageText());
+			LOGGER.debug("@@@ "+edpMessage.getMessageCategory()+":"+edpMessage.getMessageType()+":"+edpMessage.getMessageText());
+		}
+		//
+		Map<String,Object> users=new LinkedHashMap<String,Object>();
+		users.put("users",model);
+		DumperOptions options=new DumperOptions();
+		options.setExplicitStart(false);
+		options.setIndent(2);
+		Representer representer=new Representer()
+		{
+			@Override
+			protected NodeTuple representJavaBeanProperty(Object javaBean,Property property,Object propertyValue,Tag customTag)
+			{
+				// if value of property is null, ignore it.
+				if(int.class.equals(property.getType()))
+				{
+					return null;
+				}
+				else
+				{
+					return super.representJavaBeanProperty(javaBean,property,propertyValue,customTag);
+				}
+			}
+		};
+		representer.addClassTag(com.abas.mobile.model.AbasUserPropertiesModel.class,Tag.MAP);
+		Yaml yaml=new Yaml(representer,options);
+		String output=yaml.dump(users);
+		LOGGER.debug("@@@"+output);
+		//
+		try
+		{
+			File f=Arrays.stream(environment.getActiveProfiles()).anyMatch(env->(env.equalsIgnoreCase("prod")))
+			?new File("./config/abasmobileusers.yml")// jar
+			:new File("./src/main/resources/config/abasmobileusers.yml");// springtools
+			FileOutputStream fileOutputStream=new FileOutputStream(f);
+			fileOutputStream.write(output.getBytes());
+			fileOutputStream.close();
+			result.setStatus(true);
+			result.setMessage("Şifreler güncellendi");
+		}
+		catch(Exception rt)
+		{
+			result.setStatus(false);
+			result.setMessage("Şifreleri dosyaya yazma hatası");
 		}
 		return result;
 	}
@@ -414,19 +426,23 @@ public class AdminSettingsService
 			@Override
 			public void receivedMessage(EDPMessage em)
 			{
-				edpMessage.add(em);
-				
-				try
+				if(!em.getMessageText().contains("ymapass"))
 				{
-					throw new Exception("message");
-				}
-				catch(Exception rt)
-				{
-					StackTraceElement e[]=rt.getStackTrace();
-					for(int i=0;i<e.length;i++)
+					edpMessage.add(em);
+					try
 					{
-						if(this.getClass().getTypeName().contains(e[i].getClassName()))
-						LOGGER.info(">>>"+e[i]);
+						throw new Exception("message");
+					}
+					catch(Exception rt)
+					{
+						StackTraceElement e[]=rt.getStackTrace();
+						for(int i=0;i<e.length;i++)
+						{
+							if(this.getClass().getTypeName().contains(e[i].getClassName()))
+							{
+								LOGGER.debug("@@@ "+e[i]);
+							}
+						}
 					}
 				}
 			}

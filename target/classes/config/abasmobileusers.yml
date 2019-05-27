@@ -1,31 +1,29 @@
-users: 
+users:
   admins:
-    - username: admin
-      password: admin
-      roles: [ADMIN]
-    - username: admin1
-      password: admin1
-      roles: [ADMIN]
-  whs:
-    - username: wh
-      password: wh
-      roles: [USER_WAREHOUSE]
-    - username: wh1
-      password: wh1
-      roles: [USER_WAREHOUSE]
+  - password: admin
+    roles: [ADMIN]
+    username: admin
+  - password: admin1
+    roles: [ADMIN]
+    username: admin1
   pdcs:
-    - username: pdc
-      password: pdc
-      roles: [USER_PDC]
-    - username: pdc1
-      password: pdc1
-      roles: [USER_PDC]  
+  - password: pdc
+    roles: [USER_PDC]
+    username: pdc
+  - password: pdc1
+    roles: [USER_PDC]
+    username: pdc1
   shpms:
-    - username: shpm
-      password: shpm
-      roles: [USER_SHIPMENT]
-    - username: shpm1
-      password: shpm1
-      roles: [USER_SHIPMENT]
-      
-      
+  - password: shpm
+    roles: [USER_SHIPMENT]
+    username: shpm
+  - password: shpm1
+    roles: [USER_SHIPMENT]
+    username: shpm1
+  whs:
+  - password: wh
+    roles: [USER_WAREHOUSE]
+    username: wh
+  - password: wh1
+    roles: [USER_WAREHOUSE]
+    username: wh1
