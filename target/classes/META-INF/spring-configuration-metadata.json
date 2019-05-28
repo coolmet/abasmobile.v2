@@ -9,13 +9,13 @@
       "name": "abas.edp",
       "type": "com.abas.mobile.ConfigPropertiesAbas$Edp",
       "sourceType": "com.abas.mobile.ConfigPropertiesAbas",
-      "sourceMethod": "public com.abas.mobile.ConfigPropertiesAbas.Edp getEdp() "
+      "sourceMethod": "getEdp()"
     },
     {
       "name": "abas.s3",
       "type": "com.abas.mobile.ConfigPropertiesAbas$S3",
       "sourceType": "com.abas.mobile.ConfigPropertiesAbas",
-      "sourceMethod": "public com.abas.mobile.ConfigPropertiesAbas.S3 getS3() "
+      "sourceMethod": "getS3()"
     },
     {
       "name": "server",
@@ -26,13 +26,13 @@
       "name": "server.servlet",
       "type": "com.abas.mobile.ConfigPropertiesServer$Servlet",
       "sourceType": "com.abas.mobile.ConfigPropertiesServer",
-      "sourceMethod": "public com.abas.mobile.ConfigPropertiesServer.Servlet getServlet() "
+      "sourceMethod": "getServlet()"
     },
     {
       "name": "server.servlet.session",
       "type": "com.abas.mobile.ConfigPropertiesServer$Servlet$Session",
       "sourceType": "com.abas.mobile.ConfigPropertiesServer$Servlet",
-      "sourceMethod": "public com.abas.mobile.ConfigPropertiesServer.Servlet.Session getSession() "
+      "sourceMethod": "getSession()"
     },
     {
       "name": "spring",
@@ -43,7 +43,7 @@
       "name": "spring.mvc",
       "type": "com.abas.mobile.ConfigPropertiesSpring$Mvc",
       "sourceType": "com.abas.mobile.ConfigPropertiesSpring",
-      "sourceMethod": "public com.abas.mobile.ConfigPropertiesSpring.Mvc getMvc() "
+      "sourceMethod": "getMvc()"
     },
     {
       "name": "users",
@@ -55,22 +55,14 @@
     {
       "name": "abas.edp.fl",
       "type": "java.lang.Boolean",
-      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$Edp"
+      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$Edp",
+      "defaultValue": false
     },
     {
       "name": "abas.edp.fopmode",
       "type": "java.lang.Boolean",
-      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$Edp"
-    },
-    {
-      "name": "abas.edp.fopmode",
-      "type": "java.lang.Boolean",
-      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$Edp"
-    },
-    {
-      "name": "abas.edp.lang",
-      "type": "java.lang.String",
-      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$Edp"
+      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$Edp",
+      "defaultValue": false
     },
     {
       "name": "abas.edp.lang",
@@ -83,24 +75,10 @@
       "sourceType": "com.abas.mobile.ConfigPropertiesAbas$Edp"
     },
     {
-      "name": "abas.edp.password",
-      "type": "java.lang.String",
-      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$Edp"
-    },
-    {
       "name": "abas.edp.port",
       "type": "java.lang.Integer",
-      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$Edp"
-    },
-    {
-      "name": "abas.edp.port",
-      "type": "java.lang.Integer",
-      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$Edp"
-    },
-    {
-      "name": "abas.edp.serverip",
-      "type": "java.lang.String",
-      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$Edp"
+      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$Edp",
+      "defaultValue": 0
     },
     {
       "name": "abas.edp.serverip",
@@ -113,22 +91,7 @@
       "sourceType": "com.abas.mobile.ConfigPropertiesAbas$S3"
     },
     {
-      "name": "abas.s3.base-dir",
-      "type": "java.lang.String",
-      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$S3"
-    },
-    {
       "name": "abas.s3.dir",
-      "type": "java.lang.String",
-      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$S3"
-    },
-    {
-      "name": "abas.s3.dir",
-      "type": "java.lang.String",
-      "sourceType": "com.abas.mobile.ConfigPropertiesAbas$S3"
-    },
-    {
-      "name": "abas.s3.mandant",
       "type": "java.lang.String",
       "sourceType": "com.abas.mobile.ConfigPropertiesAbas$S3"
     },
@@ -145,7 +108,8 @@
     {
       "name": "server.port",
       "type": "java.lang.Integer",
-      "sourceType": "com.abas.mobile.ConfigPropertiesServer"
+      "sourceType": "com.abas.mobile.ConfigPropertiesServer",
+      "defaultValue": 0
     },
     {
       "name": "server.servlet.session.timeout",
