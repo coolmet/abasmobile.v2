@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title th:text="#{error.pagetitle}"></title>
+<!--===============================================================================================-->
+<link rel="icon" type="image/png" th:href="@{/images/mobile.ico}" />
+<!--===============================================================================================-->
+
+
+</head>
+<body>
+	<h1 style="color: red;" th:text="#{error.pageheader}" />
+	<table border="1">
+		<tr>
+			<td th:text="#{error.label.date}" />
+			<td th:text="${timestamp}" />
+		</tr>
+		<tr>
+			<td th:text="#{error.label.path}" />
+			<td th:text="${path}" />
+		</tr>
+		<tr>
+			<td th:text="#{error.label.status}" />
+			<td th:text="${status}" />
+		</tr>
+		<tr>
+			<td th:text="#{error.label.error}" />
+			<td th:text="${error}" />
+		</tr>
+		<tr>
+			<td th:text="#{error.label.message}" />
+			<td th:text="${message}" />
+		</tr>
+		<tr>
+			<td th:text="#{error.label.exception}" />
+			<td th:text="${exception}" />
+		</tr>
+		<tr>
+			<td th:text="#{error.label.trace}" />
+			<td>
+				<pre th:text="${trace}" />
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

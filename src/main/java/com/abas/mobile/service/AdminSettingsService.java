@@ -229,13 +229,13 @@ public class AdminSettingsService
 			if(session.isConnected())
 			{
 				result.setStatus(true);
-				result.setMessage("Connection successfully "+session.getABASVersion()+" "+session.getOperatorCode());
+				result.setMessage(messageSource.getMessage("admin.settings.message.connectionsuccessfully",new Object[0],LocaleContextHolder.getLocale())+" "+session.getABASVersion()+" "+session.getOperatorCode());
 				session.endSession();
 			}
 			else
 			{
 				result.setStatus(false);
-				result.setMessage("Connection failed");
+				result.setMessage(messageSource.getMessage("admin.settings.message.connectionfailed",new Object[0],LocaleContextHolder.getLocale()));
 			}
 		}
 		catch(Exception rt)
@@ -273,21 +273,6 @@ public class AdminSettingsService
 			model.addAdmins(adminuser.getUsername(),adminuser.getPassword(),adminuser.getRoles()[0]);
 		}
 		//
-		for(AbasUserDetailsModel whsuser:abasUserProperties.getWhs())
-		{
-			model.addWhs(whsuser.getUsername(),whsuser.getPassword(),whsuser.getRoles()[0]);
-		}
-		//
-		for(AbasUserDetailsModel pdcsuser:abasUserProperties.getPdcs())
-		{
-			model.addPdcs(pdcsuser.getUsername(),pdcsuser.getPassword(),pdcsuser.getRoles()[0]);
-		}
-		//
-		for(AbasUserDetailsModel shpmsuser:abasUserProperties.getShpms())
-		{
-			model.addShpms(shpmsuser.getUsername(),shpmsuser.getPassword(),shpmsuser.getRoles()[0]);
-		}
-		//
 		ArrayList<EDPMessage> edpMessages=new ArrayList<EDPMessage>();
 		//
 		EDPSession session=null;
@@ -311,6 +296,7 @@ public class AdminSettingsService
 				session.resetErrorMessageListener();
 				session.setErrorMessageListener(this.edpMessageListener(edpMessages));
 				session.setStatusMessageListener(this.edpMessageListener(edpMessages));
+				session.setBoolMode(EDPSession.BOOLMODE_NUM);
 			}
 			if(session.isConnected())
 			{
@@ -324,32 +310,31 @@ public class AdminSettingsService
 				{
 					while(edpQuery.getNextRecord())
 					{
-						if(Boolean.parseBoolean(edpQuery.getField("ymaiswh")))
+						if(edpQuery.getField("ymaiswh").equals("1"))
 						{
-							model.addWhs(edpQuery.getField("login"),edpQuery.getField(4),"[USER_WAREHOUSE]");
+							model.addWhs(edpQuery.getField("login"),edpQuery.getField(4),"USER_WAREHOUSE");
 						}
-						else if(Boolean.parseBoolean(edpQuery.getField("ymaispdc")))
+						else if(edpQuery.getField("ymaispdc").equals("1"))
 						{
-							model.addPdcs(edpQuery.getField("login"),edpQuery.getField(4),"[USER_PDC]");
+							model.addPdcs(edpQuery.getField("login"),edpQuery.getField(4),"USER_PDC");
 						}
-						else if(Boolean.parseBoolean(edpQuery.getField("ymaisshpm")))
+						else if(edpQuery.getField("ymaisshpm").equals("1"))
 						{
-							model.addShpms(edpQuery.getField("login"),edpQuery.getField(4),"[USER_SHIPMENT]");
+							model.addShpms(edpQuery.getField("login"),edpQuery.getField(4),"USER_SHIPMENT");
 						}
 					}
 				}
 				edpQuery.breakQuery();
 				edpQuery=null;
 				//
-				
 				result.setStatus(true);
-				result.setMessage("Connection successfully "+session.getABASVersion()+" "+session.getOperatorCode());
+				result.setMessage(messageSource.getMessage("admin.settings.message.connectionsuccessfully",new Object[0],LocaleContextHolder.getLocale())+" "+session.getABASVersion()+" "+session.getOperatorCode());
 				session.endSession();
 			}
 			else
 			{
 				result.setStatus(false);
-				result.setMessage("Connection failed");
+				result.setMessage(messageSource.getMessage("admin.settings.message.connectionfailed",new Object[0],LocaleContextHolder.getLocale()));
 			}
 		}
 		catch(Exception rt)
@@ -409,12 +394,12 @@ public class AdminSettingsService
 			fileOutputStream.write(output.getBytes());
 			fileOutputStream.close();
 			result.setStatus(true);
-			result.setMessage("Şifreler güncellendi");
+			result.setMessage(messageSource.getMessage("admin.settings.message.passwordsupdated",new Object[0],LocaleContextHolder.getLocale()));
 		}
 		catch(Exception rt)
 		{
 			result.setStatus(false);
-			result.setMessage("Şifreleri dosyaya yazma hatası");
+			result.setMessage(messageSource.getMessage("admin.settings.message.writetofileerror",new Object[0],LocaleContextHolder.getLocale()));
 		}
 		return result;
 	}
