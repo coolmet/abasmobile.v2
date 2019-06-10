@@ -206,11 +206,10 @@ public class WebLinkController_Admin
 		                                                .map(session->(UserDetails)((SecurityContextImpl)session.getAttribute("SPRING_SECURITY_CONTEXT")).getAuthentication().getPrincipal())
 		                                                .collect(Collectors.toList());
 		//
-		System.out.println("sessionRegistry:"+sessionRegistry.getAllPrincipals().size()+"\t"+
+		LOGGER.debug("sessionRegistry:"+sessionRegistry.getAllPrincipals().size()+"\t"+
 		"httpSessionConfig.getActiveSessions:"+httpSessionConfig.getActiveSessions().size()+"\t"+
 		"allSessions:"+allSessions.size()+
-		"allSessions1:"+allSessions1.size()+
-		
+		"allSessions1:"+allSessions1.size()+		
 		"");
 		//
 		mav.addObject("activeSession",activeSession);

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+
+<head>
+<title th:text="#{wh.pagetitle}"></title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale = 1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+<!--===============================================================================================-->
+<link rel="icon" type="image/png" th:href="@{/images/mobile.ico}" />
+<!--===============================================================================================-->
+
+<link rel="stylesheet" type="text/css" th:href="@{/css/abasstyle.css}" />
+
+</head>
+
+
+<body>
+	<div th:insert="fragments/headernavbar.html :: FRG_header_navbar"></div>
+
+	<div class="abascontainer">
+		<button class="button button-16" onclick="window.location.href='/wh/receipt'" th:text="#{wh.button.receipt}" />
+		<button class="button button-16" onclick="window.location.href='/wh/issue'" th:text="#{wh.button.issue}" />
+		<button class="button button-16" onclick="window.location.href='/wh/transfer'" th:text="#{wh.button.transfer}" />
+		<button class="button button-16" onclick="window.location.href='/wh/correction'" th:text="#{wh.button.correction}" />
+		<button class="button button-16" onclick="window.location.href='/wh/inventory'" th:text="#{wh.button.inventory}" />
+	</div>
+
+</body>

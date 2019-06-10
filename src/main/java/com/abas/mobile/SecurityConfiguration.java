@@ -86,16 +86,10 @@ public class SecurityConfiguration
 			    .antMatchers("/**/css/**",
 			                 "/**/fonts/**",
 			                 "/**/js/**",
-			                 "/**/images/**")
-			    .permitAll()
-			    //
-			    .antMatchers(// @formatter:off
+			                 "/**/images/**",
 			                 "/",
-			                 "/index"
-			                 // @formatter:on
-				)
-			    .access("hasRole('ANONYMOUS')").anyRequest()
-			    .authenticated()
+			                 "/index")
+			    .permitAll()
 			    //
 			    .antMatchers(// @formatter:off
 			                 "/admin",
@@ -103,8 +97,7 @@ public class SecurityConfiguration
 			                 "/admin/**"
 			                 // @formatter:on
 				)
-			    .access("hasRole('ADMIN')").anyRequest()
-			    .authenticated()
+			    .hasRole("ADMIN")
 			    //
 			    .antMatchers(// @formatter:off
 			                 "/wh",
@@ -112,8 +105,7 @@ public class SecurityConfiguration
 			                 "/wh/**"
 			                 // @formatter:on
 				)
-			    .access("hasRole('USER_WAREHOUSE')").anyRequest()
-			    .authenticated()
+			    .hasRole("USER_WAREHOUSE")
 			    //
 			    .antMatchers(// @formatter:off
 			                 "/pdc",
@@ -121,8 +113,7 @@ public class SecurityConfiguration
 			                 "/pdc/**"
 			                 // @formatter:on
 				)
-			    .access("hasRole('USER_PDC')").anyRequest()
-			    .authenticated()
+			    .hasRole("USER_PDC")
 			    //
 			    .antMatchers(// @formatter:off
 			                 "/shpm",
@@ -130,7 +121,8 @@ public class SecurityConfiguration
 			                 "/shpm/**"
 			                 // @formatter:on
 				)
-			    .access("hasRole('USER_SHIPMENT')").anyRequest()
+			    .hasRole("USER_SHIPMENT")
+			    .anyRequest()
 			    .authenticated()
 			//
 			;

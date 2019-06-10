@@ -20,6 +20,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.core.env.StandardEnvironment;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DefaultPropertiesPersister;
 import org.yaml.snakeyaml.DumperOptions;
@@ -59,6 +60,7 @@ public class AdminSettingsService
 	
 	Logger LOGGER=LoggerFactory.getLogger(SprinBootAppConfiguration.class);
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public MessageInfo updateSettings(String abas_edp_password,
 	                                  String abas_edp_port,
 	                                  String abas_edp_lang,
@@ -193,6 +195,7 @@ public class AdminSettingsService
 		return result;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public MessageInfo testConnection(String abas_edp_password,
 	                                  String abas_edp_port,
 	                                  String abas_edp_lang,
@@ -257,6 +260,7 @@ public class AdminSettingsService
 		return result;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public MessageInfo syncPasswords(String abas_edp_password,
 	                                 String abas_edp_port,
 	                                 String abas_edp_lang,

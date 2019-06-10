@@ -26,10 +26,17 @@ public class WebLinkController
 	
 	@RequestMapping(value=
 	{"/","/index"})
-	public ModelAndView indexTh()
+	public ModelAndView indexTh(HttpServletRequest request)
 	{
 		ModelAndView mav=new ModelAndView();
-		mav.setViewName("th_index");
+		if((""+SecurityContextHolder.getContext().getAuthentication().getPrincipal()).equals("anonymousUser"))
+		{
+			mav.setViewName("th_index");
+		}
+		else
+		{
+			mav.setViewName("redirect:/default");			
+		}
 		return mav;
 	}
 	

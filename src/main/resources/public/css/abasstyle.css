@@ -56,9 +56,9 @@ input {
     transform: translate(-50%, -50%);
   	padding-top: 2%;
   	padding-bottom: 2%;
-  	padding-left: 2%;
-    padding-right: 2%;
-  	margin-left: 20%;
+  	padding-left: 1%;
+    padding-right: 1%;
+  	margin-left: 20%; 
   	margin-right: 20%;
     text-align: -webkit-center;
     margin: 0 auto;
@@ -210,6 +210,24 @@ button:focus {outline:0 !important;}
   background-color: #5DBCD2;
   color: black;
 }
+
+/*######################################XXX TABLE################## */
+table#whtable {
+  background-color: white;
+  border-spacing: 1px;
+  font-size: 6vw;
+}
+
+table#whtable input {
+  font-size: 6vw;
+}
+
+table#whtable td, table#whtable th {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 2px;
+}
+
 /*######################################SETTINGS TABLE################## */
 table#settings {
   background-color: #5DBCD2;

@@ -38,10 +38,17 @@
 		</tr>
 		<tr>
 			<td th:text="#{error.label.trace}" />
-			<td>
-				<pre th:text="${trace}" />
-			</td>
+			<td th:text="${trace}" />
 		</tr>
+		<tr>
+			<td th:text="#{error.label.username}" />
+			<td sec:authentication="name" />
+		</tr>
+		<tr>
+			<td th:text="#{error.label.userrole}" />
+			<td sec:authentication="principal.authorities" />
+		</tr>
+
 	</table>
 </body>
 </html>

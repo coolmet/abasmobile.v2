@@ -9,11 +9,11 @@
 
 
 </head>
-<body>
+<body style="font-size: 4vw !important;">
 	<h1>Error Page</h1>
-	<table >
+	<table>
 		<tr>
-			<td th:text="#{error.label.date}"/>
+			<td th:text="#{error.label.date}" />
 			<td th:text="${timestamp}" />
 		</tr>
 		<tr>
@@ -34,7 +34,7 @@
 		</tr>
 		<tr>
 			<td>Exception</td>
-			<td th:text="${exception}" /> 
+			<td th:text="${exception}" />
 		</tr>
 		<tr>
 			<td>Trace</td>
