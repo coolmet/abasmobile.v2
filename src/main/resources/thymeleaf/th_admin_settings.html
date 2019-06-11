@@ -19,7 +19,7 @@
 
 	<div th:insert="fragments/headernavbar.html :: FRG_header_navbar"></div>
 
-	<div class="abascontainer2">
+	<div class="abascontainer-table">
 		<form method="POST" th:action="@{/admin/settings}">
 
 			<div th:if="${message} != null and ${status} == false " style="color: red; margin: 8px 0px;">

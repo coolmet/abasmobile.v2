@@ -38,21 +38,21 @@ input {
 	font-family: "din-regular";
 	}
 
-.abascontainer {
+.abascontainer-buttons {
   	margin: 0;
   	padding-top: 70px;;
   	padding-bottom: 5%;
   	margin-left: 20%;
   	margin-right: 20%;
-  	display: grid; 
+  	display: grid;   	
 } 
 
- .abascontainer2 {
+ .abascontainer-table {
     background-color: transparent;
     display: grid;    
     position: fixed;
     left: 50%;
-    top: 50%;
+    top: 52%;
     transform: translate(-50%, -50%);
   	padding-top: 2%;
   	padding-bottom: 2%;
@@ -211,15 +211,15 @@ button:focus {outline:0 !important;}
   color: black;
 }
 
-/*######################################XXX TABLE################## */
+/*######################################WH TABLE################## */
 table#whtable {
   background-color: white;
   border-spacing: 1px;
-  font-size: 6vw;
+  font-size: 5vw;
 }
 
-table#whtable input {
-  font-size: 6vw;
+table#whtable input, table#whtable button {
+  font-size: 5vw;
 }
 
 table#whtable td, table#whtable th {
@@ -232,7 +232,7 @@ table#whtable td, table#whtable th {
 table#settings {
   background-color: #5DBCD2;
   border-spacing: 1px;
-  font-size: 12px;
+  font-size: 12px;  
 }
 
 table#settings td, table#settings th {
