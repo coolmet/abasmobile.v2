@@ -52,7 +52,7 @@ input {
     display: grid;    
     position: fixed;
     left: 50%;
-    top: 52%;
+    top: 55%;
     transform: translate(-50%, -50%);
   	padding-top: 2%;
   	padding-bottom: 2%;

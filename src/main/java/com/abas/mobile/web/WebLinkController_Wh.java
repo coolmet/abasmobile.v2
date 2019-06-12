@@ -47,4 +47,16 @@ public class WebLinkController_Wh
 		mav.setViewName("th_wh_receipt");
 		return mav;
 	}
+	
+	@RequestMapping(value=
+	{"/wh/receipt/input/check"})
+	public ModelAndView wh_receipt_input_check()
+	{
+		ModelAndView mav=new ModelAndView();
+		System.out.println("*********************");
+		mav.addObject("message","q1");
+		mav.addObject("status","q2");
+		mav.setViewName("th_empty");
+		return mav;
+	}
 }

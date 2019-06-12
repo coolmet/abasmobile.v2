@@ -35,12 +35,42 @@
 						event.preventDefault();
 					}
 			});
+
+		function onChangeFunc(id, val)
+			{
+				if (val != "")
+					{
+						document.forms['myTmpForm']['fieldid'].value = id;
+						document.forms['myTmpForm']['fieldvalue'].value = val;
+						document.forms['myTmpForm'].submit();
+					}
+			}
+
+		function onMyFrameLoad()
+			{
+				var iframe = document.getElementById("myTmpFrame");
+				alert("1" + iframe.innerHTML); 
+				var elmnt = iframe.getElementById("message") ;
+				alert("2" + elmnt.innerHTML);
+				//var elmnt = iframe.document.getElementsByTagName("input")[0].value;
+				alert("3");
+			};
 	</script>
 
 	<div th:insert="fragments/headernavbar.html :: FRG_header_navbar"></div>
 
 	<div class="abascontainer-table">
-		<form method="POST" th:action="@{/admin/settings}">
+
+		<form id="myTmpForm" method="POST" th:action="@{/wh/receipt/input/check}" target="myTmpFrame">
+			<input type="text" name="fieldid" id=fieldid th:value="${fieldid}">
+			<input type="text" name="fieldvalue" id=fieldvalue th:value="${fieldvalue}">
+		</form>
+		<iframe id="myTmpFrame" name="myTmpFrame" hidden="true" onload="onMyFrameLoad(this)">
+			<input type="text" name="message" id="message" th:value="${message}">
+			<input type="text" name="status" id="status" th:value="${status}">
+		</iframe>
+
+		<form id="form" method="POST" th:action="@{/admin/settings}">
 
 			<div th:if="${message} != null and ${status} == false " style="color: red; margin: 8px 0px;">
 				<div class="alert-danger">
@@ -60,25 +90,25 @@
 				<tr>
 					<td th:text="#{wh.receipt.label.product}">
 					<td>
-						<input type="text" name="product" id="product" th:value="${product}" autofocus="autofocus" required="required" autocomplete="on">
+						<input type="text" name="product" id="product" th:value="${product}" autofocus="autofocus" required="required" autocomplete="on" onfocus="this.value=''" onfocusout="onChangeFunc(this.id,this.value);">
 					</td>
 				</tr>
 				<tr>
 					<td th:text="#{wh.receipt.label.location}">
 					<td>
-						<input type="text" name="location" id="location" th:value="${location}" required="required">
+						<input type="text" name="location" id="location" th:value="${location}" required="required" onfocus="this.value=''" onfocusout="onChangeFunc(this.id,this.value);">
 					</td>
 				</tr>
 				<tr>
 					<td th:text="#{wh.receipt.label.charge}">
 					<td>
-						<input type="text" name="charge" id="charge" th:value="${charge}">
+						<input type="text" name="charge" id="charge" th:value="${charge}" onfocus="this.value=''" onfocusout="onChangeFunc(this.id,this.value);">
 					</td>
 				</tr>
 				<tr>
 					<td th:text="#{wh.receipt.label.quantity}">
 					<td>
-						<input type=number step=0.1 min="0" class="form-control" lang="nb" name="quantity" id="quantity" th:value="${quantity}" required="required">
+						<input type=number step=0.1 min="0" class="form-control" lang="nb" name="quantity" id="quantity" th:value="${quantity}" required="required" onfocus="this.value=''" onfocusout="onChangeFunc(this.id,this.value);">
 					</td>
 				</tr>
 				<tr>
