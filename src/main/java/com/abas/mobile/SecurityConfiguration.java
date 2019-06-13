@@ -146,6 +146,8 @@ public class SecurityConfiguration
 			    .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
 			    .sessionFixation().migrateSession();
 			
+			http.headers().frameOptions().sameOrigin();
+			
 			//
 			CharacterEncodingFilter filter=new CharacterEncodingFilter();
 			filter.setEncoding("UTF-8");

@@ -54,9 +54,9 @@ public class WebLinkController_Wh
 	{
 		ModelAndView mav=new ModelAndView();
 		System.out.println("*********************");
-		mav.addObject("message","q1");
-		mav.addObject("status","q2");
-		mav.setViewName("th_empty");
+		mav.addObject("message","mesage");
+		mav.addObject("status","false");
+		mav.setViewName("th_result");
 		return mav;
 	}
 }
