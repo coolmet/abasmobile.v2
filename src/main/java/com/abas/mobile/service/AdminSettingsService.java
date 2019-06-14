@@ -58,6 +58,12 @@ public class AdminSettingsService
 	@Autowired
 	AbasUserProperties abasUserProperties;
 	
+	@Autowired
+	AbasMobileUtils abasMobileUtils;
+	
+	@Autowired
+	EdpSessionService edpSessionService;
+	
 	Logger LOGGER=LoggerFactory.getLogger(SprinBootAppConfiguration.class);
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -186,7 +192,8 @@ public class AdminSettingsService
 			catch(Exception e)
 			{
 				e.printStackTrace();
-				System.out.println(e.getLocalizedMessage());
+				LOGGER.info(abasMobileUtils.exceptionMessage(e));
+				LOGGER.debug(abasMobileUtils.exceptionMessageDetails(e));
 			}
 			result.setMessage(messageSource.getMessage("admin.settings.message.updated",new Object[0],LocaleContextHolder.getLocale()));
 			result.setStatus(true);
@@ -226,8 +233,8 @@ public class AdminSettingsService
 				//
 				session.setEKSLanguage(abas_edp_lang);
 				session.resetErrorMessageListener();
-				session.setErrorMessageListener(this.edpMessageListener(edpMessages));
-				session.setStatusMessageListener(this.edpMessageListener(edpMessages));
+				session.setErrorMessageListener(edpSessionService.edpMessageListener(edpMessages));
+				session.setStatusMessageListener(edpSessionService.edpMessageListener(edpMessages));
 			}
 			if(session.isConnected())
 			{
@@ -298,8 +305,8 @@ public class AdminSettingsService
 				//
 				session.setEKSLanguage(abas_edp_lang);
 				session.resetErrorMessageListener();
-				session.setErrorMessageListener(this.edpMessageListener(edpMessages));
-				session.setStatusMessageListener(this.edpMessageListener(edpMessages));
+				session.setErrorMessageListener(edpSessionService.edpMessageListener(edpMessages));
+				session.setStatusMessageListener(edpSessionService.edpMessageListener(edpMessages));
 				session.setBoolMode(EDPSession.BOOLMODE_NUM);
 			}
 			if(session.isConnected())
@@ -408,33 +415,5 @@ public class AdminSettingsService
 		return result;
 	}
 	
-	public EDPMessageListener edpMessageListener(ArrayList<EDPMessage> edpMessage)
-	{
-		return new EDPMessageListener()
-		{
-			@Override
-			public void receivedMessage(EDPMessage em)
-			{
-				if(!em.getMessageText().contains("ymapass"))
-				{
-					edpMessage.add(em);
-					try
-					{
-						throw new Exception("message");
-					}
-					catch(Exception rt)
-					{
-						StackTraceElement e[]=rt.getStackTrace();
-						for(int i=0;i<e.length;i++)
-						{
-							if(this.getClass().getTypeName().contains(e[i].getClassName()))
-							{
-								LOGGER.debug("@@@ "+e[i]);
-							}
-						}
-					}
-				}
-			}
-		};
-	}
+	
 }

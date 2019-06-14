@@ -21,20 +21,42 @@
 			{
 				if ((event.keyCode === 9 || event.keyCode === 13) && event.target.nodeName === 'INPUT')
 					{
-						/*alert("event.target.id: " + event.target.id +
-								"\nevent.namespace:" + event.namespace +
-								"\nevent.which:" + event.which +
-								"\nevent.srcElement:" + event.srcElement +
-								"\nevent.currentTarget:" + event.currentTarget +
-								"\nevent.target.className:" + event.target.className +
-								"\nevent.target.nodeName:" + event.target.nodeName+
-								"\nevent.target.getAttribute:"+event.target.getAttribute('type'));*/
 						var form = event.target.form;
 						var index = Array.prototype.indexOf.call(form, event.target);
 						form.elements[index + 1].focus();
 						event.preventDefault();
 					}
 			});
+
+		function onFocusFunc(id)
+			{
+				if (id == 'product')
+					{
+						document.getElementById("product").style.color = 'black';
+						document.getElementById("product").value = '';
+						document.getElementById("location").value = '';
+						document.getElementById("charge").value = '';
+						document.getElementById("quantity").value = '';
+					}
+				else if (id == 'location')
+					{
+						document.getElementById("location").style.color = 'black';
+						document.getElementById("location").value = '';
+						document.getElementById("charge").value = '';
+						document.getElementById("quantity").value = '';
+					}
+				else if (id == 'charge')
+					{
+						document.getElementById("charge").style.color = 'black';
+						document.getElementById("charge").value = '';
+						document.getElementById("quantity").value = '';
+					}
+				else if (id == 'quantity')
+					{
+						document.getElementById("quantity").style.color = 'black';
+						document.getElementById("quantity").value = '';
+					}
+			}
 
 		function onChangeFunc(id, val)
 			{
@@ -44,8 +66,13 @@
 						document.forms['myTmpResultForm']['fieldvalue'].value = val;
 						document.forms['myTmpResultForm'].submit();
 					}
+				else
+					{
+						onFocusFunc(id);
+					}
 			}
-
+		
+		var errorMessageElemnt;
 		function onMyTmpResultIFrameLoad()
 			{
 				var iframe = document.getElementById("myTmpResultIFrame");
@@ -55,7 +82,20 @@
 				if ((statusElem = innerDoc.getElementById("status")))
 					{
 						messageElem = innerDoc.getElementById("message");
-						alert(">>" + statusElem.value + "::" + messageElem.value);
+						if (statusElem.value == 'false')
+							{
+								document.getElementById(document.forms['myTmpResultForm']['fieldid'].value).style.color = 'red';
+								if (errorMessageElemnt != null)
+									{
+										errorMessageElemnt.parentElement.removeChild(errorMessageElemnt);
+									}
+								errorMessageElemnt = document.createElement('div');
+								errorMessageElemnt.style.color = 'black';
+								errorMessageElemnt.innerHTML = '<div style="color: red; margin: 8px 0px;"> <div class="alert-danger"><span class="alertclosebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>  <p>'
+										+ messageElem.value + '</p>  </div> </div>';
+								errorMessageElemnt = errorMessageElemnt.firstChild;
+								document.getElementById("form").insertAdjacentElement('afterbegin', errorMessageElemnt);
+							}
 					}
 
 			};
@@ -66,8 +106,8 @@
 	<div class="abascontainer-table">
 
 		<form id="myTmpResultForm" method="POST" th:action="@{/wh/receipt/input/check}" hidden="false" target="myTmpResultIFrame">
-			<input type="text" name="fieldid" id=fieldid th:value="${fieldid}">
-			<input type="text" name="fieldvalue" id=fieldvalue th:value="${fieldvalue}">
+			<input type="text" name="fieldid" id="fieldid" th:value="${fieldid}">
+			<input type="text" name="fieldvalue" id="fieldvalue" th:value="${fieldvalue}">
 		</form>
 		<iframe id="myTmpResultIFrame" name="myTmpResultIFrame" hidden="true" onload="onMyTmpResultIFrameLoad(this);"> </iframe>
 
@@ -91,25 +131,25 @@
 				<tr>
 					<td th:text="#{wh.receipt.label.product}">
 					<td>
-						<input type="text" name="product" id="product" th:value="${product}" autofocus="autofocus" required="required" autocomplete="on" onfocus="this.value=''" onfocusout="onChangeFunc(this.id,this.value);">
+						<input type="text" name="product" id="product" th:value="${product}" autofocus="autofocus" required="required" autocomplete="on" onfocus="onFocusFunc(this.id);" onfocusout="onChangeFunc(this.id,this.value);">
 					</td>
 				</tr>
 				<tr>
 					<td th:text="#{wh.receipt.label.location}">
 					<td>
-						<input type="text" name="location" id="location" th:value="${location}" required="required" onfocus="this.value=''">
+						<input type="text" name="location" id="location" th:value="${location}" required="required" onfocus="onFocusFunc(this.id);" onfocusout="onChangeFunc(this.id,this.value);">
 					</td>
 				</tr>
 				<tr>
 					<td th:text="#{wh.receipt.label.charge}">
 					<td>
-						<input type="text" name="charge" id="charge" th:value="${charge}" onfocus="this.value=''">
+						<input type="text" name="charge" id="charge" th:value="${charge}" onfocus="onFocusFunc(this.id);" onfocusout="onChangeFunc(this.id,this.value);">
 					</td>
 				</tr>
 				<tr>
 					<td th:text="#{wh.receipt.label.quantity}">
 					<td>
-						<input type=number step=0.1 min="0" class="form-control" lang="nb" name="quantity" id="quantity" th:value="${quantity}" required="required" onfocus="this.value=''">
+						<input type=number step=0.1 min="0" class="form-control" lang="nb" name="quantity" id="quantity" th:value="${quantity}" required="required" onfocus="onFocusFunc(this.id);" onfocusout="onChangeFunc(this.id,this.value);">
 					</td>
 				</tr>
 				<tr>

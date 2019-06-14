@@ -25,10 +25,15 @@ import com.abas.mobile.HttpSessionConfig;
 import com.abas.mobile.SprinBootAppConfiguration;
 import com.abas.mobile.model.MessageInfo;
 import com.abas.mobile.service.AdminSettingsService;
+import com.abas.mobile.service.EdpSessionService;
 
 @Controller
 public class WebLinkController_Wh
 {
+	@Autowired
+	EdpSessionService edpSessionService;
+	
+	Logger LOGGER=LoggerFactory.getLogger(SprinBootAppConfiguration.class);
 	
 	@RequestMapping(value=
 	{"/wh"})
@@ -44,16 +49,18 @@ public class WebLinkController_Wh
 	public ModelAndView wh_receipt()
 	{
 		ModelAndView mav=new ModelAndView();
-		mav.setViewName("th_wh_receipt");
+		mav.setViewName("th_wh_receipt"); 
 		return mav;
 	}
 	
 	@RequestMapping(value=
 	{"/wh/receipt/input/check"})
-	public ModelAndView wh_receipt_input_check()
+	public ModelAndView wh_receipt_input_check(HttpSession session,HttpServletRequest request)
 	{
 		ModelAndView mav=new ModelAndView();
-		System.out.println("*********************");
+		//edpSessionService.EDPSESSION_START();
+		
+		System.out.println("*********************"+request.getParameter("fieldid")+":"+request.getParameter("fieldvalue"));
 		mav.addObject("message","mesage");
 		mav.addObject("status","false");
 		mav.setViewName("th_result");
