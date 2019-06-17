@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import com.abas.mobile.ConfigPropertiesAbas;
 import com.abas.mobile.SprinBootAppConfiguration;
+import de.abas.ceks.jedp.CantReadSettingException;
 import de.abas.ceks.jedp.EDPEditor;
 import de.abas.ceks.jedp.EDPFactory;
 import de.abas.ceks.jedp.EDPLockBehavior;
@@ -17,8 +18,8 @@ import de.abas.ceks.jedp.EDPQuery;
 import de.abas.ceks.jedp.EDPSession;
 
 @Service
-//@Scope(value="session")
-public class EdpSessionService
+// @Scope(value="session")
+public class EDPSessionService
 {
 	@Autowired
 	AbasMobileUtils abasMobileUtils;
@@ -31,6 +32,21 @@ public class EdpSessionService
 	EDPSession SESSION=null;
 	
 	ArrayList<EDPMessage> edpMessages;
+	
+	public int getAbasVersion()
+	{
+		try
+		{
+			return Integer.parseInt(SESSION.getABASVersionNumber().substring(0,4));
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			LOGGER.info(abasMobileUtils.exceptionMessage(e));
+			LOGGER.debug(abasMobileUtils.exceptionMessageDetails(e));
+		}
+		return 0;
+	}
 	
 	public boolean EDPSESSION_START()
 	{
@@ -55,7 +71,7 @@ public class EdpSessionService
 					SESSION.setStatusMessageListener(this.edpMessageListener(edpMessages));
 					SESSION.setBoolMode(EDPSession.BOOLMODE_NUM);
 				}
-				
+				status=true;
 			}
 			catch(Exception e)
 			{

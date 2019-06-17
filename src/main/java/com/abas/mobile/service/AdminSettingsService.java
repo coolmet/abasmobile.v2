@@ -62,7 +62,7 @@ public class AdminSettingsService
 	AbasMobileUtils abasMobileUtils;
 	
 	@Autowired
-	EdpSessionService edpSessionService;
+	EDPSessionService edpSessionService;
 	
 	Logger LOGGER=LoggerFactory.getLogger(SprinBootAppConfiguration.class);
 	
