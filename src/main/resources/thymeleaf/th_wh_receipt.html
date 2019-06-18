@@ -30,6 +30,7 @@
 
 		function onFocusFunc(id)
 			{
+				
 				if (id == 'product')
 					{
 						document.getElementById("product").style.color = 'black';
@@ -111,6 +112,18 @@
 								errorMessageElemnt = errorMessageElemnt.firstChild;
 								document.getElementById("form").insertAdjacentElement('afterbegin', errorMessageElemnt);
 							}
+						else
+							{
+								if(data1Elem.value == '')
+									{	
+										errorMessageElemnt = document.createElement('div');
+										errorMessageElemnt.style.color = 'black';
+										errorMessageElemnt.innerHTML = '<div style="color: green; margin: 8px 0px;"> <div class="alert-success"><span class="alertclosebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>  <p>'
+												+ messageElem.value + '</p>  </div> </div>';
+										errorMessageElemnt = errorMessageElemnt.firstChild;
+										document.getElementById("form").insertAdjacentElement('afterbegin', errorMessageElemnt);
+									}
+							}
 					}
 			};
 	</script>
@@ -129,7 +142,7 @@
 		</form>
 		<iframe id="myTmpResultIFrame" name="myTmpResultIFrame" hidden="true" onload="onMyTmpResultIFrameLoad(this);"> </iframe>
 
-		<form id="form" method="POST" th:action="@{/wh/receipt/save}">
+		<form id="form" method="POST" th:action="@{/wh/receipt/save}" target="myTmpResultIFrame">
 
 			<div th:if="${message} != null and ${status} == false " style="color: red; margin: 8px 0px;">
 				<div class="alert-danger">

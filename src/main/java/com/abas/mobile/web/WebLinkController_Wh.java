@@ -54,7 +54,7 @@ public class WebLinkController_Wh
 		mav.addObject("status",""+mi.isStatus());
 		mav.addObject("data1","");
 		mav.addObject("data2","");
-		mav.setViewName("th_wh_receipt");
+		mav.setViewName("th_result");
 		return mav;
 	}
 	
