@@ -30,9 +30,7 @@
 
 		function onFocusFunc(id)
 			{
-				if([[${message}!=null]])
-					{}
-				else if (id == 'product')
+				if (id == 'product')
 					{
 						document.getElementById("product").style.color = 'black';
 						document.getElementById("product").value = '';
@@ -54,9 +52,9 @@
 						document.getElementById("quantity").value = '';
 					}
 				else if (id == 'quantity')
-					{
+					{						
 						document.getElementById("quantity").style.color = 'black';
-						document.getElementById("quantity").value = '';
+						document.getElementById("quantity").value = '';	
 					}
 			}
 
@@ -113,9 +111,24 @@
 										+ messageElem.value + '</p>  </div> </div>';
 								errorMessageElemnt = errorMessageElemnt.firstChild;
 								document.getElementById("form").insertAdjacentElement('afterbegin', errorMessageElemnt);
-							}						
-					}
+							}
+						else
+							{
+								document.getElementById(document.forms['myTmpResultForm']['fieldid'].value).style.color = 'black';
+								if(data1Elem.value == '')
+									{	
+										errorMessageElemnt = document.createElement('div');
+										errorMessageElemnt.style.color = 'black';
+										errorMessageElemnt.innerHTML = '<div style="color: green; margin: 8px 0px;"> <div class="alert-success"><span class="alertclosebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>  <p>'
+												+ messageElem.value + '</p>  </div> </div>';
+										errorMessageElemnt = errorMessageElemnt.firstChild;
+										document.getElementById("form").insertAdjacentElement('afterbegin', errorMessageElemnt);
+									}
+								
 
+							}
+					}
+				
 			};
 	</script>
 
@@ -133,17 +146,16 @@
 		</form>
 		<iframe id="myTmpResultIFrame" name="myTmpResultIFrame" hidden="true" onload="onMyTmpResultIFrameLoad(this);"> </iframe>
 
-		<form id="form" method="POST" th:action="@{/wh/receipt/save}">
+		<form id="form" method="POST" th:action="@{/wh/receipt/save2}">
 
-			<div th:if="${message} != null and ${status} == 'false' " style="color: red; margin: 8px 0px;">
+			<div th:if="${message} != null and ${status} == false " style="color: red; margin: 8px 0px;">
 				<div class="alert-danger">
 					<span class="alertclosebtn" onclick="this.parentElement.style.display='none';">&times;</span>
 					<p th:utext="${message}"></p>
 				</div>
 			</div>
 
-			<div th:if="${message} != null and ${status} == 'true' " style="color: green; margin: 8px 0px;">
-
+			<div th:if="${message} != null and ${status} == true " style="color: green; margin: 8px 0px;">
 				<div class="alert-success">
 					<span class="alertclosebtn" onclick="this.parentElement.style.display='none';">&times;</span>
 					<p th:utext="${message}"></p>
@@ -154,27 +166,35 @@
 				<tr>
 					<td th:text="#{wh.receipt.label.product}">
 					<td>
-						<input type="text" name="product" id="product" th:value="${product}" autofocus="autofocus" required="required" autocomplete="on" onfocus="onFocusFunc(this.id);" onfocusout="onChangeFunc(this.id,this.value);">
+						<input type="text" name="product" id="product" th:value="${product}" autofocus="autofocus" required="required" autocomplete="on" th:onfocus="${message} != null?:'javascript:onFocusFunc(this.id);'" onfocusout="onChangeFunc(this.id,this.value);">
 					</td>
 				</tr>
 				<tr>
 					<td th:text="#{wh.receipt.label.location}">
 					<td>
-						<input type="text" name="location" id="location" th:value="${location}" required="required" onfocus="onFocusFunc(this.id);" onfocusout="onChangeFunc(this.id,this.value);">
+						<input type="text" name="location" id="location" th:value="${location}" required="required" th:onfocus="${message} != null?:'javascript:onFocusFunc(this.id);'" onfocusout="onChangeFunc(this.id,this.value);">
 					</td>
 				</tr>
 				<tr>
 					<td th:text="#{wh.receipt.label.charge}">
 					<td>
-						<input type="text" name="charge" id="charge" th:value="${charge}" onfocus="onFocusFunc(this.id);" onfocusout="onChangeFunc(this.id,this.value);">
+						<input type="text" name="charge" id="charge" th:value="${charge}" th:onfocus="${message} != null?:'javascript:onFocusFunc(this.id);'" onfocusout="onChangeFunc(this.id,this.value);">
 					</td>
 				</tr>
 				<tr>
 					<td th:text="#{wh.receipt.label.quantity}">
 					<td>
-						<input type=number step=0.1 min="0" class="form-control" lang="nb" name="quantity" id="quantity" th:value="${quantity}" required="required" onfocus="onFocusFunc(this.id);" onfocusout="onChangeFunc(this.id,this.value);">
+						<input type=number step=0.1 min="0" class="form-control" lang="nb" name="quantity" id="quantity" th:value="${quantity}" required="required" th:onfocus="${message} != null?:'javascript:onFocusFunc(this.id);'" onfocusout="onChangeFunc(this.id,this.value);">
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2" style="text-align: center;">
 						<button id="save" name="button" value="save" type="submit" th:text="#{wh.receipt.button.save}"></button>
+					</td>
+				</tr>
+			</table>
+
+
+		</form>
+	</div>
+</body>

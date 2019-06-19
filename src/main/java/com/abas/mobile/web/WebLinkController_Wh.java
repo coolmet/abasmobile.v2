@@ -56,33 +56,9 @@ public class WebLinkController_Wh
 	
 	@RequestMapping(value=
 	{"/wh/receipt/save"})
-	public ModelAndView wh_receipt_save(HttpSession session,HttpServletRequest request)
-	{
-		ModelAndView mav=new ModelAndView();
-		//
-		MessageInfo mi=new MessageInfo();
-		mi.setMessage("okkk");
-		mi.setStatus(true);
-		mi.setData1("");
-		mi.setData2("");
-		//
-		mav.addObject("message",mi.getMessage());
-		mav.addObject("status",mi.isStatus());
-		mav.addObject("data1","");
-		mav.addObject("data2","");
-		mav.setViewName("th_result");
-		return mav;
-	}
-	
-	@RequestMapping(value=
-	{"/wh/receipt/save2"})
 	public ModelAndView wh_receipt_save2(HttpSession session,HttpServletRequest request)
-	{
-		
-		ModelAndView mav=new ModelAndView();
-		
-		
-		
+	{		
+		ModelAndView mav=new ModelAndView();		
 		if(request.getMethod().equals("POST"))
 		{
 			MessageInfo mi=new MessageInfo();

@@ -113,21 +113,7 @@
 										+ messageElem.value + '</p>  </div> </div>';
 								errorMessageElemnt = errorMessageElemnt.firstChild;
 								document.getElementById("form").insertAdjacentElement('afterbegin', errorMessageElemnt);
-							}
-						else
-							{
-								document.getElementById(document.forms['myTmpResultForm']['fieldid'].value).style.color = 'black';
-								if (data1Elem.value == '')
-									{
-										errorMessageElemnt = document.createElement('div');
-										errorMessageElemnt.style.color = 'black';
-										errorMessageElemnt.innerHTML = '<div style="color: green; margin: 8px 0px;"> <div class="alert-success"><span class="alertclosebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>  <p>'
-												+ messageElem.value + '</p>  </div> </div>';
-										errorMessageElemnt = errorMessageElemnt.firstChild;
-										document.getElementById("form").insertAdjacentElement('afterbegin', errorMessageElemnt);
-									}
-
-							}
+							}						
 					}
 
 			};
@@ -147,7 +133,7 @@
 		</form>
 		<iframe id="myTmpResultIFrame" name="myTmpResultIFrame" hidden="true" onload="onMyTmpResultIFrameLoad(this);"> </iframe>
 
-		<form id="form" method="POST" th:action="@{/wh/receipt/save2}">
+		<form id="form" method="POST" th:action="@{/wh/receipt/save}">
 
 			<div th:if="${message} != null and ${status} == 'false' " style="color: red; margin: 8px 0px;">
 				<div class="alert-danger">
@@ -157,7 +143,7 @@
 			</div>
 
 			<div th:if="${message} != null and ${status} == 'true' " style="color: green; margin: 8px 0px;">
-			
+
 				<div class="alert-success">
 					<span class="alertclosebtn" onclick="this.parentElement.style.display='none';">&times;</span>
 					<p th:utext="${message}"></p>
