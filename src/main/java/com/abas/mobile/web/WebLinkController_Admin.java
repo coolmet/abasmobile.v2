@@ -66,7 +66,7 @@ public class WebLinkController_Admin
 		ModelAndView mav=new ModelAndView();
 		if(request.getMethod().equals("GET"))
 		{
-			if(session.getAttribute("settings_message"+session.getId())==null)
+			if(session.getAttribute("settings.message"+session.getId())==null)
 			{
 				mav.addObject("abas_edp_password",configAbas.getEdp().getPassword());
 				mav.addObject("abas_edp_port",""+configAbas.getEdp().getPort());
@@ -86,36 +86,36 @@ public class WebLinkController_Admin
 			}
 			else
 			{
-				mav.addObject("abas_edp_password",session.getAttribute("settings_abas_edp_password"+session.getId()));
-				mav.addObject("abas_edp_port",session.getAttribute("settings_abas_edp_port"+session.getId()));
-				mav.addObject("abas_edp_lang",session.getAttribute("settings_abas_edp_lang"+session.getId()));
-				mav.addObject("abas_edp_fopmode",session.getAttribute("settings_abas_edp_fopmode"+session.getId()));
-				mav.addObject("abas_edp_fl",session.getAttribute("settings_abas_edp_fl"+session.getId()));
-				mav.addObject("abas_edp_serverip",session.getAttribute("settings_abas_edp_serverip"+session.getId()));
-				mav.addObject("abas_s3_dir",session.getAttribute("settings_abas_s3_dir"+session.getId()));
-				mav.addObject("abas_s3_basedir",session.getAttribute("settings_abas_s3_basedir"+session.getId()));
-				mav.addObject("abas_s3_mandant",session.getAttribute("settings_abas_s3_mandant"+session.getId()));
-				mav.addObject("spring_mvc_locale",session.getAttribute("settings_spring_mvc_locale"+session.getId()));
-				mav.addObject("server_port",session.getAttribute("settings_server_port"+session.getId()));
-				mav.addObject("server_connection_timeout",session.getAttribute("settings_server_connection_timeout"+session.getId()));
-				mav.addObject("server_servlet_session_timeout",session.getAttribute("settings_server_servlet_session_timeout"+session.getId()));
-				mav.addObject("message",session.getAttribute("settings_message"+session.getId()));
-				mav.addObject("status",session.getAttribute("settings_status"+session.getId()));
-				session.removeAttribute("settings_abas_edp_password"+session.getId());
-				session.removeAttribute("settings_abas_edp_port"+session.getId());
-				session.removeAttribute("settings_abas_edp_lang"+session.getId());
-				session.removeAttribute("settings_abas_edp_fopmode"+session.getId());
-				session.removeAttribute("settings_abas_edp_fl"+session.getId());
-				session.removeAttribute("settings_abas_edp_serverip"+session.getId());
-				session.removeAttribute("settings_abas_s3_dir"+session.getId());
-				session.removeAttribute("settings_abas_s3_basedir"+session.getId());
-				session.removeAttribute("settings_abas_s3_mandant"+session.getId());
-				session.removeAttribute("settings_spring_mvc_locale"+session.getId());
-				session.removeAttribute("settings_server_port"+session.getId());
-				session.removeAttribute("settings_server_connection_timeout"+session.getId());
-				session.removeAttribute("settings_server_servlet_session_timeout"+session.getId());
-				session.removeAttribute("settings_message"+session.getId());
-				session.removeAttribute("settings_status"+session.getId());
+				mav.addObject("abas_edp_password",session.getAttribute("settings.abas.edp.password"+session.getId()));
+				mav.addObject("abas_edp_port",session.getAttribute("settings.abas.edp.port"+session.getId()));
+				mav.addObject("abas_edp_lang",session.getAttribute("settings.abas.edp.lang"+session.getId()));
+				mav.addObject("abas_edp_fopmode",session.getAttribute("settings.abas.edp.fopmode"+session.getId()));
+				mav.addObject("abas_edp_fl",session.getAttribute("settings.abas.edp.fl"+session.getId()));
+				mav.addObject("abas_edp_serverip",session.getAttribute("settings.abas.edp.serverip"+session.getId()));
+				mav.addObject("abas_s3_dir",session.getAttribute("settings.abas.s3.dir"+session.getId()));
+				mav.addObject("abas_s3_basedir",session.getAttribute("settings.abas.s3.basedir"+session.getId()));
+				mav.addObject("abas_s3_mandant",session.getAttribute("settings.abas.s3..mandant"+session.getId()));
+				mav.addObject("spring_mvc_locale",session.getAttribute("settings.spring.mvc.locale"+session.getId()));
+				mav.addObject("server_port",session.getAttribute("settings.server.port"+session.getId()));
+				mav.addObject("server_connection_timeout",session.getAttribute("settings.server.connection.timeout"+session.getId()));
+				mav.addObject("server_servlet_session_timeout",session.getAttribute("settings.server.servlet.session.timeout"+session.getId()));
+				mav.addObject("message",session.getAttribute("settings.message"+session.getId()));
+				mav.addObject("status",session.getAttribute("settings.status"+session.getId()));
+				session.removeAttribute("settings.abas.edp.password"+session.getId());
+				session.removeAttribute("settings.abas.edp.port"+session.getId());
+				session.removeAttribute("settings.abas.edp.lang"+session.getId());
+				session.removeAttribute("settings.abas.edp.fopmode"+session.getId());
+				session.removeAttribute("settings.abas.edp.fl"+session.getId());
+				session.removeAttribute("settings.abas.edp.serverip"+session.getId());
+				session.removeAttribute("settings.abas.s3.dir"+session.getId());
+				session.removeAttribute("settings.abas.s3.basedir"+session.getId());
+				session.removeAttribute("settings.abas.s3..mandant"+session.getId());
+				session.removeAttribute("settings.spring.mvc.locale"+session.getId());
+				session.removeAttribute("settings.server.port"+session.getId());
+				session.removeAttribute("settings.server.connection.timeout"+session.getId());
+				session.removeAttribute("settings.server.servlet.session.timeout"+session.getId());
+				session.removeAttribute("settings.message"+session.getId());
+				session.removeAttribute("settings.status"+session.getId());
 			}
 			mav.setViewName("th_admin_settings");
 		}
@@ -160,21 +160,21 @@ public class WebLinkController_Admin
 				                                          request.getParameter("abas_s3_mandant"));
 				
 			}
-			session.setAttribute("settings_abas_edp_password"+session.getId(),request.getParameter("abas_edp_password"));
-			session.setAttribute("settings_abas_edp_port"+session.getId(),request.getParameter("abas_edp_port"));
-			session.setAttribute("settings_abas_edp_lang"+session.getId(),request.getParameter("abas_edp_lang"));
-			session.setAttribute("settings_abas_edp_fopmode"+session.getId(),request.getParameter("abas_edp_fopmode")!=null);
-			session.setAttribute("settings_abas_edp_fl"+session.getId(),request.getParameter("abas_edp_fl")!=null);
-			session.setAttribute("settings_abas_edp_serverip"+session.getId(),request.getParameter("abas_edp_serverip"));
-			session.setAttribute("settings_abas_s3_dir"+session.getId(),request.getParameter("abas_s3_dir"));
-			session.setAttribute("settings_abas_s3_basedir"+session.getId(),request.getParameter("abas_s3_basedir"));
-			session.setAttribute("settings_abas_s3_mandant"+session.getId(),request.getParameter("abas_s3_mandant"));
-			session.setAttribute("settings_spring_mvc_locale"+session.getId(),request.getParameter("spring_mvc_locale"));
-			session.setAttribute("settings_server_port"+session.getId(),request.getParameter("server_port"));
-			session.setAttribute("settings_server_connection_timeout"+session.getId(),request.getParameter("server_connection_timeout"));
-			session.setAttribute("settings_server_servlet_session_timeout"+session.getId(),request.getParameter("server_servlet_session_timeout"));
-			session.setAttribute("settings_message"+session.getId(),result.getMessage());
-			session.setAttribute("settings_status"+session.getId(),result.isStatus());
+			session.setAttribute("settings.abas.edp.password"+session.getId(),request.getParameter("abas_edp_password"));
+			session.setAttribute("settings.abas.edp.port"+session.getId(),request.getParameter("abas_edp_port"));
+			session.setAttribute("settings.abas.edp.lang"+session.getId(),request.getParameter("abas_edp_lang"));
+			session.setAttribute("settings.abas.edp.fopmode"+session.getId(),request.getParameter("abas_edp_fopmode")!=null);
+			session.setAttribute("settings.abas.edp.fl"+session.getId(),request.getParameter("abas_edp_fl")!=null);
+			session.setAttribute("settings.abas.edp.serverip"+session.getId(),request.getParameter("abas_edp_serverip"));
+			session.setAttribute("settings.abas.s3.dir"+session.getId(),request.getParameter("abas_s3_dir"));
+			session.setAttribute("settings.abas.s3.basedir"+session.getId(),request.getParameter("abas_s3_basedir"));
+			session.setAttribute("settings.abas.s3..mandant"+session.getId(),request.getParameter("abas_s3_mandant"));
+			session.setAttribute("settings.spring.mvc.locale"+session.getId(),request.getParameter("spring_mvc_locale"));
+			session.setAttribute("settings.server.port"+session.getId(),request.getParameter("server_port"));
+			session.setAttribute("settings.server.connection.timeout"+session.getId(),request.getParameter("server_connection_timeout"));
+			session.setAttribute("settings.server.servlet.session.timeout"+session.getId(),request.getParameter("server_servlet_session_timeout"));
+			session.setAttribute("settings.message"+session.getId(),result.getMessage());
+			session.setAttribute("settings.status"+session.getId(),result.isStatus());
 			mav.setViewName("redirect:/admin/settings");
 			
 		}
@@ -209,7 +209,7 @@ public class WebLinkController_Admin
 		LOGGER.debug("sessionRegistry:"+sessionRegistry.getAllPrincipals().size()+"\t"+
 		"httpSessionConfig.getActiveSessions:"+httpSessionConfig.getActiveSessions().size()+"\t"+
 		"allSessions:"+allSessions.size()+
-		"allSessions1:"+allSessions1.size()+		
+		"allSessions1:"+allSessions1.size()+
 		"");
 		//
 		mav.addObject("activeSession",activeSession);

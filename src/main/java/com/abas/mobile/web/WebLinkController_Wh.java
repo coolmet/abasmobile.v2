@@ -31,9 +31,25 @@ public class WebLinkController_Wh
 	
 	@RequestMapping(value=
 	{"/wh/receipt"})
-	public ModelAndView wh_receipt()
+	public ModelAndView wh_receipt(HttpSession session,HttpServletRequest request)
 	{
 		ModelAndView mav=new ModelAndView();
+		if(session.getAttribute("wh.receipt.product"+session.getId())!=null)
+		{
+			System.out.println(session.getAttribute("wh.receipt.product"+session.getId())+"::"+session.getAttribute("wh.receipt.message"+session.getId()));
+			mav.addObject("product",session.getAttribute("wh.receipt.product"+session.getId()));
+			mav.addObject("location",session.getAttribute("wh.receipt.location"+session.getId()));
+			mav.addObject("charge",session.getAttribute("wh.receipt.charge"+session.getId()));
+			mav.addObject("quantity",session.getAttribute("wh.receipt.quantity"+session.getId()));
+			mav.addObject("message",session.getAttribute("wh.receipt.message"+session.getId()));
+			mav.addObject("status",session.getAttribute("wh.receipt.status"+session.getId()));
+			session.removeAttribute("wh.receipt.product"+session.getId());
+			session.removeAttribute("wh.receipt.location"+session.getId());
+			session.removeAttribute("wh.receipt.charge"+session.getId());
+			session.removeAttribute("wh.receipt.quantity"+session.getId());
+			session.removeAttribute("wh.receipt.message"+session.getId());
+			session.removeAttribute("wh.receipt.status"+session.getId());
+		}
 		mav.setViewName("th_wh_receipt");
 		return mav;
 	}
@@ -51,10 +67,40 @@ public class WebLinkController_Wh
 		mi.setData2("");
 		//
 		mav.addObject("message",mi.getMessage());
-		mav.addObject("status",""+mi.isStatus());
+		mav.addObject("status",mi.isStatus());
 		mav.addObject("data1","");
 		mav.addObject("data2","");
 		mav.setViewName("th_result");
+		return mav;
+	}
+	
+	@RequestMapping(value=
+	{"/wh/receipt/save2"})
+	public ModelAndView wh_receipt_save2(HttpSession session,HttpServletRequest request)
+	{
+		
+		ModelAndView mav=new ModelAndView();
+		
+		
+		
+		if(request.getMethod().equals("POST"))
+		{
+			MessageInfo mi=new MessageInfo();
+			mi.setMessage("okkk");
+			mi.setStatus(true);
+			//
+			session.setAttribute("wh.receipt.product"+session.getId(),request.getParameter("product"));
+			session.setAttribute("wh.receipt.location"+session.getId(),request.getParameter("location"));
+			session.setAttribute("wh.receipt.charge"+session.getId(),request.getParameter("charge"));
+			session.setAttribute("wh.receipt.quantity"+session.getId(),request.getParameter("quantity"));
+			session.setAttribute("wh.receipt.message"+session.getId(),mi.getMessage());
+			session.setAttribute("wh.receipt.status"+session.getId(),""+mi.isStatus());
+			mav.setViewName("redirect:/wh/receipt");
+		}
+		else
+		{
+			mav.setViewName("th_wh_receipt");
+		}
 		return mav;
 	}
 	

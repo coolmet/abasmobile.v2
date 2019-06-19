@@ -30,8 +30,9 @@
 
 		function onFocusFunc(id)
 			{
-				
-				if (id == 'product')
+				if([[${message}!=null]])
+					{}
+				else if (id == 'product')
 					{
 						document.getElementById("product").style.color = 'black';
 						document.getElementById("product").value = '';
@@ -92,6 +93,7 @@
 				catch (err)
 					{
 					}
+
 				var messageElem;
 				var statusElem;
 				var data1Elem;
@@ -114,8 +116,9 @@
 							}
 						else
 							{
-								if(data1Elem.value == '')
-									{	
+								document.getElementById(document.forms['myTmpResultForm']['fieldid'].value).style.color = 'black';
+								if (data1Elem.value == '')
+									{
 										errorMessageElemnt = document.createElement('div');
 										errorMessageElemnt.style.color = 'black';
 										errorMessageElemnt.innerHTML = '<div style="color: green; margin: 8px 0px;"> <div class="alert-success"><span class="alertclosebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>  <p>'
@@ -123,8 +126,10 @@
 										errorMessageElemnt = errorMessageElemnt.firstChild;
 										document.getElementById("form").insertAdjacentElement('afterbegin', errorMessageElemnt);
 									}
+
 							}
 					}
+
 			};
 	</script>
 
@@ -142,16 +147,17 @@
 		</form>
 		<iframe id="myTmpResultIFrame" name="myTmpResultIFrame" hidden="true" onload="onMyTmpResultIFrameLoad(this);"> </iframe>
 
-		<form id="form" method="POST" th:action="@{/wh/receipt/save}" target="myTmpResultIFrame">
+		<form id="form" method="POST" th:action="@{/wh/receipt/save2}">
 
-			<div th:if="${message} != null and ${status} == false " style="color: red; margin: 8px 0px;">
+			<div th:if="${message} != null and ${status} == 'false' " style="color: red; margin: 8px 0px;">
 				<div class="alert-danger">
 					<span class="alertclosebtn" onclick="this.parentElement.style.display='none';">&times;</span>
 					<p th:utext="${message}"></p>
 				</div>
 			</div>
 
-			<div th:if="${message} != null and ${status} == true " style="color: green; margin: 8px 0px;">
+			<div th:if="${message} != null and ${status} == 'true' " style="color: green; margin: 8px 0px;">
+			
 				<div class="alert-success">
 					<span class="alertclosebtn" onclick="this.parentElement.style.display='none';">&times;</span>
 					<p th:utext="${message}"></p>
@@ -186,11 +192,3 @@
 				<tr>
 					<td colspan="2" style="text-align: center;">
 						<button id="save" name="button" value="save" type="submit" th:text="#{wh.receipt.button.save}"></button>
-					</td>
-				</tr>
-			</table>
-
-
-		</form>
-	</div>
-</body>
