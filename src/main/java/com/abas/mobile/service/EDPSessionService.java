@@ -60,7 +60,7 @@ public class EDPSessionService
 				if(SESSION==null)
 				{
 					SESSION=EDPFactory.createEDPSession();
-					SESSION.setConnectTimeout(5000);
+					SESSION.setConnectTimeout(200);
 				}
 				if(!SESSION.isConnected())
 				{

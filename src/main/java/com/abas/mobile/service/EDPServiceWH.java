@@ -26,8 +26,8 @@ public class EDPServiceWH
 		{
 			mi.setMessage("Veri yok ...");
 			mi.setStatus(false);
-			mi.setData1("");
-			mi.setData2("");
+			mi.setData1(data);
+			mi.setData2(data);
 		}
 		else
 		{
@@ -60,8 +60,8 @@ public class EDPServiceWH
 					{
 						mi.setMessage("Bağlantı hatası ...");
 						mi.setStatus(false);
-						mi.setData1("");
-						mi.setData2("");
+						mi.setData1(data);
+						mi.setData2(data);
 					}
 					edpQuery.breakQuery();
 					edpQuery=null;
@@ -73,16 +73,16 @@ public class EDPServiceWH
 					LOGGER.debug(abasMobileUtils.exceptionMessageDetails(e));
 					mi.setMessage(e.getLocalizedMessage());
 					mi.setStatus(false);
-					mi.setData1("");
-					mi.setData2("");
+					mi.setData1(data);
+					mi.setData2(data);
 				}
 			}
 			else
 			{
 				mi.setMessage("Bağlantı hatası ...");
 				mi.setStatus(false);
-				mi.setData1("");
-				mi.setData2("");
+				mi.setData1(data);
+				mi.setData2(data);
 			}
 		}
 		return mi;
@@ -95,8 +95,8 @@ public class EDPServiceWH
 		{
 			mi.setMessage("Veri yok ...");
 			mi.setStatus(false);
-			mi.setData1("");
-			mi.setData2("");
+			mi.setData1(data);
+			mi.setData2(data);
 		}
 		else
 		{
@@ -128,8 +128,8 @@ public class EDPServiceWH
 					{
 						mi.setMessage("Bağlantı hatası ...");
 						mi.setStatus(false);
-						mi.setData1("");
-						mi.setData2("");
+						mi.setData1(data);
+						mi.setData2(data);
 					}
 					edpQuery.breakQuery();
 					edpQuery=null;
@@ -141,16 +141,16 @@ public class EDPServiceWH
 					LOGGER.debug(abasMobileUtils.exceptionMessageDetails(e));
 					mi.setMessage(e.getLocalizedMessage());
 					mi.setStatus(false);
-					mi.setData1("");
-					mi.setData2("");
+					mi.setData1(data);
+					mi.setData2(data);
 				}
 			}
 			else
 			{
 				mi.setMessage("Bağlantı hatası ...");
 				mi.setStatus(false);
-				mi.setData1("");
-				mi.setData2("");
+				mi.setData1(data);
+				mi.setData2(data);
 			}
 		}
 		return mi;
@@ -163,8 +163,8 @@ public class EDPServiceWH
 		{
 			mi.setMessage("Veri yok ...");
 			mi.setStatus(false);
-			mi.setData1("");
-			mi.setData2("");
+			mi.setData1(data);
+			mi.setData2(data);
 		}
 		else
 		{
@@ -207,8 +207,8 @@ public class EDPServiceWH
 					{
 						mi.setMessage("Bağlantı hatası ...");
 						mi.setStatus(false);
-						mi.setData1("");
-						mi.setData2("");
+						mi.setData1(data);
+						mi.setData2(data);
 					}
 					edpQuery.breakQuery();
 					edpQuery=null;
@@ -220,16 +220,16 @@ public class EDPServiceWH
 					LOGGER.debug(abasMobileUtils.exceptionMessageDetails(e));
 					mi.setMessage(e.getLocalizedMessage());
 					mi.setStatus(false);
-					mi.setData1("");
-					mi.setData2("");
+					mi.setData1(data);
+					mi.setData2(data);
 				}
 			}
 			else
 			{
 				mi.setMessage("Bağlantı hatası ...");
 				mi.setStatus(false);
-				mi.setData1("");
-				mi.setData2("");
+				mi.setData1(data);
+				mi.setData2(data);
 			}
 		}
 		return mi;

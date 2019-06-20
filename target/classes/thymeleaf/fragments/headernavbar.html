@@ -24,6 +24,11 @@
 						}
 				}
 			//
+			function winReload()
+				{
+					window.location.reload(false); 
+				}
+			//
 			var popup;
 			function winOpen()
 				{
@@ -84,6 +89,9 @@
 			<div class="topcenter">
 				<button class="navbutton" th:title="#{headernavbar.tooltip.maximize}" onclick="winOpen();" style="margin-left: 5px;">
 					<img src="/images/fullo48.png">
+				</button>
+				<button class="navbutton" th:title="#{headernavbar.tooltip.reload}" onclick="winReload();" style="margin-left: 5px;">
+					<img src="/images/restart48.png">
 				</button>
 				<button class="navbutton" th:title="#{headernavbar.tooltip.minimize}" onclick="winClose();" style="margin-left: 5px;">
 					<img src="/images/fulli48.png">

@@ -17,83 +17,92 @@
 <body>
 
 	<script type="text/javascript">
-		document.addEventListener('keydown', function(event)
-			{
-				if ((event.keyCode === 9 || event.keyCode === 13) && event.target.nodeName === 'INPUT')
-					{
-						var form = event.target.form;
-						var index = Array.prototype.indexOf.call(form, event.target);
-						form.elements[index + 1].focus();
-						event.preventDefault();
-					}
-			});
+	
+	var pageLoadStatus=0;// document.readyState == 'loading'
+	document.addEventListener('readystatechange', () =>  { pageLoadStatus=document.readyState == 'loading'?0:document.readyState == 'interactive'?1:document.readyState == 'complete'?2:-1; }  );
+	
+	document.addEventListener("DOMContentLoaded", function ready() 
+		{
+	      document.forms['myTmpResultForm']['fieldid'].value = "";
+		  document.forms['myTmpResultForm']['fieldvalue'].value = "";
+		  document.forms['myTmpResultForm']['fieldproductvalue'].value = "";
+		  document.forms['myTmpResultForm']['fieldlocationvalue'].value = "";
+		  document.forms['myTmpResultForm']['fieldchargevalue'].value = "";
+		  document.forms['myTmpResultForm']['fieldquantityvalue'].value = "";
+	    });
+	  
+	document.addEventListener('keydown', function(event)
+		{
+			if ((event.keyCode === 9 || event.keyCode === 13) && event.target.nodeName === 'INPUT')
+				{
+					var form = event.target.form;
+					var index = Array.prototype.indexOf.call(form, event.target);
+					form.elements[index + 1].focus();
+					event.preventDefault();
+				}
+		});
 
-		function onFocusFunc(id)
-			{
-				if([[${message}!=null]])
-					{}
-				else if (id == 'product')
-					{
-						document.getElementById("product").style.color = 'black';
-						document.getElementById("product").value = '';
-						document.getElementById("location").value = '';
-						document.getElementById("charge").value = '';
-						document.getElementById("quantity").value = '';
-					}
-				else if (id == 'location')
-					{
-						document.getElementById("location").style.color = 'black';
-						document.getElementById("location").value = '';
-						document.getElementById("charge").value = '';
-						document.getElementById("quantity").value = '';
-					}
-				else if (id == 'charge')
-					{
-						document.getElementById("charge").style.color = 'black';
-						document.getElementById("charge").value = '';
-						document.getElementById("quantity").value = '';
-					}
-				else if (id == 'quantity')
-					{
-						document.getElementById("quantity").style.color = 'black';
-						document.getElementById("quantity").value = '';
-					}
-			}
+	function onFocusFunc(id)
+		{			
+			if(pageLoadStatus!=2)
+				{
+					document.getElementById("product").select();
+				}
+			else 
+				{	
+					closeAlertMessage();
+					if (id == 'product')
+						{
+							document.getElementById("product").style.color = 'black';
+							document.getElementById("product").value = '';
+							document.getElementById("location").value = '';
+							document.getElementById("charge").value = '';
+							document.getElementById("quantity").value = '';
+						}
+					else if (id == 'location')
+						{
+							document.getElementById("location").style.color = 'black';
+							document.getElementById("location").value = '';
+							document.getElementById("charge").value = '';
+							document.getElementById("quantity").value = '';
+						}
+					else if (id == 'charge')
+						{
+							document.getElementById("charge").style.color = 'black';
+							document.getElementById("charge").value = '';
+							document.getElementById("quantity").value = '';
+						}
+						else if (id == 'quantity')
+						{
+							document.getElementById("quantity").style.color = 'black';
+							document.getElementById("quantity").value = '';
+						}
+				}
+		}
 
-		function onChangeFunc(id, val)
-			{
-				if (val != "")
-					{
-						document.forms['myTmpResultForm']['fieldid'].value = id;
-						document.forms['myTmpResultForm']['fieldvalue'].value = val;
-						document.forms['myTmpResultForm']['fieldproductvalue'].value = document.getElementById('product').value;
-						document.forms['myTmpResultForm']['fieldlocationvalue'].value = document.getElementById('location').value;
-						document.forms['myTmpResultForm']['fieldchargevalue'].value = document.getElementById('charge').value;
-						document.forms['myTmpResultForm']['fieldquantityvalue'].value = document.getElementById('quantity').value;
-						document.forms['myTmpResultForm'].submit();
-					}
-				else
-					{
-						onFocusFunc(id);
-					}
-			}
-
-		var errorMessageElemnt;
+	function onChangeFunc(id, val)
+		{
+			if (val != "")
+				{
+					document.forms['myTmpResultForm']['fieldid'].value = id;
+					document.forms['myTmpResultForm']['fieldvalue'].value = val;
+					document.forms['myTmpResultForm']['fieldproductvalue'].value = document.getElementById('product').value;
+					document.forms['myTmpResultForm']['fieldlocationvalue'].value = document.getElementById('location').value;
+					document.forms['myTmpResultForm']['fieldchargevalue'].value = document.getElementById('charge').value;
+					document.forms['myTmpResultForm']['fieldquantityvalue'].value = document.getElementById('quantity').value;
+					document.forms['myTmpResultForm'].submit();
+				}
+			else
+				{
+					onFocusFunc(id);
+				}
+		}
+	
 		function onMyTmpResultIFrameLoad()
 			{
+				closeAlertMessage();
 				var iframe = document.getElementById("myTmpResultIFrame");
-				var innerDoc = (iframe.contentDocument) ? iframe.contentDocument : iframe.contentWindow.document;
-				try
-					{
-						if (errorMessageElemnt != null)
-							{
-								errorMessageElemnt.parentElement.removeChild(errorMessageElemnt);
-							}
-					}
-				catch (err)
-					{
-					}
-
+				var innerDoc = (iframe.contentDocument) ? iframe.contentDocument : iframe.contentWindow.document;				
 				var messageElem;
 				var statusElem;
 				var data1Elem;
@@ -109,7 +118,7 @@
 								document.getElementById(document.forms['myTmpResultForm']['fieldid'].value).style.color = 'red';
 								errorMessageElemnt = document.createElement('div');
 								errorMessageElemnt.style.color = 'black';
-								errorMessageElemnt.innerHTML = '<div style="color: red; margin: 8px 0px;"> <div class="alert-danger"><span class="alertclosebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>  <p>'
+								errorMessageElemnt.innerHTML = '<div id="alertmessage" style="color: red; margin: 8px 0px;"> <div class="alert-danger"><span class="alertclosebtn" onclick="closeAlertMessage(this);">&times;</span>  <p>'
 										+ messageElem.value + '</p>  </div> </div>';
 								errorMessageElemnt = errorMessageElemnt.firstChild;
 								document.getElementById("form").insertAdjacentElement('afterbegin', errorMessageElemnt);
@@ -117,6 +126,15 @@
 					}
 
 			};
+			
+			function closeAlertMessage(elem)
+				{
+					//elem.parentElement.style.display='none';
+					if (errorMessageElemnt =document.getElementById("alertmessage"))
+						{
+							errorMessageElemnt.parentElement.removeChild(errorMessageElemnt);
+						}	
+				}
 	</script>
 
 	<div th:insert="fragments/headernavbar.html :: FRG_header_navbar"></div>
@@ -135,17 +153,17 @@
 
 		<form id="form" method="POST" th:action="@{/wh/receipt/save}">
 
-			<div th:if="${message} != null and ${status} == 'false' " style="color: red; margin: 8px 0px;">
+			<div id="alertmessage" th:if="${message} != null and ${status} == 'false' " style="color: red; margin: 8px 0px;">
 				<div class="alert-danger">
-					<span class="alertclosebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+					<span class="alertclosebtn" onclick="closeAlertMessage(this);">&times;</span>
 					<p th:utext="${message}"></p>
 				</div>
 			</div>
 
-			<div th:if="${message} != null and ${status} == 'true' " style="color: green; margin: 8px 0px;">
+			<div id="alertmessage" th:if="${message} != null and ${status} == 'true' " style="color: green; margin: 8px 0px;">
 
 				<div class="alert-success">
-					<span class="alertclosebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+					<span class="alertclosebtn" onclick="closeAlertMessage(this);">&times;</span>
 					<p th:utext="${message}"></p>
 				</div>
 			</div>
@@ -178,3 +196,11 @@
 				<tr>
 					<td colspan="2" style="text-align: center;">
 						<button id="save" name="button" value="save" type="submit" th:text="#{wh.receipt.button.save}"></button>
+					</td>
+				</tr>
+			</table>
+
+
+		</form>
+	</div>
+</body>

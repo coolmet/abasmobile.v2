@@ -166,10 +166,10 @@ button:focus {outline:0 !important;}
 .topcenter {
   top: 2%;
   position: absolute;
-  left: -moz-calc(50% - 50px); /* Firefox */
-  left: -webkit-calc(50% - 50px); /* WebKit */
-  left: -o-calc(50% - 50px); /* Opera */
-  left: calc(50% - 50px); /* Standard */
+  left: -moz-calc(48% - 48px); /* Firefox */
+  left: -webkit-calc(48% - 48px); /* WebKit */
+  left: -o-calc(48% - 48px); /* Opera */
+  left: calc(48% - 48px); /* Standard */
   justify-content: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
