@@ -36,16 +36,15 @@ public class WebLinkController_Wh
 		ModelAndView mav=new ModelAndView();
 		if(session.getAttribute("wh.receipt.product"+session.getId())!=null)
 		{
-			System.out.println(session.getAttribute("wh.receipt.product"+session.getId())+"::"+session.getAttribute("wh.receipt.message"+session.getId()));
 			mav.addObject("product",session.getAttribute("wh.receipt.product"+session.getId()));
 			mav.addObject("location",session.getAttribute("wh.receipt.location"+session.getId()));
-			mav.addObject("charge",session.getAttribute("wh.receipt.charge"+session.getId()));
+			mav.addObject("lot",session.getAttribute("wh.receipt.lot"+session.getId()));
 			mav.addObject("quantity",session.getAttribute("wh.receipt.quantity"+session.getId()));
 			mav.addObject("message",session.getAttribute("wh.receipt.message"+session.getId()));
 			mav.addObject("status",session.getAttribute("wh.receipt.status"+session.getId()));
 			session.removeAttribute("wh.receipt.product"+session.getId());
 			session.removeAttribute("wh.receipt.location"+session.getId());
-			session.removeAttribute("wh.receipt.charge"+session.getId());
+			session.removeAttribute("wh.receipt.lot"+session.getId());
 			session.removeAttribute("wh.receipt.quantity"+session.getId());
 			session.removeAttribute("wh.receipt.message"+session.getId());
 			session.removeAttribute("wh.receipt.status"+session.getId());
@@ -62,12 +61,11 @@ public class WebLinkController_Wh
 		if(request.getMethod().equals("POST"))
 		{
 			MessageInfo mi=new MessageInfo();
-			mi.setMessage("okkk");
-			mi.setStatus(true);
+			mi=edpServicewh.receiptSave(request.getParameter("product"),request.getParameter("location"),request.getParameter("lot"),request.getParameter("quantity"));
 			//
 			session.setAttribute("wh.receipt.product"+session.getId(),request.getParameter("product"));
 			session.setAttribute("wh.receipt.location"+session.getId(),request.getParameter("location"));
-			session.setAttribute("wh.receipt.charge"+session.getId(),request.getParameter("charge"));
+			session.setAttribute("wh.receipt.lot"+session.getId(),request.getParameter("lot"));
 			session.setAttribute("wh.receipt.quantity"+session.getId(),request.getParameter("quantity"));
 			session.setAttribute("wh.receipt.message"+session.getId(),mi.getMessage());
 			session.setAttribute("wh.receipt.status"+session.getId(),""+mi.isStatus());
@@ -75,6 +73,18 @@ public class WebLinkController_Wh
 		}
 		else
 		{
+			mav.addObject("product",session.getAttribute("wh.receipt.product"+session.getId()));
+			mav.addObject("location",session.getAttribute("wh.receipt.location"+session.getId()));
+			mav.addObject("lot",session.getAttribute("wh.receipt.lot"+session.getId()));
+			mav.addObject("quantity",session.getAttribute("wh.receipt.quantity"+session.getId()));
+			mav.addObject("message",session.getAttribute("wh.receipt.message"+session.getId()));
+			mav.addObject("status",session.getAttribute("wh.receipt.status"+session.getId()));
+			session.removeAttribute("wh.receipt.product"+session.getId());
+			session.removeAttribute("wh.receipt.location"+session.getId());
+			session.removeAttribute("wh.receipt.lot"+session.getId());
+			session.removeAttribute("wh.receipt.quantity"+session.getId());
+			session.removeAttribute("wh.receipt.message"+session.getId());
+			session.removeAttribute("wh.receipt.status"+session.getId());
 			mav.setViewName("th_wh_receipt");
 		}
 		return mav;
@@ -94,9 +104,9 @@ public class WebLinkController_Wh
 		{
 			mi=edpServicewh.locationIsAvailable(request.getParameter("fieldvalue"));
 		}
-		else if(request.getParameter("fieldid").equals("charge"))
+		else if(request.getParameter("fieldid").equals("lot"))
 		{
-			mi=edpServicewh.chargeIsAvailable(request.getParameter("fieldvalue"),request.getParameter("fieldproductvalue"));
+			mi=edpServicewh.lotIsAvailable(request.getParameter("fieldvalue"),request.getParameter("fieldproductvalue"));
 		}
 		else if(request.getParameter("fieldid").equals("quantity"))
 		{
