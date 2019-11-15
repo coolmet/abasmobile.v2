@@ -4,17 +4,12 @@ import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import com.abas.mobile.ConfigPropertiesAbas;
 import com.abas.mobile.SprinBootAppConfiguration;
-import de.abas.ceks.jedp.CantReadSettingException;
-import de.abas.ceks.jedp.EDPEditor;
 import de.abas.ceks.jedp.EDPFactory;
-import de.abas.ceks.jedp.EDPLockBehavior;
 import de.abas.ceks.jedp.EDPMessage;
 import de.abas.ceks.jedp.EDPMessageListener;
-import de.abas.ceks.jedp.EDPQuery;
 import de.abas.ceks.jedp.EDPSession;
 
 @Service

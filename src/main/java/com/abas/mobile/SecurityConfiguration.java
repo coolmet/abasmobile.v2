@@ -47,7 +47,7 @@ import com.abas.mobile.model.AbasUserDetailsModel;
 {ConfigPropertiesAbas.class,ConfigPropertiesSpring.class,ConfigPropertiesServer.class,AbasUserProperties.class})
 @EnableWebSecurity
 public class SecurityConfiguration
-{
+{	
 	Logger LOGGER=LoggerFactory.getLogger(SprinBootAppConfiguration.class);
 	
 	// @Autowired

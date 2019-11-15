@@ -34,12 +34,14 @@ public class HttpSessionConfig
 			@Override
 			public void sessionCreated(HttpSessionEvent hse)
 			{
+				LOGGER.info("CreatedSessionID: "+hse.getSession().getId());
 				sessions.put(hse.getSession().getId(),hse.getSession());				
 			}
 			
 			@Override
 			public void sessionDestroyed(HttpSessionEvent hse)
 			{
+				LOGGER.info("DestroyedSessionID: "+hse.getSession().getId());
 				sessions.remove(hse.getSession().getId());				
 			}
 		};
