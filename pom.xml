@@ -132,9 +132,9 @@
 		<dependency>
 			<groupId>abas.jedp</groupId>
 			<artifactId>edp</artifactId>
-			<version>3.49</version>
+			<version>3.52</version>
 			<scope>system</scope>
-			<systemPath>${basedir}/extlibs/abas-jedp-3.49.jar</systemPath>
+			<systemPath>${basedir}/extlibs/abas-jedp-v2018-3.52.jar</systemPath>
 		</dependency>
 
 	</dependencies>
